@@ -1,0 +1,105 @@
+<!-- <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div class="item item-1" fxFlex="15%">Item 1</div>
+  <div class="item item-2" fxFlex="20%" fxFlexOrder="3">Item 2</div>
+  <div class="item item-3" fxFlex>Item 3</div>
+</div>
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div class="item item-4" fxFlex fxFlexOffset="50px" fxFlexOffset.xs="0">Item 4</div>
+  <div class="item item-5" fxFlex="200px">Item 5</div>
+</div> -->
+<div class="container">
+  <mat-toolbar>
+    <span class="fill-remaining-space"></span>
+    <a (click)="GotBackToTags()">Dashboard </a> >
+    <a (click)="GotBackToFormats()"> <span>{{tagcurrent.tagtitle}}</span></a> >
+    <a (click)="GotBackToCats()"> <span>{{formatcurrent.formattitle}}
+      </span></a> >
+    <span>{{catcurrent.cattitle}}</span> > <span>{{ResourceTitle}}</span>
+    <span class="fill-remaining-space"></span>
+  </mat-toolbar>
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+    <div class="" fxFlex="60%">
+      <div style="padding: 20px;width: 100%;">
+        <div class="search-div">
+          <mat-form-field class="search-form-field" floatLabel="never">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="mat-elevation-z8" style="width: 100%;">
+
+          <mat-table [dataSource]="listData" matSort>
+            <ng-container matColumnDef="resourcetitle">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Resource Title</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.resourcetitle}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="type">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.type}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="typestr">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>ResourceFile</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <a href="{{ apiBaseUrl + '/' + element.typestr }}" *ngIf="isDowloadable(element)"
+                  target="_blank">Download</a>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="priority">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.priority}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="role">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.role}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let element">
+
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+    </div>
+    <div class="" fxFlex="40%" fxFlexOrder="2">
+      <div style="padding: 20px;width: 100%;">
+        <div class="mat-elevation-z8" style="width: 100%;">
+          <div class="blocks" style="text-align:center;padding: 10px">
+            <span class="fill-remaining-space"></span>
+            <h3>Click to select tag and category</h3>
+            <span class="fill-remaining-space"></span>
+          </div>
+          <div class="blocks" style="text-align:center">
+            <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px"
+              fxLayoutGap.xs="0">
+              <div class="" fxFlex="50%">
+                <div style="text-align:center">
+                  <h5>Tags</h5>
+                  <div *ngFor="let tag of orginaltags; let i = index" style="text-align: center;padding-bottom: 20px;">
+                    <a style="width: 180px;" mat-raised-button [color]="IsSelected(tag._id===tagid)"
+                      (click)="GotToResourceTag(tag)">{{tag.tagtitle}}</a>
+                  </div>
+                </div>
+              </div>
+              <div class="" fxFlex="50%" fxFlexOrder="2">
+                <div style="text-align:center">
+                  <h5>Cats</h5>
+                  <div *ngFor="let cat of orginalcats; let i = index" style="text-align: center;padding-bottom: 20px;">
+                    <a style="width: 180px;" mat-raised-button [color]="IsSelected(cat._id===catid)"
+                      (click)="GotToResourceCat(cat)">{{cat.cattitle}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

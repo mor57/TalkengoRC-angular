@@ -1,0 +1,41 @@
+<div class="container">
+  <mat-toolbar>
+    <span class="fill-remaining-space"></span>
+    <span>User Profile</span>
+    <span class="fill-remaining-space"></span>
+  </mat-toolbar>
+  <div class="mat-elevation-z8" style="text-align: -webkit-center;padding: 20px;">
+    <form>
+      <table *ngIf="userDetails" class="table-fill">
+        <tbody>
+          <tr>
+            <td>Role : </td>
+            <td>{{ userDetails.role }}</td>
+          </tr>
+          <tr>
+            <td>First Name : </td>
+            <td>{{ userDetails.firstname }}</td>
+          </tr>
+          <tr>
+            <td>Last Name : </td>
+            <td>{{ userDetails.lastname }}</td>
+          </tr>
+          <tr>
+            <td>Email : </td>
+            <td>{{ userDetails.email }}</td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-center">
+              <input type="button" (click)="onLogout()" value="Logout" />
+            </td>
+          </tr>
+          <!-- <tr>
+                  <td class="text-center">
+                    <input type="button" (click)="Tags()" value="Tags" />
+                  </td>
+                </tr> -->
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>

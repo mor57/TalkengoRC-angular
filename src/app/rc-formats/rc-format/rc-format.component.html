@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Resource Center Formats</h1>
+<div mat-dialog-content>
+  <form [formGroup]="RcFormatService.form" class="normal-form" (submit)="onSubmit()">
+    <mat-grid-list cols="2" rowHeight="200px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <input type="hidden" formControlName="id">
+          <mat-form-field>
+            <input formControlName="formattitle" matInput placeholder="Format Title*">
+            <mat-error>This field is FormatTitle.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select formControlName="type" required>
+              <mat-option value="pdf">PDF</mat-option>
+              <mat-option value="link">Link</mat-option>
+              <mat-option value="video">Video</mat-option>
+              <mat-option value="image">Image</mat-option>
+              <mat-option value="sound">Sound(mp3)</mat-option>
+              <mat-option value="html">Html</mat-option>
+            </mat-select>
+            <mat-error>This field is Type.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="priority" matInput placeholder="Priority">
+            <mat-error>Invalid priority.</mat-error>
+          </mat-form-field>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="controles-container">
+          <div class="add-bottom-padding">
+            <mat-radio-group formControlName="role">
+              <mat-radio-button value="CP">Conversation Partner</mat-radio-button>
+              <mat-radio-button value="LL">Language Learner</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="button-row">
+            <button mat-raised-button color="primary" type="submit"
+              [disabled]="RcFormatService.form.invalid">Submit</button>
+            <!-- <button mat-raised-button color="warn" (click)="onCancel()">Clear</button> -->
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button class="close" (click)="onCancel()" color="warn">Cancel</button>
+</div>

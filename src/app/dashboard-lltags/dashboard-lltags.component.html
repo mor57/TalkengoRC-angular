@@ -1,0 +1,8 @@
+<div style="text-align:center">
+  <h1>TalkEngO Resource Center Language Learner Dashboard</h1>
+  <div layout="row" layout-wrap flex>
+    <span flex="20" *ngFor="let tag of orginaltags; let i = index">
+      <input type="button" (click)="GotToFormat(tag)" [value]="tag.tagtitle" />
+    </span>
+  </div>
+</div>

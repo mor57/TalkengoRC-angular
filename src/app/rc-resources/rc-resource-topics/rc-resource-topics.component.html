@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Resource Center: {{RcResourceService.form.value.resourcetitle}} Topics</h1>
+<form [formGroup]="RcResourceService.form" class="normal-form" (submit)="onSubmit($event)">
+  <div mat-dialog-content>
+    <mat-grid-list cols="1" class="gridlist">
+      <mat-grid-tile style="height: calc(100vh - 24px)">
+        <div class="controles-container">
+          <input type="hidden" formControlName="id">
+          <div layout="row" layout-wrap flex *ngFor="let group of orginaltopics; let i = index">
+            <mat-label>{{group.name}}</mat-label>
+            <div style="padding-left: 50px;">
+              <div flex="20" *ngFor="let topic of group.topics; let i = index">
+                <mat-checkbox (change)="onChangeTopic($event)" [value]="topic._id" [checked]="topic.checked">
+                  {{topic.name}}
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button flex="50" color="primary" type="submit" [disabled]="false">Submit</button>
+    <button mat-raised-button flex="50" (click)="onCancel()" color="warn">Cancel</button>
+  </div>
+</form>

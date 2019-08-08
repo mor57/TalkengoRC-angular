@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from './shared/user.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'my-app1';
+  title = 'TalkEngO';
+  constructor(public user: UserService) {
+    // user.handleAuthentication();
+  }
 }
