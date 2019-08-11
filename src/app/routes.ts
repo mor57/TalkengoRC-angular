@@ -68,7 +68,8 @@ export const appRoutes: Routes = [
   , { path: 'dashboard-LLtags', component: DashboardLLTagsComponent, canActivate: [AuthGuard] }
   , { path: 'dashboard-LLformats/:tagid', component: DashboardLLFormatsComponent, canActivate: [AuthGuard] }
   , { path: 'dashboard-LLcats/:tagid/:formatid', component: DashboardLLCatsComponent, canActivate: [AuthGuard] }
-  , { path: 'dashboard-LLresources/:tagid/:formatid/:catid/:position', component: DashboardLLResourcesComponent, canActivate: [AuthGuard] }
+  // tslint:disable-next-line: max-line-length
+  , { path: 'dashboard-LLresources/:tagid/:formatid/:catid/:groupname/:position', component: DashboardLLResourcesComponent, canActivate: [AuthGuard] }
   , { path: 'dashboard-llsession-special', component: DashboardLLSessionSpecialComponent, canActivate: [AuthGuard] }
   , { path: 'dashboard-llsession-homework', component: DashboardLLSessionHomeworkComponent, canActivate: [AuthGuard] }
 ];

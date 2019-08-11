@@ -351,7 +351,7 @@ mat-radio-group mat-radio-button {
 }
 /* Employee Form */
 .mat-column-actions {
-  flex: 0 0 120px;
+  flex: 0 0 160px;
 }
 .example-form {
   display: flex;
@@ -376,4 +376,8 @@ mat-radio-group mat-radio-button {
 } */
 .mat-checkbox-layout {
   padding-right: 20px;
+}
+
+.padding-left-10 {
+  padding-left: 10px;
 }

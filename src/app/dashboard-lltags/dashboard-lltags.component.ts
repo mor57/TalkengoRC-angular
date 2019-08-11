@@ -19,11 +19,16 @@ export class DashboardLLTagsComponent implements OnInit {
     this.BindTags();
   }
 
+  GotBackToTags() {
+    this.router.navigate(['/dashboard-LLtags/']);
+  }
+
   BindTags() {
     this.orginaltags = [];
     this.RcTagService.getData('rc_tag').subscribe(
       list => {
         this.orginaltags = list as [rc_tag];
+        this.orginaltags.sort((a, b) => a.priority > b.priority ? -1 : 1);
         // console.log(this.orginaltags);
       });
   }

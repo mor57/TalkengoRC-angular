@@ -1,118 +1,105 @@
 <h1 mat-dialog-title>Resource Center Resources</h1>
 <form [formGroup]="RcResourceService.form" class="normal-form" (submit)="onSubmit($event)">
   <div mat-dialog-content>
-    <mat-grid-list cols="1" class="gridlist">
-      <mat-grid-tile style="height: calc(100vh - 24px)">
-        <div class="controles-container">
-          <input type="hidden" formControlName="id">
-          <mat-form-field>
-            <input formControlName="resourcetitle" matInput placeholder="Resource Title*">
-            <mat-error>This field is resourcetitle.</mat-error>
-          </mat-form-field>
-          <mat-radio-group formControlName="role">
-            <mat-radio-button value="CP" (change)="onChangeRole()">Conversation Partner</mat-radio-button>
-            <mat-radio-button value="LL" (change)="onChangeRole()">Language Learner</mat-radio-button>
-          </mat-radio-group>
-          <mat-form-field>
-            <mat-select formControlName="type" required (ngModelChange)="onChangeType($event)">
-              <mat-option value="pdf">PDF</mat-option>
-              <mat-option value="link">Link</mat-option>
-              <mat-option value="video">Video</mat-option>
-              <mat-option value="image">Image</mat-option>
-              <mat-option value="sound">Sound(mp3)</mat-option>
-              <mat-option value="html">HTML</mat-option>
-            </mat-select>
-            <mat-error>This field is Type.</mat-error>
-          </mat-form-field>
-          <mat-form-field *ngIf="showlinktypestr">
-            <input formControlName="typestr" matInput placeholder="Resource Link*">
-            <mat-error>This field is Resource Link.</mat-error>
-          </mat-form-field>
-          <div flex="100" *ngIf="showtypestr">
-            <editor *ngIf="!showlinktypestr" formControlName="typestr" [init]="{
+    <div class="controles-container">
+      <input type="hidden" formControlName="id">
+      <mat-form-field>
+        <input formControlName="resourcetitle" matInput placeholder="Resource Title*">
+        <mat-error>This field is resourcetitle.</mat-error>
+      </mat-form-field>
+      <div style="padding-bottom: 10px">
+        <mat-radio-group formControlName="role" placeholder="Role">
+          <mat-radio-button value="CP" (change)="onChangeRole()">Conversation Partner</mat-radio-button>
+          <mat-radio-button value="LL" (change)="onChangeRole()">Language Learner</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <mat-form-field>
+        <mat-select formControlName="type" required (ngModelChange)="onChangeType($event)" placeholder="Format type">
+          <mat-option value="pdf">PDF</mat-option>
+          <mat-option value="link">Link</mat-option>
+          <mat-option value="video">Video</mat-option>
+          <mat-option value="image">Image</mat-option>
+          <mat-option value="sound">Sound(mp3)</mat-option>
+          <mat-option value="html">HTML</mat-option>
+        </mat-select>
+        <mat-error>This field is Type.</mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="islink">
+        <input formControlName="typestr" matInput placeholder="Resource Link*">
+        <mat-error>This field is Resource Link.</mat-error>
+      </mat-form-field>
+      <div flex="100" *ngIf="ishtml">
+        <editor formControlName="typestr" [init]="{
                 base_url: '/tinymce',
                 suffix: '.min',
                 plugins: 'print preview fullpage textcolor colorpicker image link media codesample table charmap lists',
                 toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media pageembed | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat'
               }">
-            </editor>
-          </div>
-          <div layout="row" layout-wrap flex>
-            <div>
-              <mat-label>Levels: </mat-label>
-            </div>
-            <span flex="20" *ngFor="let level of orginallevels; let i = index">
-              <mat-checkbox (change)="onChangeLevel($event)" [value]="level.name" [checked]="level.checked">
-                {{level.name}}
-              </mat-checkbox>
-            </span>
-          </div>
-          <div layout="row" layout-wrap flex>
-            <div>
-              <mat-label class="mat-label">Tags: </mat-label>
-            </div>
-            <span flex="20" *ngFor="let tag of orginaltags; let i = index">
-              <mat-checkbox (change)="onChangeTag($event)" [value]="tag.value" [checked]="tag.checked">{{tag.name}}
-              </mat-checkbox>
-            </span>
-          </div>
-          <div layout="row" layout-wrap flex>
-            <div>
-              <mat-label class="mat-label">Categories: </mat-label>
-            </div>
-            <span *ngFor="let cat of orginalcats; let i = index">
-              <mat-checkbox flex="20" (change)="onChangeCat($event)" [value]="cat.value" [checked]="cat.checked">
-                {{cat.name}}
-              </mat-checkbox>
-            </span>
-          </div>
-          <!-- <mat-form-field>
-            <input formControlName="typestr" matInput placeholder="Resource Typestr*">
-            <mat-error>This field is typestr.</mat-error>
-          </mat-form-field> -->
-          <mat-form-field>
-            <input formControlName="priority" matInput placeholder="Priority">
-            <mat-error>Invalid priority.</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-select formControlName="access" required>
-              <mat-option value="In resource center">In resource center</mat-option>
-              <mat-option value="Both in session and in cesource center">Both in session and in cesource center
-              </mat-option>
-              <mat-option value="Session > Homework">Session > Homework</mat-option>
-              <mat-option value="Session > Special resource">Session > Special resource</mat-option>
-            </mat-select>
-            <mat-error>This field is access.</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-select formControlName="accesspermission" required>
-              <mat-option value="Registered only">Registered only</mat-option>
-              <mat-option value="Visitors only">Visitors only</mat-option>
-              <mat-option value="All visitors and registered">All visitors and registered</mat-option>
-            </mat-select>
-            <mat-error>This field is AccessPermission.</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="subject" matInput placeholder="Resource Subject*">
-            <mat-error>This field is subject.</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="description" matInput placeholder="Resource Description*">
-            <mat-error>This field is description.</mat-error>
-          </mat-form-field>
-          <div class="button-row" *ngIf="!showlinktypestr">
-            <input id="resourceFile" type="file" />
-            <!-- <mat-file-upload [labelText]="'Select a file to upload:'" [allowMultipleFiles]="false"
-              [showUploadButton]="false" (uploadClicked)="onUploadClicked($event)"
-              (selectedFilesChanged)="onSelectedFilesChanged($event)">
-            </mat-file-upload>
-           -->
-            <!-- <button mat-raised-button color="warn" (click)="onCancel()">Clear</button> -->
-          </div>
+        </editor>
+      </div>
+      <div layout="row" layout-wrap flex style="padding-bottom: 10px">
+        <div>
+          <mat-label>Levels: </mat-label>
         </div>
-      </mat-grid-tile>
-
-    </mat-grid-list>
+        <span flex="20" *ngFor="let level of orginallevels; let i = index">
+          <mat-checkbox (change)="onChangeLevel($event)" [value]="level.name" [checked]="level.checked">
+            {{level.name}}
+          </mat-checkbox>
+        </span>
+      </div>
+      <div layout="row" layout-wrap flex style="padding-bottom: 10px">
+        <div>
+          <mat-label class="mat-label">Tags: </mat-label>
+        </div>
+        <span flex="20" *ngFor="let tag of orginaltags; let i = index">
+          <mat-checkbox (change)="onChangeTag($event)" [value]="tag.value" [checked]="tag.checked">{{tag.name}}
+          </mat-checkbox>
+        </span>
+      </div>
+      <div layout="row" layout-wrap flex style="padding-bottom: 10px">
+        <div>
+          <mat-label class="mat-label">Categories: </mat-label>
+        </div>
+        <span *ngFor="let cat of orginalcats; let i = index">
+          <mat-checkbox flex="20" (change)="onChangeCat($event)" [value]="cat.value" [checked]="cat.checked">
+            {{cat.name}}
+          </mat-checkbox>
+        </span>
+      </div>
+      <mat-form-field>
+        <input formControlName="priority" matInput placeholder="Priority">
+        <mat-error>Invalid priority.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="access" required placeholder="Access">
+          <mat-option value="In resource center">In resource center</mat-option>
+          <mat-option value="Both in session and in cesource center">Both in session and in cesource center
+          </mat-option>
+          <mat-option value="Homework">Session > Homework</mat-option>
+          <mat-option value="Special">Session > Special resource</mat-option>
+        </mat-select>
+        <mat-error>This field is access.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="accesspermission" required placeholder="Access permission">
+          <mat-option value="Registered only">Registered only</mat-option>
+          <mat-option value="Visitors only">Visitors only</mat-option>
+          <mat-option value="All visitors and registered">All visitors and registered</mat-option>
+        </mat-select>
+        <mat-error>This field is AccessPermission.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="subject" matInput placeholder="Resource Subject*">
+        <mat-error>This field is subject.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="description" matInput placeholder="Resource Description*">
+        <mat-error>This field is description.</mat-error>
+      </mat-form-field>
+      <div class="button-row" *ngIf="hasfile">
+        <input id="resourceFile" type="file" />
+      </div>
+    </div>
   </div>
   <div mat-dialog-actions>
     <button mat-raised-button flex="50" color="primary" type="submit"

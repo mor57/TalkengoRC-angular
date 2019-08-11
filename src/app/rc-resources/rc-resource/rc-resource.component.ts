@@ -20,8 +20,9 @@ export class RcResourceComponent implements OnInit {
   orginaltags: any;
   orginalcats: any;
   tinymceOptions: any;
-  showtypestr: boolean;
-  showlinktypestr: boolean;
+  islink: boolean;
+  ishtml: boolean;
+  hasfile: boolean;
 
   // tslint:disable-next-line: no-shadowed-variable
   constructor(
@@ -38,7 +39,6 @@ export class RcResourceComponent implements OnInit {
     //   toolbar: 'formatselect | undo redo | forecolor backcolor | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | lineheightselect'
     // };
   }
-
 
   ngOnInit() {
     this.onChangeType(this.RcResourceService.form.value.type);
@@ -166,18 +166,18 @@ export class RcResourceComponent implements OnInit {
   }
 
   onChangeType(type) {
+    this.islink = false;
+    this.ishtml = false;
+    this.hasfile = false;
     if (type === 'link') {
-      this.showtypestr = true;
-      this.showlinktypestr = true;
+      this.islink = true;
     } else if (type === 'html') {
-      this.showtypestr = true;
-      this.showlinktypestr = false;
+      this.ishtml = true;
     } else {
+      this.hasfile = true;
       if (this.RcResourceService.form.value.id === '') {
         this.RcResourceService.form.patchValue({ typestr: '' });
       }
-      this.showtypestr = false;
-      this.showlinktypestr = false;
     }
   }
 

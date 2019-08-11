@@ -19,34 +19,46 @@ import { rc_format } from '../shared/rc-format.module';
   styleUrls: ['./dashboard-llresources.component.css']
 })
 export class DashboardLLResourcesComponent implements OnInit {
+  levelname = 'All';
   tagid: any;
-  tagcurrent: rc_tag;
   formatid: any;
-  formatcurrent: rc_format;
   catid: any;
-  catcurrent: rc_cat;
+  groupname: string;
   position: any;
   ResourceTitle: string;
   orginaltags: any[];
   orginalcats: any[];
-  orginalformats: any[];
+  orginalformats: rc_format[];
   orginalresources: any[];
+  formatall: rc_format = { formattitle: 'All format', role: 'LL', _id: '0', priority: 1, type: '' };
+  formatcurrent: rc_format = { formattitle: '', role: 'LL', _id: '0', priority: 1, type: '' };
+  tagcurrent: rc_tag = { tagtitle: '', role: 'LL', _id: '', priority: 1, type: '' };
+  catcurrent: rc_cat = { cattitle: 'All Cat', role: 'LL', _id: '', priority: 1, type: '', color: '' };
   resources: any[];
+  orginallevels: any;
+  orginaltopics: { name: string; topics: { _id: string; name: string; groupname: string; checked: boolean; }[]; }[];
+
   // tslint:disable-next-line: no-shadowed-variable
   // tslint:disable-next-line: max-line-length
   constructor(private RcResourceService: RcResourceService, private RcFormatService: RcFormatService, private DashboardService: DashboardService, private RcTagService: RcTagService, private RcCatService: RcCatService, public dialog: MatDialog, private notificationService: NotificationService, private router: Router, private route: ActivatedRoute
   ) { }
   listData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['resourcetitle', 'type', 'typestr', 'actions'];
+  displayedColumns: string[] = ['resourcetitle', 'type', 'priority', 'typestr', 'actions'];
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
   apiBaseUrl: string = environment.apiBaseUrl;
+  // tagcurrent: rc_tag;
+  // formatcurrent: rc_format;
+  // catcurrent;
 
   ngOnInit() {
+    this.BindLevels();
+    this.orginalformats = [];
     this.tagid = this.route.snapshot.params.tagid;
     this.formatid = this.route.snapshot.params.formatid;
     this.catid = this.route.snapshot.params.catid;
+    this.groupname = this.route.snapshot.params.groupname;
     this.position = this.route.snapshot.params.position;
     this.ResourceTitle = 'Resources';
     this.getFormat();
@@ -71,6 +83,7 @@ export class DashboardLLResourcesComponent implements OnInit {
     this.RcFormatService.getData('rc_format').subscribe(
       list => {
         this.orginalformats = list as [rc_format];
+        this.orginalformats.unshift(this.formatall);
         this.orginalformats.forEach(format => {
           if (format._id === this.formatid) {
             this.formatcurrent = format;
@@ -92,12 +105,21 @@ export class DashboardLLResourcesComponent implements OnInit {
       });
   }
 
+  onChangeformat(el) {
+    console.log(el);
+    this.formatid = el.value;
+    this.loadresources();
+    // tslint:disable-next-line: max-line-length
+    this.router.navigate(['/dashboard-LLresources/' + this.tagid + '/' + this.formatid + '/' + this.catid + '/' + this.groupname + '/' + this.position]);
+  }
+
   GotToResourceCat(el) {
     console.log(el);
     this.DashboardService.CatShare = el;
     this.catid = el._id;
     this.loadresources();
-    this.router.navigate(['/dashboard-LLresources/' + this.tagid + '/' + this.formatid + '/' + this.catid + '/' + this.position]);
+    // tslint:disable-next-line: max-line-length
+    this.router.navigate(['/dashboard-LLresources/' + this.tagid + '/' + this.formatid + '/' + this.catid + '/' + this.groupname + '/' + this.position]);
   }
 
   BindTags() {
@@ -105,11 +127,19 @@ export class DashboardLLResourcesComponent implements OnInit {
     this.RcTagService.getData('rc_tag').subscribe(
       list => {
         this.orginaltags = list as [rc_tag];
-        this.orginaltags.forEach(tag => {
-          if (tag._id === this.tagid) {
-            this.tagcurrent = tag;
-          }
-        });
+        if (this.groupname !== 'all' && this.tagcurrent.tagtitle.toLowerCase() !== this.groupname.toLowerCase()) {
+          this.orginaltags.forEach(tag => {
+            if (tag.tagtitle.toLowerCase() === this.groupname.toLowerCase()) {
+              this.GotToResourceTag(tag);
+            }
+          });
+        } else {
+          this.orginaltags.forEach(tag => {
+            if (tag._id === this.tagid) {
+              this.tagcurrent = tag;
+            }
+          });
+        }
       });
   }
 
@@ -118,7 +148,8 @@ export class DashboardLLResourcesComponent implements OnInit {
     this.DashboardService.TagShare = el;
     this.tagid = el._id;
     this.loadresources();
-    this.router.navigate(['/dashboard-LLresources/' + this.tagid + '/' + this.formatid + '/' + this.catid + '/' + this.position]);
+    // tslint:disable-next-line: max-line-length
+    this.router.navigate(['/dashboard-LLresources/' + this.tagid + '/' + this.formatid + '/' + this.catid + '/' + this.groupname + '/' + this.position]);
   }
 
   loadresources() {
@@ -132,14 +163,69 @@ export class DashboardLLResourcesComponent implements OnInit {
         this.tagcurrent = tag;
       }
     });
+    this.orginaltags.forEach(tag => {
+      if (tag._id === this.tagid) {
+        this.tagcurrent = tag;
+      }
+    });
+    this.orginalformats.forEach(format => {
+      if (format._id === this.formatid) {
+        this.formatcurrent = format;
+      }
+    });
     this.RcResourceService.getData('rc_resource').subscribe(
       list => {
         this.orginalresources = list as [rc_resource];
+        this.orginalresources.sort((a, b) => a.priority > b.priority ? -1 : 1);
         this.resources = [];
         this.orginalresources.forEach(res => {
-          if (res.tags.filter(tag => tag === this.tagid).length > 0 && res.cats.filter(cat => cat === this.catid).length > 0 && res.type === this.formatcurrent.type) {
+          let passfilter = true;
+          if (this.levelname !== 'All') {
+            if (res.levels.filter((level: string) => level === this.levelname).length === 0) {
+              passfilter = false;
+            }
+          }
+          if (this.tagid !== '0') {
+            if (res.tags.filter((tag: string) => tag === this.tagid).length === 0) {
+              passfilter = false;
+            }
+          }
+          if (this.catid !== '0') {
+            if (res.cats.filter((cat: string) => cat === this.catid).length === 0) {
+              passfilter = false;
+            }
+          }
+          if (this.formatid !== '0') {
+            if (res.type !== this.formatcurrent.type) {
+              passfilter = false;
+            }
+          }
+          if (this.groupname !== 'all' && this.position !== 'rc') {
+            // tslint:disable-next-line: max-line-length
+            if (res.access.toLowerCase() !== this.position.toLowerCase() && res.access.toLowerCase() !== 'Both in session and in cesource center'.toLowerCase()) {
+              // tslint:disable-next-line: max-line-length
+              this.orginaltopics = this.DashboardService.orginaltopics.filter(group => group.name.toLowerCase() === this.groupname.toLowerCase());
+              if (this.orginaltopics.length > 0) {
+                this.orginaltopics[0].topics.forEach(grouptopic => {
+                  if (res.topics.filter((restopic: string) => restopic === grouptopic._id).length === 0) {
+                    passfilter = false;
+                  }
+                });
+              }
+            }
+          } else {
+            // tslint:disable-next-line: max-line-length
+            if (res.access.toLowerCase() !== 'In resource center'.toLowerCase() && res.access.toLowerCase() !== 'Both in session and in cesource center'.toLowerCase()) {
+              passfilter = false;
+            }
+          }
+          if (passfilter) {
             this.resources.push(res);
           }
+          // tslint:disable-next-line: max-line-length
+          // if (res.levels.filter(level => level === this.levelname).length > 0 && res.tags.filter(tag => tag === this.tagid).length > 0 && res.cats.filter(cat => cat === this.catid).length > 0 && res.type === this.formatcurrent.type) {
+          //   this.resources.push(res);
+          // }
         });
         this.listData = new MatTableDataSource(this.resources as rc_resource[]);
         this.listData.sort = this.sort;
@@ -177,6 +263,25 @@ export class DashboardLLResourcesComponent implements OnInit {
     } else {
       return '';
     }
+  }
+
+  BindLevels() {
+    this.orginallevels = [{ name: 'All', checked: false }, { name: 'Starter', checked: false }, { name: 'Level 1', checked: false },
+    { name: 'Level 2', checked: false }, { name: 'Level 3', checked: false }];
+    // if (this.RcResourceService.form.value.id === '') {
+    //   this.RcResourceService.form.value.levels = [];
+    // }
+    // this.RcResourceService.form.value.levels.forEach(level => {
+    //   const result = this.orginallevels.filter(orginallevel => orginallevel.name === level);
+    //   if (result.length > 0) {
+    //     result[0].checked = true;
+    //   }
+    // });
+  }
+
+  onChangeLevel(event) {
+    this.levelname = event.value;
+    this.loadresources();
   }
 
 }

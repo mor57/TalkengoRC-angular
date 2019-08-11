@@ -61,7 +61,7 @@ export class RcResourceService {
 
   public create = (route: string, body) => {
     let res;
-    if (body.id === '') {
+    if (body.id === null || body.id === '') {
       res = this.http.post(this.createCompleteRoute(route, environment.apiBaseUrl), body);
     } else {
       res = this.http.put(this.createCompleteRoute(route, environment.apiBaseUrl) + '/' + body.id, body);

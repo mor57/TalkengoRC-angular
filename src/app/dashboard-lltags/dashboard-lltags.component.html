@@ -1,8 +1,15 @@
-<div style="text-align:center">
-  <h1>TalkEngO Resource Center Language Learner Dashboard</h1>
-  <div layout="row" layout-wrap flex>
-    <span flex="20" *ngFor="let tag of orginaltags; let i = index">
-      <input type="button" (click)="GotToFormat(tag)" [value]="tag.tagtitle" />
-    </span>
+<div class="container">
+  <mat-toolbar>
+    <a (click)="GotBackToTags()">Dashboard </a> <span class="padding-left-10"> > </span>
+    <span class="padding-left-10">Tags</span>
+    <span class="fill-remaining-space"></span>
+  </mat-toolbar>
+  <div style="text-align:center">
+    <!-- <h1>TalkEngO Resource Center Language Learner Dashboard</h1> -->
+    <div layout="row" layout-wrap flex>
+      <span flex="20" *ngFor="let tag of orginaltags; let i = index">
+        <input type="button" (click)="GotToFormat(tag)" [value]="tag.tagtitle" />
+      </span>
+    </div>
   </div>
 </div>

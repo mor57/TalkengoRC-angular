@@ -1,6 +1,7 @@
 // tslint:disable-next-line: class-name
 export class rc_format {
-  id: string;
+  // tslint:disable-next-line: variable-name
+  _id: string;
   formattitle: string;
   type: string;
   priority: number;

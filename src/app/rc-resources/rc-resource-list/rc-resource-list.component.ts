@@ -30,7 +30,9 @@ export class RcResourceListComponent implements OnInit {
   loadresources() {
     this.RcResourceService.getData('rc_resource').subscribe(
       list => {
-        this.listData = new MatTableDataSource(list as rc_resource[]);
+        const orginals = list as [rc_resource];
+        orginals.sort((a, b) => a.priority > b.priority ? -1 : 1);
+        this.listData = new MatTableDataSource(orginals as rc_resource[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
         this.listData.filterPredicate = (data, filter) => {
@@ -141,10 +143,34 @@ export class RcResourceListComponent implements OnInit {
     });
   }
 
-  deleteRow(id) {
-    this.RcResourceService.delete('rc_resource', id).subscribe(
+  undodelete(el) {
+    const body = el;
+    body.trashstatus = 2;
+    body.id = el._id;
+    this.RcResourceService.create('rc_resource', body).subscribe(
       res => {
-        this.notificationService.success(':: Deleted successfully');
+        const resault = res as { message: string };
+        this.notificationService.success(resault.message);
+        this.loadresources();
+      },
+      err => {
+        console.log(err.error.message);
+      }
+    );
+  }
+
+  deleteRow(el) {
+    const body = el;
+    body.id = el._id;
+    if (el.trashstatus === 1) {
+      if (!confirm('This action delete item for ever! Are you sure?')) {
+        return;
+      }
+    }
+    this.RcResourceService.delete('rc_resource', body.id).subscribe(
+      res => {
+        const resault = res as { message: string };
+        this.notificationService.success(resault.message);
         this.loadresources();
       },
       err => {

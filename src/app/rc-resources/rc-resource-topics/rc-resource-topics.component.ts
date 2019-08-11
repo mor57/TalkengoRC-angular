@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 
 import { MatDialogRef } from '@angular/material';
 import { RcResourceService } from 'src/app/shared/rc-resource.service';
+import { DashboardService } from 'src/app/shared/dashboard.service';
 
 @Component({
   selector: 'app-rc-resource-topics',
@@ -14,7 +15,7 @@ export class RcResourceTopicsComponent implements OnInit {
   // tslint:disable-next-line: no-shadowed-variable
   constructor(
     // tslint:disable-next-line: no-shadowed-variable
-    public RcResourceService: RcResourceService, public dialogRef: MatDialogRef<RcResourceTopicsComponent>) { }
+    public RcResourceService: RcResourceService, public DashboardService: DashboardService, public dialogRef: MatDialogRef<RcResourceTopicsComponent>) { }
 
   ngOnInit() {
     this.BindTopics();
@@ -39,43 +40,44 @@ export class RcResourceTopicsComponent implements OnInit {
   }
 
   BindTopics() {
-    this.orginaltopics = [
-      {
-        name: 'starters',
-        topics: [
-          { _id: '5d07c651ea4b70130fb1666b', name: 'hw1 name, hometown and weather', groupname: 'starters', checked: false },
-          { _id: '5d07c698aa54c4131d5b0662', name: 'hw2 - family & age', groupname: 'starters', checked: false }
-        ]
-      },
-      {
-        name: 'academic english',
-        topics: [
-          { _id: '5d07c494ea4b70130fb165ed', name: 'sociology', groupname: 'academic english', checked: false },
-          { _id: '5d07c477aa54c4131d5b05d8', name: 'social work degree', groupname: 'academic english', checked: false }
-        ]
-      }
-      // ,
-      // {
-      //   name: 'business english',
-      //   topics: [
-      //   ]
-      // },
-      // {
-      //   name: 'talking about english exams',
-      //   topics: [
-      //   ]
-      // },
-      // {
-      //   name: 'international teachers',
-      //   topics: [
-      //   ]
-      // },
-      // {
-      //   name: 'general english',
-      //   topics: [
-      //   ]
-      // }
-    ];
+    this.orginaltopics = this.DashboardService.orginaltopics;
+    // this.orginaltopics = [
+    //   {
+    //     name: 'starters',
+    //     topics: [
+    //       { _id: '5d07c651ea4b70130fb1666b', name: 'hw1 name, hometown and weather', groupname: 'General', checked: false },
+    //       { _id: '5d07c698aa54c4131d5b0662', name: 'hw2 - family & age', groupname: 'General', checked: false }
+    //     ]
+    //   },
+    //   {
+    //     name: 'academic english',
+    //     topics: [
+    //       { _id: '5d07c494ea4b70130fb165ed', name: 'sociology', groupname: 'Academic', checked: false },
+    //       { _id: '5d07c477aa54c4131d5b05d8', name: 'social work degree', groupname: 'Academic', checked: false }
+    //     ]
+    //   }
+    //   // ,
+    //   // {
+    //   //   name: 'business english',
+    //   //   topics: [
+    //   //   ]
+    //   // },
+    //   // {
+    //   //   name: 'talking about english exams',
+    //   //   topics: [
+    //   //   ]
+    //   // },
+    //   // {
+    //   //   name: 'international teachers',
+    //   //   topics: [
+    //   //   ]
+    //   // },
+    //   // {
+    //   //   name: 'general english',
+    //   //   topics: [
+    //   //   ]
+    //   // }
+    // ];
     if (this.RcResourceService.form.value.id === '') {
       this.RcResourceService.form.value.topics = [];
     }

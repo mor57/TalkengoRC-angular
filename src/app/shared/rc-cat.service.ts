@@ -41,7 +41,7 @@ export class RcCatService {
   }
 
   public create = (route: string, body) => {
-    if (body.id === null) {
+    if (body.id === null || body.id === '') {
       return this.http.post(this.createCompleteRoute(route, environment.apiBaseUrl), body);
     } else {
       return this.http.put(this.createCompleteRoute(route, environment.apiBaseUrl) + '/' + body.id, body);

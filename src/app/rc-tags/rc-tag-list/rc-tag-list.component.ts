@@ -28,7 +28,9 @@ export class RcTagListComponent implements OnInit {
   loadtags() {
     this.RcTagService.getData('rc_tag').subscribe(
       list => {
-        this.listData = new MatTableDataSource(list as rc_tag[]);
+        const orginals = list as [rc_tag];
+        orginals.sort((a, b) => a.priority > b.priority ? -1 : 1);
+        this.listData = new MatTableDataSource(orginals as rc_tag[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
         this.listData.filterPredicate = (data, filter) => {
@@ -77,14 +79,40 @@ export class RcTagListComponent implements OnInit {
       );
     });
   }
-  deleteRow(id) {
-    this.RcTagService.delete('rc_tag', id).subscribe(
+
+  undodelete(el) {
+    const body = el;
+    body.trashstatus = 2;
+    body.id = el._id;
+    this.RcTagService.create('rc_tag', body).subscribe(
       res => {
-        this.notificationService.success(':: Deleted successfully');
+        const resault = res as { message: string };
+        this.notificationService.success(resault.message);
+        this.loadtags();
+      },
+      err => {
+        console.log(err.error.message);
+      }
+    );
+  }
+
+  deleteRow(el) {
+    const body = el;
+    body.id = el._id;
+    if (el.trashstatus === 1) {
+      if (!confirm('This action delete item for ever! Are you sure?')) {
+        return;
+      }
+    }
+    this.RcTagService.delete('rc_tag', body.id).subscribe(
+      res => {
+        const resault = res as { message: string };
+        this.notificationService.success(resault.message);
         this.loadtags();
       },
       err => {
         console.log(err.error.message);
       });
   }
+
 }

@@ -1,21 +1,20 @@
-<!-- <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-  <div class="item item-1" fxFlex="15%">Item 1</div>
-  <div class="item item-2" fxFlex="20%" fxFlexOrder="3">Item 2</div>
-  <div class="item item-3" fxFlex>Item 3</div>
-</div>
-<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-  <div class="item item-4" fxFlex fxFlexOffset="50px" fxFlexOffset.xs="0">Item 4</div>
-  <div class="item item-5" fxFlex="200px">Item 5</div>
-</div> -->
 <div class="container">
   <mat-toolbar>
+    <a (click)="GotBackToTags()">Dashboard </a> <span class="padding-left-10"> > </span>
+    <a (click)="GotBackToFormats()"> <span class="padding-left-10">{{tagcurrent.tagtitle}}</span></a> <span
+      class="padding-left-10"> > </span>
+    <a (click)="GotBackToCats()"> <span class="padding-left-10">{{formatcurrent.formattitle}}
+      </span></a> <span class="padding-left-10"> > </span>
+    <span class="padding-left-10">{{catcurrent.cattitle}}</span> <span class="padding-left-10"> > </span> <span
+      class="padding-left-10">{{ResourceTitle}}</span>
     <span class="fill-remaining-space"></span>
-    <a (click)="GotBackToTags()">Dashboard </a> >
-    <a (click)="GotBackToFormats()"> <span>{{tagcurrent.tagtitle}}</span></a> >
-    <a (click)="GotBackToCats()"> <span>{{formatcurrent.formattitle}}
-      </span></a> >
-    <span>{{catcurrent.cattitle}}</span> > <span>{{ResourceTitle}}</span>
-    <span class="fill-remaining-space"></span>
+    <span style="padding-right: 10px;">Level: </span>
+    <mat-form-field>
+      <mat-select [(value)]="this.levelname" (selectionChange)="onChangeLevel($event)">
+        <mat-option *ngFor="let level of orginallevels; let i = index" [value]="level.name">
+          {{level.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </mat-toolbar>
   <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
     <div class="" fxFlex="60%">
@@ -72,7 +71,15 @@
         <div class="mat-elevation-z8" style="width: 100%;">
           <div class="blocks" style="text-align:center;padding: 10px">
             <span class="fill-remaining-space"></span>
-            <h3>Click to select tag and category</h3>
+            <h3>Click to select tag and category
+            </h3>
+            for format
+            <mat-form-field>
+              <mat-select [(value)]="this.formatid" (selectionChange)="onChangeformat($event)">
+                <mat-option *ngFor="let format of orginalformats; let i = index" [value]="format._id">
+                  {{format.formattitle}}</mat-option>
+              </mat-select>
+            </mat-form-field>
             <span class="fill-remaining-space"></span>
           </div>
           <div class="blocks" style="text-align:center">

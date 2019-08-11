@@ -22,11 +22,11 @@ export class DashboardComponent implements OnInit {
 
   Dashboardllsessionspecial() {
     // this.DashboardService.
-    this.router.navigate(['/dashboard-LLresources/5d3dd8f5027add33982c0c67/0/0/special']);
+    this.router.navigate(['/dashboard-LLresources/0/0/0/general/special']);
   }
 
   Dashboardllsessionhomework() {
-    this.router.navigate(['/dashboard-LLresources/5d3dd8f5027add33982c0c67/0/0/homework']);
+    this.router.navigate(['/dashboard-LLresources/0/0/0/general/homework']);
   }
 
 }

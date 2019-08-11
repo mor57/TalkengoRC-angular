@@ -47,8 +47,14 @@
         <button mat-icon-button (click)="openDialog(element)">
           <mat-icon>launch</mat-icon>
         </button>
-        <button mat-icon-button color="warn" (click)="deleteRow(element._id)">
-          <mat-icon>delete_outline</mat-icon>
+        <button mat-icon-button color="warn" (click)="deleteRow(element)">
+          <mat-icon title="Send to trash" *ngIf="element.trashstatus===0 || element.trashstatus===undefined">
+            delete_outline</mat-icon>
+          <mat-icon title="Delete for ever" *ngIf="element.trashstatus===1">delete_forever
+          </mat-icon>
+        </button>
+        <button mat-icon-button title="Redo delete" *ngIf="element.trashstatus===1" (click)="undodelete(element)">
+          <mat-icon>undo</mat-icon>
         </button>
       </mat-cell>
     </ng-container>

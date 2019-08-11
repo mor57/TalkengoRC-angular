@@ -28,7 +28,9 @@ export class RcCatListComponent implements OnInit {
   loadcats() {
     this.RcCatService.getData('rc_cat').subscribe(
       list => {
-        this.listData = new MatTableDataSource(list as rc_cat[]);
+        const orginals = list as [rc_cat];
+        orginals.sort((a, b) => a.priority > b.priority ? -1 : 1);
+        this.listData = new MatTableDataSource(orginals as rc_cat[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
         this.listData.filterPredicate = (data, filter) => {
@@ -78,14 +80,41 @@ export class RcCatListComponent implements OnInit {
       );
     });
   }
-  deleteRow(id) {
-    this.RcCatService.delete('rc_cat', id).subscribe(
+
+
+  undodelete(el) {
+    const body = el;
+    body.trashstatus = 2;
+    body.id = el._id;
+    this.RcCatService.create('rc_cat', body).subscribe(
       res => {
-        this.notificationService.success(':: Deleted successfully');
+        const resault = res as { message: string };
+        this.notificationService.success(resault.message);
+        this.loadcats();
+      },
+      err => {
+        console.log(err.error.message);
+      }
+    );
+  }
+
+  deleteRow(el) {
+    const body = el;
+    body.id = el._id;
+    if (el.trashstatus === 1) {
+      if (!confirm('This action delete item for ever! Are you sure?')) {
+        return;
+      }
+    }
+    this.RcCatService.delete('rc_cat', body.id).subscribe(
+      res => {
+        const resault = res as { message: string };
+        this.notificationService.success(resault.message);
         this.loadcats();
       },
       err => {
         console.log(err.error.message);
       });
   }
+
 }
