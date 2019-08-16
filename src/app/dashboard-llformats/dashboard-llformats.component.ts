@@ -50,7 +50,7 @@ export class DashboardLLFormatsComponent implements OnInit {
     this.RcFormatService.getData('rc_format').subscribe(
       list => {
         this.orginalformats = list as [rc_format];
-        this.orginalformats.sort((a, b) => a.priority > b.priority ? -1 : 1);
+        this.orginalformats.sort((a, b) => a.priority < b.priority ? -1 : 1);
         // console.log(this.orginalformats);
       });
   }

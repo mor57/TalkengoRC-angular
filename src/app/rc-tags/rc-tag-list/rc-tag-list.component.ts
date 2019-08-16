@@ -29,7 +29,7 @@ export class RcTagListComponent implements OnInit {
     this.RcTagService.getData('rc_tag').subscribe(
       list => {
         const orginals = list as [rc_tag];
-        orginals.sort((a, b) => a.priority > b.priority ? -1 : 1);
+        orginals.sort((a, b) => a.priority < b.priority ? -1 : 1);
         this.listData = new MatTableDataSource(orginals as rc_tag[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -63,7 +63,8 @@ export class RcTagListComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(RcTagComponent, {
       width: '600px',
-      data: 'Add Tag'
+      data: 'Add Tag',
+      disableClose: true
     });
     dialogRef.componentInstance.event.subscribe((result) => {
       this.RcTagService.create('rc_tag', this.RcTagService.form.value).subscribe(

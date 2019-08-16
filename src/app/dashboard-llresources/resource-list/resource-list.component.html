@@ -1,0 +1,157 @@
+<mat-toolbar>
+  <a (click)="GotBackToTags()">Dashboard </a> <span class="padding-left-10"> > </span>
+  <a (click)="GotBackToFormats()"> <span class="padding-left-10">{{tagcurrent.tagtitle}}</span></a> <span
+    class="padding-left-10"> > </span>
+  <a (click)="GotBackToCats()"> <span class="padding-left-10">{{formatcurrent.formattitle}}
+    </span></a> <span class="padding-left-10"> > </span>
+  <span class="padding-left-10">{{catcurrent.cattitle}}</span> <span class="padding-left-10"></span>
+  <span class="fill-remaining-space"></span>
+  <span style="padding-right: 10px;">Level: </span>
+  <mat-form-field>
+    <mat-select [(value)]="this.levelname" (selectionChange)="onChangeLevel($event)">
+      <mat-option *ngFor="let level of orginallevels; let i = index" [value]="level.name">
+        {{level.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-toolbar>
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div class="resourcebox" fxFlex="60%">
+    <div style="text-align:center">
+      <h3>{{ResourceTitle}}
+        <a class="filterboxmobile" (click)="drawer.toggle()">
+          <mat-icon>filter_list</mat-icon>
+        </a></h3>
+    </div>
+
+    <mat-drawer-container class="filter-container" autosize hasBackdrop="false">
+      <mat-drawer #drawer class="filter-sidenav" mode="over">
+        <button color="warn" (click)="drawer.toggle()" mat-raised-button>
+          Close filter box
+        </button>
+        <h3>Click to select tag and category
+        </h3>
+        for format
+        <mat-form-field>
+          <mat-select [(value)]="this.formatid" (selectionChange)="onChangeformat($event)">
+            <mat-option *ngFor="let format of orginalformats; let i = index" [value]="format._id">
+              {{format.formattitle}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="blocks" style="text-align:center">
+          <div class="container">
+            <div style="text-align:center">
+              <h5>Tags</h5>
+              <div *ngFor="let tag of orginaltags; let i = index" style="text-align: center;padding-bottom: 20px;">
+                <a style="width: 180px;" mat-raised-button [color]="IsSelected(tag._id===tagid)"
+                  (click)="GotToResourceTag(tag)">{{tag.tagtitle}}</a>
+              </div>
+            </div>
+            <div style="text-align:center">
+              <h5>Cats</h5>
+              <div *ngFor="let cat of orginalcats; let i = index" style="text-align: center;padding-bottom: 20px;">
+                <a style="width: 180px;" mat-raised-button [color]="IsSelected(cat._id===catid)"
+                  (click)="GotToResourceCat(cat)">{{cat.cattitle}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-drawer>
+      <div class="filter-sidenav-content">
+        <div style="width: 100%;">
+
+          <div class="search-div">
+            <mat-form-field class="search-form-field" floatLabel="never">
+              <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+              <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey"
+                (click)="onSearchClear()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="mat-elevation-z8" style="width: 100%;">
+            <mat-table [dataSource]="listData" matSort>
+              <ng-container matColumnDef="typestr">
+                <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="openDialog(element)">
+                    <mat-icon class="icon" (mouseover)="show=true" (mouseout)="show=false">
+                      {{getIconType(element.type)}}</mat-icon>
+                  </button>
+                  <!-- <span *ngIf="show">show</span> -->
+                  <!-- <a href="{{ apiBaseUrl + '/' + element.typestr }}" *ngIf="isDowloadable(element)" target="_blank">
+                          </a> -->
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="resourcetitle">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Resource Title</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.resourcetitle}}</mat-cell>
+              </ng-container>
+              <!-- <ng-container matColumnDef="type">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{element.type}}</mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="priority">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{element.priority}}</mat-cell>
+                      </ng-container> -->
+              <ng-container matColumnDef="access">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Access</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.access}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </mat-drawer-container>
+  </div>
+  <div class="filterbox" fxFlex="40%" fxFlexOrder="2">
+    <div style="padding: 20px;width: 100%;">
+      <div class="mat-elevation-z8" style="width: 100%;">
+        <div class="blocks" style="text-align:center;padding: 10px">
+          <span class="fill-remaining-space"></span>
+          <h3>Click to select tag and category
+          </h3>
+          for format
+          <mat-form-field>
+            <mat-select [(value)]="this.formatid" (selectionChange)="onChangeformat($event)">
+              <mat-option *ngFor="let format of orginalformats; let i = index" [value]="format._id">
+                {{format.formattitle}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <span class="fill-remaining-space"></span>
+        </div>
+        <div class="blocks" style="text-align:center">
+          <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px"
+            fxLayoutGap.xs="0">
+            <div class="" fxFlex="50%">
+              <div style="text-align:center">
+                <h5>Tags</h5>
+                <div *ngFor="let tag of orginaltags; let i = index" style="text-align: center;padding-bottom: 20px;">
+                  <a style="width: 180px;" mat-raised-button [color]="IsSelected(tag._id===tagid)"
+                    (click)="GotToResourceTag(tag)">{{tag.tagtitle}}</a>
+                </div>
+              </div>
+            </div>
+            <div class="" fxFlex="50%" fxFlexOrder="2">
+              <div style="text-align:center">
+                <h5>Cats</h5>
+                <div *ngFor="let cat of orginalcats; let i = index" style="text-align: center;padding-bottom: 20px;">
+                  <a style="width: 180px;" mat-raised-button [color]="IsSelected(cat._id===catid)"
+                    (click)="GotToResourceCat(cat)">{{cat.cattitle}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -73,7 +73,7 @@
       <mat-form-field>
         <mat-select formControlName="access" required placeholder="Access">
           <mat-option value="In resource center">In resource center</mat-option>
-          <mat-option value="Both in session and in cesource center">Both in session and in cesource center
+          <mat-option value="Both in session and in resource center">Both in session and in resource center
           </mat-option>
           <mat-option value="Homework">Session > Homework</mat-option>
           <mat-option value="Special">Session > Special resource</mat-option>
@@ -96,7 +96,8 @@
         <input formControlName="description" matInput placeholder="Resource Description*">
         <mat-error>This field is description.</mat-error>
       </mat-form-field>
-      <div class="button-row" *ngIf="hasfile">
+      <!-- <div class="button-row" *ngIf="hasfile"> -->
+      <div class="button-row" class={{hasfileClass}}>
         <input id="resourceFile" type="file" />
       </div>
     </div>

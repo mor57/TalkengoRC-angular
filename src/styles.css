@@ -349,9 +349,11 @@ mat-radio-group mat-radio-button {
 .button-row button {
   margin: 5px;
 }
-/* Employee Form */
 .mat-column-actions {
   flex: 0 0 160px;
+}
+.mat-column-typestr {
+  flex: 0 0 80px;
 }
 .example-form {
   display: flex;
@@ -380,4 +382,16 @@ mat-radio-group mat-radio-button {
 
 .padding-left-10 {
   padding-left: 10px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.mat-radio-button {
+  padding-bottom: 5px;
 }

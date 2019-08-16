@@ -23,6 +23,7 @@ export class RcResourceComponent implements OnInit {
   islink: boolean;
   ishtml: boolean;
   hasfile: boolean;
+  hasfileClass: string;
 
   // tslint:disable-next-line: no-shadowed-variable
   constructor(
@@ -84,9 +85,9 @@ export class RcResourceComponent implements OnInit {
   BindLevels() {
     this.orginallevels = [{ name: 'Starter', checked: false }, { name: 'Level 1', checked: false },
     { name: 'Level 2', checked: false }, { name: 'Level 3', checked: false }];
-    if (this.RcResourceService.form.value.id === '') {
-      this.RcResourceService.form.value.levels = [];
-    }
+    // if (this.RcResourceService.form.value.id === '') {
+    //   this.RcResourceService.form.value.levels = [];
+    // }
     this.RcResourceService.form.value.levels.forEach(level => {
       const result = this.orginallevels.filter(orginallevel => orginallevel.name === level);
       if (result.length > 0) {
@@ -104,9 +105,9 @@ export class RcResourceComponent implements OnInit {
         taglist.filter(tag => tag.role === this.RcResourceService.form.value.role).forEach(tag => {
           this.orginaltags.push({ name: tag.tagtitle, value: tag._id, role: tag.role, checked: false });
         });
-        if (this.RcResourceService.form.value.id === '') {
-          this.RcResourceService.form.value.tags = [];
-        }
+        // if (this.RcResourceService.form.value.id === '') {
+        //   this.RcResourceService.form.value.tags = [];
+        // }
         this.RcResourceService.form.value.tags.forEach(tag => {
           const result = this.orginaltags.filter(orginaltag => orginaltag.value === tag);
           if (result.length > 0) {
@@ -125,9 +126,9 @@ export class RcResourceComponent implements OnInit {
         catlist.filter(cat => cat.role === this.RcResourceService.form.value.role).forEach(cat => {
           this.orginalcats.push({ name: cat.cattitle, value: cat._id, role: cat.role, checked: false });
         });
-        if (this.RcResourceService.form.value.id === '') {
-          this.RcResourceService.form.value.cats = [];
-        }
+        // if (this.RcResourceService.form.value.id === '') {
+        //   this.RcResourceService.form.value.cats = [];
+        // }
         this.RcResourceService.form.value.cats.forEach(cat => {
           const result = this.orginalcats.filter(orginalcat => orginalcat.value === cat);
           if (result.length > 0) {
@@ -169,11 +170,13 @@ export class RcResourceComponent implements OnInit {
     this.islink = false;
     this.ishtml = false;
     this.hasfile = false;
+    this.hasfileClass = 'hidden';
     if (type === 'link') {
       this.islink = true;
     } else if (type === 'html') {
       this.ishtml = true;
     } else {
+      this.hasfileClass = 'visible';
       this.hasfile = true;
       if (this.RcResourceService.form.value.id === '') {
         this.RcResourceService.form.patchValue({ typestr: '' });

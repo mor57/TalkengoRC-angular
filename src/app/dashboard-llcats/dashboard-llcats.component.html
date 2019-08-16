@@ -4,14 +4,15 @@
     <a (click)="GotBackToFormats()"> <span class="padding-left-10">{{tagcurrent.tagtitle}}</span></a> <span
       class="padding-left-10"> > </span>
     <span class="padding-left-10">{{formatcurrent.formattitle}}
-    </span> <span class="padding-left-10"> > </span>
-    <span class="padding-left-10">Categories</span>
+    </span> <span class="padding-left-10"></span>
     <span class="fill-remaining-space"></span>
   </mat-toolbar>
   <div style="text-align:center">
-    <!-- <h1>TalkEngO Resource Center Language Learner Dashboard</h1> -->
+    <h1>
+      Choose your category
+    </h1>
     <div layout="row" layout-wrap flex>
-      <span flex="20" *ngFor="let cat of orginalcats; let i = index">
+      <span flex="25" *ngFor="let cat of orginalcats; let i = index">
         <input type="button" (click)="GotToCats(cat)" [value]="cat.cattitle" />
       </span>
     </div>

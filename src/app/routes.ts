@@ -16,11 +16,10 @@ import { RcResourcesComponent } from './rc-resources/rc-resources.component';
 import { RcResourceComponent } from './rc-resources/rc-resource/rc-resource.component';
 import { RcResourceTopicsComponent } from './rc-resources/rc-resource-topics/rc-resource-topics.component';
 import { DashboardLLTagsComponent } from './dashboard-lltags/dashboard-lltags.component';
-import { DashboardLLSessionSpecialComponent } from './dashboard-llsession-special/dashboard-llsession-special.component';
-import { DashboardLLSessionHomeworkComponent } from './dashboard-llsession-homework/dashboard-llsession-homework.component';
 import { DashboardLLFormatsComponent } from './dashboard-llformats/dashboard-llformats.component';
 import { DashboardLLCatsComponent } from './dashboard-llcats/dashboard-llcats.component';
 import { DashboardLLResourcesComponent } from './dashboard-llresources/dashboard-llresources.component';
+import { ResourceContentModalComponent } from './dashboard-llresources/resource-content-modal/resource-content-modal.component';
 
 export const appRoutes: Routes = [
   {
@@ -69,7 +68,8 @@ export const appRoutes: Routes = [
   , { path: 'dashboard-LLformats/:tagid', component: DashboardLLFormatsComponent, canActivate: [AuthGuard] }
   , { path: 'dashboard-LLcats/:tagid/:formatid', component: DashboardLLCatsComponent, canActivate: [AuthGuard] }
   // tslint:disable-next-line: max-line-length
-  , { path: 'dashboard-LLresources/:tagid/:formatid/:catid/:groupname/:position', component: DashboardLLResourcesComponent, canActivate: [AuthGuard] }
-  , { path: 'dashboard-llsession-special', component: DashboardLLSessionSpecialComponent, canActivate: [AuthGuard] }
-  , { path: 'dashboard-llsession-homework', component: DashboardLLSessionHomeworkComponent, canActivate: [AuthGuard] }
+  , { path: 'dashboard-llresources/:tagid/:formatid/:catid/:topicid/:position', component: DashboardLLResourcesComponent, canActivate: [AuthGuard] }
+  // , { path: 'dashboard-llsession-special', component: DashboardLLSessionSpecialComponent, canActivate: [AuthGuard] }
+  // , { path: 'dashboard-llsession-homework', component: DashboardLLSessionHomeworkComponent, canActivate: [AuthGuard] }
+  , { path: 'resource-content-modal', component: ResourceContentModalComponent, canActivate: [AuthGuard] }
 ];

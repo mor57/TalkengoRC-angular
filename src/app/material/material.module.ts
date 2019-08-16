@@ -25,7 +25,8 @@ import * as Material from '@angular/material';
     Material.MatIconModule,
     Material.MatListModule,
     Material.MatDialogModule,
-    Material.MatProgressBarModule
+    Material.MatProgressBarModule,
+    Material.MatTooltipModule
   ],
   exports: [
     Material.MatToolbarModule,
@@ -48,7 +49,8 @@ import * as Material from '@angular/material';
     Material.MatIconModule,
     Material.MatListModule,
     Material.MatDialogModule,
-    Material.MatProgressBarModule
+    Material.MatProgressBarModule,
+    Material.MatTooltipModule
   ],
   declarations: []
 })

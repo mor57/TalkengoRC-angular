@@ -29,7 +29,7 @@ export class RcFormatListComponent implements OnInit {
     this.RcFormatService.getData('rc_format').subscribe(
       list => {
         const orginals = list as [rc_format];
-        orginals.sort((a, b) => a.priority > b.priority ? -1 : 1);
+        orginals.sort((a, b) => a.priority < b.priority ? -1 : 1);
         this.listData = new MatTableDataSource(orginals as rc_format[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -64,7 +64,8 @@ export class RcFormatListComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(RcFormatComponent, {
       width: '600px',
-      data: 'Add Formategory'
+      data: 'Add Formategory',
+      disableClose: true
     });
     dialogRef.componentInstance.event.subscribe((result) => {
       this.RcFormatService.create('rc_format', this.RcFormatService.form.value).subscribe(

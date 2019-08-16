@@ -1,0 +1,4 @@
+.e2e-iframe-trusted-src {
+  height: 500px !important;
+  /* height: calc(100% - 50px) !important; */
+}

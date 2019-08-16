@@ -29,7 +29,7 @@ export class RcCatListComponent implements OnInit {
     this.RcCatService.getData('rc_cat').subscribe(
       list => {
         const orginals = list as [rc_cat];
-        orginals.sort((a, b) => a.priority > b.priority ? -1 : 1);
+        orginals.sort((a, b) => a.priority < b.priority ? -1 : 1);
         this.listData = new MatTableDataSource(orginals as rc_cat[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -64,7 +64,8 @@ export class RcCatListComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(RcCatComponent, {
       width: '600px',
-      data: 'Add Category'
+      data: 'Add Category',
+      disableClose: true
     });
     dialogRef.componentInstance.event.subscribe((result) => {
       this.RcCatService.create('rc_cat', this.RcCatService.form.value).subscribe(

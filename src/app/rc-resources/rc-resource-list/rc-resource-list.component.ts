@@ -17,7 +17,7 @@ export class RcResourceListComponent implements OnInit {
   constructor(private RcResourceService: RcResourceService, public dialog: MatDialog, private notificationService: NotificationService
   ) { }
   listData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['resourcetitle', 'type', 'typestr', 'priority', 'role', 'actions'];
+  displayedColumns: string[] = ['resourcetitle', 'type', 'typestr', 'priority', 'role', 'access', 'actions'];
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
@@ -31,7 +31,7 @@ export class RcResourceListComponent implements OnInit {
     this.RcResourceService.getData('rc_resource').subscribe(
       list => {
         const orginals = list as [rc_resource];
-        orginals.sort((a, b) => a.priority > b.priority ? -1 : 1);
+        orginals.sort((a, b) => a.priority < b.priority ? -1 : 1);
         this.listData = new MatTableDataSource(orginals as rc_resource[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -52,13 +52,13 @@ export class RcResourceListComponent implements OnInit {
     this.listData.filter = this.searchKey.toString().trim().toLowerCase();
   }
 
-  openDialog(el): void {
+  openDialog(el, status): void {
     if (el !== null) {
       this.RcResourceService.form.setValue(
         {
           $key: null,
-          id: el._id,
-          resourcetitle: el.resourcetitle,
+          id: (status === 'clone') ? '' : el._id,
+          resourcetitle: (status === 'clone') ? '' : el.resourcetitle,
           type: el.type,
           typestr: el.typestr ? el.typestr : null,
           resourcefile: null,
@@ -76,7 +76,8 @@ export class RcResourceListComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(RcResourceComponent, {
       width: '90%',
-      data: 'Add Resource'
+      data: 'Add Resource',
+      disableClose: true
     });
     dialogRef.componentInstance.event.subscribe((result) => {
       const body = this.RcResourceService.form.value;
@@ -125,7 +126,8 @@ export class RcResourceListComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(RcResourceTopicsComponent, {
       width: '60%',
-      data: 'Assign topics to resource'
+      data: 'Assign topics to resource',
+      disableClose: true
     });
     dialogRef.componentInstance.event.subscribe((result) => {
       const body = this.RcResourceService.form.value;
@@ -186,5 +188,14 @@ export class RcResourceListComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  AssignTopicColor(access) {
+    if (access === 'Both in session and in resource center') {
+      return 'primary';
+    }
+    // else {
+    //   return 'warn';
+    // }
   }
 }

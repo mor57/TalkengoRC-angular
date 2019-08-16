@@ -48,7 +48,7 @@ export class DashboardLLCatsComponent implements OnInit {
     this.RcTagService.getData('rc_tag').subscribe(
       list => {
         this.orginaltags = list as [rc_tag];
-        this.orginalcats.sort((a, b) => a.priority > b.priority ? -1 : 1);
+        this.orginalcats.sort((a, b) => a.priority < b.priority ? -1 : 1);
         this.orginaltags.forEach(tag => {
           if (tag._id === this.tagid) {
             this.tagcurrent = tag;
@@ -83,6 +83,6 @@ export class DashboardLLCatsComponent implements OnInit {
   GotToCats(el) {
     console.log(el);
     this.DashboardService.CatShare = el;
-    this.router.navigate(['/dashboard-LLresources/' + this.tagid + '/' + this.formatid + '/' + el._id + '/all/rc']);
+    this.router.navigate(['/dashboard-llresources/' + this.tagid + '/' + this.formatid + '/' + el._id + '/0/rc']);
   }
 }

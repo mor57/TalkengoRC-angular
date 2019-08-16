@@ -38,8 +38,8 @@ import { DashboardLLTagsComponent } from './dashboard-lltags/dashboard-lltags.co
 import { DashboardLLFormatsComponent } from './dashboard-llformats/dashboard-llformats.component';
 import { DashboardLLCatsComponent } from './dashboard-llcats/dashboard-llcats.component';
 import { DashboardLLResourcesComponent } from './dashboard-llresources/dashboard-llresources.component';
-import { DashboardLLSessionSpecialComponent } from './dashboard-llsession-special/dashboard-llsession-special.component';
-import { DashboardLLSessionHomeworkComponent } from './dashboard-llsession-homework/dashboard-llsession-homework.component';
+import { ResourceListComponent } from './dashboard-llresources/resource-list/resource-list.component';
+import { ResourceContentModalComponent } from './dashboard-llresources/resource-content-modal/resource-content-modal.component';
 
 @NgModule({
   declarations: [
@@ -66,8 +66,8 @@ import { DashboardLLSessionHomeworkComponent } from './dashboard-llsession-homew
     DashboardLLFormatsComponent,
     DashboardLLCatsComponent,
     DashboardLLResourcesComponent,
-    DashboardLLSessionSpecialComponent,
-    DashboardLLSessionHomeworkComponent,
+    ResourceListComponent,
+    ResourceContentModalComponent,
   ],
   imports: [
     BrowserModule,

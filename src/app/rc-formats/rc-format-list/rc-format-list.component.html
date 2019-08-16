@@ -33,15 +33,15 @@
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element">
         <button mat-icon-button (click)="openDialog(element)">
-          <mat-icon>launch</mat-icon>
+          <mat-icon matTooltip="Edit">launch</mat-icon>
         </button>
         <button mat-icon-button color="warn" (click)="deleteRow(element)">
-          <mat-icon title="Send to trash" *ngIf="element.trashstatus===0 || element.trashstatus===undefined">
+          <mat-icon matTooltip="Send to trash" *ngIf="element.trashstatus===0 || element.trashstatus===undefined">
             delete_outline</mat-icon>
-          <mat-icon title="Delete for ever" *ngIf="element.trashstatus===1">delete_forever
+          <mat-icon matTooltip="Delete for ever" *ngIf="element.trashstatus===1">delete_forever
           </mat-icon>
         </button>
-        <button mat-icon-button title="Redo delete" *ngIf="element.trashstatus===1" (click)="undodelete(element)">
+        <button mat-icon-button matTooltip="Redo delete" *ngIf="element.trashstatus===1" (click)="undodelete(element)">
           <mat-icon>undo</mat-icon>
         </button>
       </mat-cell>
