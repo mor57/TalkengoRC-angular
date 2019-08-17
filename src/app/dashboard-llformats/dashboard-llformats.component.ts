@@ -16,7 +16,7 @@ export class DashboardLLFormatsComponent implements OnInit {
   orginalformats: any[];
   tagid: any;
   orginaltags: any[];
-  tagcurrent: rc_format = { formattitle: '', role: 'LL', _id: '', priority: 1, type: '' };
+  tagcurrent: rc_tag = { tagtitle: '', role: 'LL', _id: '', priority: 1, type: '' };
 
   // tslint:disable-next-line: no-shadowed-variable
   // tslint:disable-next-line: max-line-length
@@ -56,7 +56,7 @@ export class DashboardLLFormatsComponent implements OnInit {
   }
 
   GotToCats(el) {
-    console.log(el);
+    // console.log(el);
     this.DashboardService.FormatShare = el;
     this.router.navigate(['/dashboard-LLcats/' + this.tagid + '/' + el._id]);
   }

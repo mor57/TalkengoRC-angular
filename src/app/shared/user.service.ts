@@ -30,7 +30,8 @@ export class UserService {
   }
 
   login(authCredentials) {
-    return this.http.post(environment.apiBaseUrl + '/login', authCredentials, this.noAuthHeader);
+    const user = this.http.post(environment.apiBaseUrl + '/login', authCredentials, this.noAuthHeader);
+    return user;
     // return this.http.post(environment.apiBaseUrl + '/rc_tag', authCredentials, this.noAuthHeader);
   }
 
@@ -38,7 +39,19 @@ export class UserService {
     return this.http.get(environment.apiBaseUrl + '/userProfile');
   }
 
+  getUserinfo() {
+    let userinfo = null;
+    if (localStorage.getItem('userinfo')) {
+      userinfo = JSON.parse(localStorage.getItem('userinfo'));
+    }
+    return userinfo;
+  }
+
   // Helper Methods
+
+  setUserinfo(userinfo: any) {
+    localStorage.setItem('userinfo', JSON.stringify(userinfo));
+  }
 
   setToken(token: string) {
     localStorage.setItem('token', token);
@@ -50,6 +63,7 @@ export class UserService {
 
   deleteToken() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userinfo');
   }
 
   getUserPayload() {

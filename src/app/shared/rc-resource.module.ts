@@ -15,6 +15,12 @@ export class rc_resource {
   description: string;
   priority: number;
   role: string;
+  trashstatus: number;
+  visitors: [{ type: string }];
+  usagecount: number;
+  raters: [{ type: string }];
+  // tslint:disable-next-line: variable-name
+  rate_sum: number;
 }
 
 

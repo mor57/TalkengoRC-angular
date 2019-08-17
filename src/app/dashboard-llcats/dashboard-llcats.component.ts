@@ -81,7 +81,7 @@ export class DashboardLLCatsComponent implements OnInit {
   }
 
   GotToCats(el) {
-    console.log(el);
+    // console.log(el);
     this.DashboardService.CatShare = el;
     this.router.navigate(['/dashboard-llresources/' + this.tagid + '/' + this.formatid + '/' + el._id + '/0/rc']);
   }

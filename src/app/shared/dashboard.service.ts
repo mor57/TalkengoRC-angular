@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { rc_tag } from './rc-tag.module';
 import { rc_format } from './rc-format.module';
 import { rc_cat } from './rc-cat.module';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,15 @@ export class DashboardService {
     //   ]
     // }
   ];
+  ipAddress: { ip: string; };
   // TopicShare: { _id: '5d07c651ea4b70130fb1666b', name: 'hw1 name, hometown and weather', groupname: 'starters', checked: false };
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getUserIp() {
+    this.http.get<{ ip: string }>('https://jsonip.com')
+      .subscribe(data => {
+        console.log('th data', data);
+        this.ipAddress = data;
+      });
+  }
 }

@@ -20,6 +20,7 @@ import { ResourceContentModalComponent } from '../resource-content-modal/resourc
   styleUrls: ['./resource-list.component.css']
 })
 export class ResourceListComponent implements OnInit {
+  userid: string;
   showFiller = false;
   levelname = 'All';
   tagid: string;
@@ -54,8 +55,9 @@ export class ResourceListComponent implements OnInit {
   // tagcurrent: rc_tag;
   // formatcurrent: rc_format;
   // catcurrent;
-  
+
   ngOnInit() {
+    this.userid = this.route.snapshot.params.userid;
     this.BindLevels();
     this.orginalformats = [];
     this.tagid = this.route.snapshot.params.tagid;
@@ -125,7 +127,7 @@ export class ResourceListComponent implements OnInit {
   }
 
   onChangeformat(el) {
-    console.log(el);
+    // console.log(el);
     this.formatid = el.value;
     this.loadresources();
     // tslint:disable-next-line: max-line-length
@@ -133,7 +135,7 @@ export class ResourceListComponent implements OnInit {
   }
 
   GotToResourceCat(el) {
-    console.log(el);
+    // console.log(el);
     this.DashboardService.CatShare = el;
     if (this.catid === el._id) {
       this.catid = '0';
@@ -159,7 +161,7 @@ export class ResourceListComponent implements OnInit {
   }
 
   GotToResourceTag(el) {
-    console.log(el);
+    // console.log(el);
     this.DashboardService.TagShare = el;
     if (this.tagid === el._id) {
       this.tagid = '0';
@@ -337,7 +339,12 @@ export class ResourceListComponent implements OnInit {
           subject: el.subject,
           description: el.description,
           priority: el.priority,
-          role: el.role
+          role: el.role,
+          trashstatus: el.trashstatus,
+          visitors: (el.visitors === null) ? [] : el.visitors,
+          usagecount: (el.usagecount === undefined) ? 0 : el.usagecount,
+          raters: (el.raters === null) ? [] : el.raters,
+          rate_sum: (el.rate_sum === undefined) ? 0 : el.rate_sum,
         });
     }
     const dialogRef = this.dialog.open(ResourceContentModalComponent, {

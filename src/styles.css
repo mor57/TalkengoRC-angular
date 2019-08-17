@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../src/assets/icon.css";
-/* @import url("https://fonts.googleapis.com/css?family=Poppins"); */
+@import "~ngx-bar-rating/themes/br-default-theme.css";
+@import "~ngx-bar-rating/themes/br-horizontal-theme.css";
 
 body {
   font-family: "Poppins", sans-serif;
@@ -80,7 +81,7 @@ input[type="reset"] {
   background-color: #56baed;
   border: none;
   color: white;
-  padding: 15px 80px;
+  padding: 15px 50px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -314,10 +315,28 @@ label.validation-message {
 div.container {
   margin: 0px 40px;
 }
-
-/* BASIC */
-
-/* Employee Form */
+@media screen and (max-width: 1333px) {
+  div.container {
+    margin: 0px 5px;
+  }
+  .mat-toolbar,
+  .mat-toolbar h1,
+  .mat-toolbar h2,
+  .mat-toolbar h3,
+  .mat-toolbar h4,
+  .mat-toolbar h5,
+  .mat-toolbar h6 {
+    font-size: 0.8rem;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1rem !important;
+  }
+}
 
 .fill-remaining-space {
   /* This fills the remaining space, by using flexbox.

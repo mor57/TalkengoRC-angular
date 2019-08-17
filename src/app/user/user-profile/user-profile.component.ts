@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/user.service';
+import { User } from 'src/app/shared/user.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -8,18 +9,23 @@ import { UserService } from 'src/app/shared/user.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  userDetails;
-  constructor(private userService: UserService, private router: Router) { }
+  userDetails: User;
+  constructor(private userService: UserService, private router: Router) {
+  }
 
   ngOnInit() {
-    this.userService.getUserProfile().subscribe(
-      res => {
-        this.userDetails = res['user'];
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    this.userDetails = this.userService.getUserinfo();
+    if (this.userDetails == null) {
+      this.router.navigateByUrl('/userprofile');
+    }
+    // this.userService.getUserProfile().subscribe(
+    //   res => {
+    //     this.userDetails = res['user'];
+    //   },
+    //   err => {
+    console.log(this.userDetails);
+    //   }
+    // );
   }
 
   onLogout() {

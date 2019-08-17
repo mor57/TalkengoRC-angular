@@ -1,6 +1,6 @@
 .filterboxmobile {
   display: none;
-  float: right;
+  float: left;
 }
 @media screen and (max-width: 1333px) {
   .filterbox {
@@ -11,9 +11,6 @@
   }
   .filterboxmobile {
     display: block;
-  }
-  div.container {
-    margin: 0px 5px;
   }
 }
 .filter-container {

@@ -1,3 +1,4 @@
+<bar-rating [rate]="rate" (rateChange)="updateRate($event)"></bar-rating>
 <div style="text-align: center;" oncontextmenu="return false;">
   <embed (contextmenu)="onRightClick()" [src]="resourcefile" type="application/pdf" width="100%" height="600px"
     *ngIf="RcResourceService.form.value.type==='pdf'" />

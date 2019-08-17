@@ -40,6 +40,7 @@ import { DashboardLLCatsComponent } from './dashboard-llcats/dashboard-llcats.co
 import { DashboardLLResourcesComponent } from './dashboard-llresources/dashboard-llresources.component';
 import { ResourceListComponent } from './dashboard-llresources/resource-list/resource-list.component';
 import { ResourceContentModalComponent } from './dashboard-llresources/resource-content-modal/resource-content-modal.component';
+import { BarRatingModule } from 'ngx-bar-rating';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { ResourceContentModalComponent } from './dashboard-llresources/resource-
     HttpClientModule,
     FlexLayoutModule,
     EditorModule,
+    BarRatingModule
   ],
   providers: [
     {

@@ -34,7 +34,7 @@ export class DashboardLLTagsComponent implements OnInit {
   }
 
   GotToFormat(el) {
-    console.log(el);
+    // console.log(el);
     this.DashboardService.TagShare = el;
     this.router.navigate(['/dashboard-LLformats/' + el._id]);
   }

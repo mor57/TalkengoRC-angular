@@ -3,13 +3,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { MatTableDataSource } from '@angular/material';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RcResourceService {
 
-  constructor(private http: HttpClient
+  constructor(private http: HttpClient, private userService: UserService,
   ) { }
 
   // tslint:disable-next-line: variable-name
@@ -31,7 +32,12 @@ export class RcResourceService {
     subject: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     priority: new FormControl(1, Validators.required),
-    role: new FormControl('LL', [Validators.required, Validators.minLength(2)])
+    role: new FormControl('LL', [Validators.required, Validators.minLength(2)]),
+    trashstatus: new FormControl(null),
+    visitors: new FormControl([]),
+    usagecount: new FormControl(null),
+    raters: new FormControl([]),
+    rate_sum: new FormControl(null)
   });
 
   initializeFormGroup() {
@@ -52,6 +58,12 @@ export class RcResourceService {
       description: '',
       priority: 1,
       role: 'LL',
+      trashstatus: 0,
+      visitors: [],
+      usagecount: 0,
+      raters: [],
+      // tslint:disable-next-line: variable-name
+      rate_sum: 0
     });
   }
 
@@ -71,6 +83,11 @@ export class RcResourceService {
 
   public update = (route: string, body) => {
     return this.http.put(this.createCompleteRoute(route, environment.apiBaseUrl), body);
+  }
+
+  public updatevisitors = (route: string, body) => {
+    const userinfo = this.userService.getUserinfo();
+    return this.http.put(this.createCompleteRoute(route, environment.apiBaseUrl) + '/' + body.id + '/' + userinfo.id, body);
   }
 
   public delete = (route: string, id) => {

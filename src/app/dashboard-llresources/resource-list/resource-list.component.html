@@ -6,8 +6,8 @@
     </span></a> <span class="padding-left-10"> > </span>
   <span class="padding-left-10">{{catcurrent.cattitle}}</span> <span class="padding-left-10"></span>
   <span class="fill-remaining-space"></span>
-  <span style="padding-right: 10px;">Level: </span>
-  <mat-form-field>
+  <span class='filterbox' style="padding-right: 10px;">Level: </span>
+  <mat-form-field class='filterbox'>
     <mat-select [(value)]="this.levelname" (selectionChange)="onChangeLevel($event)">
       <mat-option *ngFor="let level of orginallevels; let i = index" [value]="level.name">
         {{level.name}}</mat-option>
@@ -22,12 +22,20 @@
           <mat-icon>filter_list</mat-icon>
         </a></h3>
     </div>
-
     <mat-drawer-container class="filter-container" autosize hasBackdrop="false">
       <mat-drawer #drawer class="filter-sidenav" mode="over">
-        <button color="warn" (click)="drawer.toggle()" mat-raised-button>
+        <!-- <button color="warn" (click)="drawer.toggle()" mat-raised-button>
           Close filter box
-        </button>
+        </button> -->
+        <div class="blocks" style="text-align:center">
+          <span style="padding-right: 10px;">Level: </span>
+          <mat-form-field>
+            <mat-select [(value)]="this.levelname" (selectionChange)="onChangeLevel($event)">
+              <mat-option *ngFor="let level of orginallevels; let i = index" [value]="level.name">
+                {{level.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
         <h3>Click to select tag and category
         </h3>
         for format
