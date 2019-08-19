@@ -35,6 +35,8 @@ export class UserService {
     // return this.http.post(environment.apiBaseUrl + '/rc_tag', authCredentials, this.noAuthHeader);
   }
 
+  // Helper Methods
+
   getUserProfile() {
     return this.http.get(environment.apiBaseUrl + '/userProfile');
   }
@@ -47,23 +49,31 @@ export class UserService {
     return userinfo;
   }
 
-  // Helper Methods
-
   setUserinfo(userinfo: any) {
     localStorage.setItem('userinfo', JSON.stringify(userinfo));
+    this.setRole('admin');
   }
 
-  setToken(token: string) {
-    localStorage.setItem('token', token);
+  setRole(role: any) {
+    localStorage.setItem('role', role);
+  }
+
+  getRole() {
+    return localStorage.getItem('role');
   }
 
   getToken() {
     return localStorage.getItem('token');
   }
 
+  setToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
   deleteToken() {
     localStorage.removeItem('token');
     localStorage.removeItem('userinfo');
+    localStorage.removeItem('role');
   }
 
   getUserPayload() {

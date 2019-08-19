@@ -7,12 +7,10 @@
     </span> <span class="padding-left-10"></span>
     <span class="fill-remaining-space"></span>
   </mat-toolbar>
-  <div style="text-align:center">
-    <h1>
-      Choose your category
-    </h1>
+  <div class="landingcontainer">
     <div layout="row" layout-wrap flex>
-      <span flex="25" *ngFor="let cat of orginalcats; let i = index">
+      <span class="profile-main-title">Choose your category</span>
+      <span class="landingbox" *ngFor="let cat of orginalcats; let i = index">
         <input type="button" (click)="GotToCats(cat)" [value]="cat.cattitle" />
       </span>
     </div>

@@ -33,8 +33,9 @@ export class UserProfileComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  // Tags() {
-  //   this.router.navigate(['/dashboard-LLtags']);
-  // }
+  loginAsRoleLL(role) {
+    this.userService.setRole(role);
+    this.router.navigate(['/dashboard-LLtags']);
+  }
 
 }

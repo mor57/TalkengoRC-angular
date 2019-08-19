@@ -17,7 +17,11 @@ export class RcResourceListComponent implements OnInit {
   constructor(private RcResourceService: RcResourceService, public dialog: MatDialog, private notificationService: NotificationService
   ) { }
   listData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['resourcetitle', 'type', 'typestr', 'priority', 'role', 'access', 'actions'];
+  displayedColumns: string[] = ['resourcetitle',
+    'visitors.length',
+    'usagecount',
+    'rate_sum',
+    'type', 'typestr', 'priority', 'role', 'access', 'actions'];
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
@@ -54,6 +58,7 @@ export class RcResourceListComponent implements OnInit {
 
   openDialog(el, status): void {
     if (el !== null) {
+      if (el.trashstatus === undefined) { el.trashstatus = 0; }
       this.RcResourceService.form.setValue(
         {
           $key: null,
@@ -71,7 +76,12 @@ export class RcResourceListComponent implements OnInit {
           subject: el.subject,
           description: el.description,
           priority: el.priority,
-          role: el.role
+          role: el.role,
+          trashstatus: el.trashstatus,
+          visitors: (el.visitors === null) ? [] : el.visitors,
+          usagecount: (el.usagecount === undefined) ? 0 : el.usagecount,
+          raters: (el.raters === null) ? [] : el.raters,
+          rate_sum: (el.rate_sum === undefined) ? 0 : el.rate_sum,
         });
     }
     const dialogRef = this.dialog.open(RcResourceComponent, {
@@ -104,6 +114,7 @@ export class RcResourceListComponent implements OnInit {
 
   openDialogTopics(el): void {
     if (el !== undefined) {
+      if (el.trashstatus === undefined) { el.trashstatus = 0; }
       this.RcResourceService.form.setValue(
         {
           $key: null,
@@ -121,7 +132,12 @@ export class RcResourceListComponent implements OnInit {
           subject: el.subject,
           description: el.description,
           priority: el.priority,
-          role: el.role
+          role: el.role,
+          trashstatus: el.trashstatus,
+          visitors: (el.visitors === null) ? [] : el.visitors,
+          usagecount: (el.usagecount === undefined) ? 0 : el.usagecount,
+          raters: (el.raters === null) ? [] : el.raters,
+          rate_sum: (el.rate_sum === undefined) ? 0 : el.rate_sum,
         });
     }
     const dialogRef = this.dialog.open(RcResourceTopicsComponent, {
@@ -197,5 +213,13 @@ export class RcResourceListComponent implements OnInit {
     // else {
     //   return 'warn';
     // }
+  }
+
+  getRate(res) {
+    if (res.raters !== undefined && res.rate_sum !== undefined) {
+      return Math.ceil(res.rate_sum / res.raters.length);
+    } else {
+      return '';
+    }
   }
 }

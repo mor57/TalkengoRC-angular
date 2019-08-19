@@ -5,10 +5,10 @@
     <span class="padding-left-10"></span>
     <span class="fill-remaining-space"></span>
   </mat-toolbar>
-  <div style="text-align:center">
-    <h1>Choose your format</h1>
+  <div class="landingcontainer">
     <div layout="row" layout-wrap flex>
-      <span flex="25" *ngFor="let format of orginalformats; let i = index">
+      <span class="profile-main-title">Choose your format</span>
+      <span class="landingbox" *ngFor="let format of orginalformats; let i = index">
         <input type="button" (click)="GotToCats(format)" [value]="format.formattitle" />
       </span>
     </div>

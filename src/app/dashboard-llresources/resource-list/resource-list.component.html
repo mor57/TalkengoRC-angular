@@ -14,14 +14,13 @@
     </mat-select>
   </mat-form-field>
 </mat-toolbar>
-<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+<div class="landingcontainer" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px"
+  fxLayoutGap.xs="0">
   <div class="resourcebox" fxFlex="60%">
-    <div style="text-align:center">
-      <h3>{{ResourceTitle}}
-        <a class="filterboxmobile" (click)="drawer.toggle()">
-          <mat-icon>filter_list</mat-icon>
-        </a></h3>
-    </div>
+    <span class="resource-main-title">{{ResourceTitle}}
+      <a class="filterboxmobile" (click)="drawer.toggle()">
+        <mat-icon>filter_list</mat-icon>
+      </a></span>
     <mat-drawer-container class="filter-container" autosize hasBackdrop="false">
       <mat-drawer #drawer class="filter-sidenav" mode="over">
         <!-- <button color="warn" (click)="drawer.toggle()" mat-raised-button>
@@ -66,7 +65,6 @@
       </mat-drawer>
       <div class="filter-sidenav-content">
         <div style="width: 100%;">
-
           <div class="search-div">
             <mat-form-field class="search-form-field" floatLabel="never">
               <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">

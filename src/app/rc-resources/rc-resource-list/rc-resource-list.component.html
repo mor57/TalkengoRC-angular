@@ -20,6 +20,18 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Resource Title</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.resourcetitle}}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="visitors.length">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Visitors</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.visitors.length}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="usagecount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Usage</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.usagecount}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="rate_sum">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Rate starts(of 5)</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{getRate(element)}}</mat-cell>
+    </ng-container>
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.type}}</mat-cell>

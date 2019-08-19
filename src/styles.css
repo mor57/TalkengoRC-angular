@@ -8,13 +8,63 @@ body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
   margin: 0;
+  background-color: #fff;
+  /* height: auto; */
+  background: url("assets/img/back.png") repeat;
 }
-
+.mat-drawer-container {
+  background-color: unset;
+}
+.mat-elevation-z8 {
+  border-radius: 5px;
+  background-color: #fff;
+}
+.navigation {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.16);
+  background-color: #fff;
+  margin-bottom: 10px !important;
+}
+.mat-toolbar {
+  background: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  margin-bottom: 1px;
+  border-radius: 5px;
+}
+.profile-main-title {
+  display: block;
+  line-height: 67px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #323c47;
+}
+.landingcontainer {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.landingbox {
+  width: 25% !important;
+}
+.landingbox input {
+  display: inline;
+  width: 100vh;
+}
+.search-div input {
+  width: 100vh;
+}
+.resource-main-title {
+  display: block;
+  line-height: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #323c47;
+}
 a {
   color: #92badd;
   display: inline-block;
   text-decoration: none;
   font-weight: 400;
+  cursor: pointer;
 }
 
 h2 {
@@ -413,4 +463,7 @@ mat-radio-group mat-radio-button {
 
 .mat-radio-button {
   padding-bottom: 5px;
+}
+.filter-sidenav-content {
+  padding-top: 5px !important;
 }
