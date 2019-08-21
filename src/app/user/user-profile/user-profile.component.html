@@ -1,7 +1,9 @@
 <div class="container">
   <mat-toolbar>
     <span class="fill-remaining-space"></span>
-    <span>User Profile</span>
+    <span>
+      {{ 'Profile.User Profile' | translate }}
+    </span>
     <span class="fill-remaining-space"></span>
   </mat-toolbar>
   <div class="mat-elevation-z8" style="text-align: -webkit-center;padding: 20px;">
@@ -9,24 +11,30 @@
       <table *ngIf="userDetails" class="table-fill">
         <tbody>
           <tr>
-            <td>Role : </td>
+            <td>{{ 'Profile.Role' | translate }} : </td>
             <td>{{ userDetails.role }}</td>
           </tr>
           <tr>
-            <td>First Name : </td>
+            <td>{{ 'Profile.First Name' | translate }} : </td>
             <td>{{ userDetails.firstname }}</td>
           </tr>
           <tr>
-            <td>Last Name : </td>
+            <td>{{ 'Profile.Last Name' | translate }} : </td>
             <td>{{ userDetails.lastname }}</td>
           </tr>
           <tr>
-            <td>Email : </td>
+            <td>{{ 'Profile.Email' | translate }} : </td>
             <td>{{ userDetails.email }}</td>
           </tr>
           <tr>
             <td colspan="2" class="text-center">
-              <input type="button" (click)="loginAsRoleLL('LL')" value="Login as role LL" />
+              <input type="button" (click)="loginAsRoleLL('LL')" value="{{ 'Profile.Login as role LL' | translate }}" />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-center">
+              <input type="button" (click)="changeLang('en')" value="English" />
+              <input type="button" (click)="changeLang('fr')" value="France" />
             </td>
           </tr>
           <!-- <tr>

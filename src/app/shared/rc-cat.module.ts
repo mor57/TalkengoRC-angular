@@ -7,4 +7,5 @@ export class rc_cat {
   priority: number;
   role: string;
   color: string;
+  trashstatus: number;
 }

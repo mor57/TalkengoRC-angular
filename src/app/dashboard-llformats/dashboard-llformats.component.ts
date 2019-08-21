@@ -16,7 +16,7 @@ export class DashboardLLFormatsComponent implements OnInit {
   orginalformats: any[];
   tagid: any;
   orginaltags: any[];
-  tagcurrent: rc_tag = { tagtitle: '', role: 'LL', _id: '', priority: 1, type: '' };
+  tagcurrent: rc_tag = { tagtitle: '', role: 'LL', _id: '', priority: 1, type: '', trashstatus: 0 };
 
   // tslint:disable-next-line: no-shadowed-variable
   // tslint:disable-next-line: max-line-length

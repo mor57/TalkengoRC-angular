@@ -29,7 +29,8 @@ export class ResourceContentModalComponent implements OnInit {
       // tslint:disable-next-line: max-line-length
       this.resourcefile = this.sanitizer.bypassSecurityTrustResourceUrl(this.apiBaseUrl + '/' + this.RcResourceService.form.value.typestr + '#toolbar=0');
     }
-    this.RcResourceService.updatevisitors('rc_resource', { id: this.RcResourceService.form.value.id, rate: false }).subscribe(
+    const visited = this.userService.isResourceIdVisited(this.RcResourceService.form.value.id);
+    this.RcResourceService.updatevisitors('rc_resource', { id: this.RcResourceService.form.value.id, rate: false, visited }).subscribe(
       // tslint:disable-next-line: no-shadowed-variable
       res => {
         console.log(res);
@@ -57,10 +58,12 @@ export class ResourceContentModalComponent implements OnInit {
   }
 
   updateRate(value) {
-    console.log(value);
+    // console.log(value);
+    const visited = this.userService.isResourceIdVisited(this.RcResourceService.form.value.id);
     this.RcResourceService.updatevisitors('rc_resource', {
       id: this.RcResourceService.form.value.id,
-      rate: true, ratevalue: value
+      rate: true, ratevalue: value,
+      visited
     }).subscribe(
       // tslint:disable-next-line: no-shadowed-variable
       res => {

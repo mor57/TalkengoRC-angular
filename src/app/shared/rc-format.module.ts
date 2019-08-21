@@ -6,4 +6,5 @@ export class rc_format {
   type: string;
   priority: number;
   role: string;
+  trashstatus: number;
 }

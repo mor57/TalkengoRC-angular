@@ -6,4 +6,5 @@ export class rc_tag {
   type: string;
   priority: number;
   role: string;
+  trashstatus: number;
 }

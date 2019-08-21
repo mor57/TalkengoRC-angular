@@ -1,5 +1,5 @@
 {
-  "name": "TalkEngO",
+  "name": "talkengo",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -23,6 +23,8 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
+    "@ngx-translate/core": "^11.0.1",
+    "@ngx-translate/http-loader": "^4.0.0",
     "@tinymce/tinymce-angular": "^3.2.0",
     "angular-material-fileupload": "^2.0.0",
     "hammerjs": "^2.0.8",

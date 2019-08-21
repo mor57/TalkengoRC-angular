@@ -20,16 +20,23 @@ export class RcFormatListComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
+  trashstatus = 0;
 
   ngOnInit() {
-    this.loadformats();
+    this.loadformats(this.trashstatus);
   }
 
-  loadformats() {
+  loadformats(tstatus: any) {
+    if (tstatus === -1) {
+      this.trashstatus = 1;
+    } else {
+      this.trashstatus = 0;
+    }
     this.RcFormatService.getData('rc_format').subscribe(
       list => {
-        const orginals = list as [rc_format];
+        let orginals = list as rc_format[];
         orginals.sort((a, b) => a.priority < b.priority ? -1 : 1);
+        orginals = orginals.filter(res => res.trashstatus === this.trashstatus || res.trashstatus === undefined);
         this.listData = new MatTableDataSource(orginals as rc_format[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -73,7 +80,7 @@ export class RcFormatListComponent implements OnInit {
           this.RcFormatService.form.reset();
           this.RcFormatService.initializeFormGroup();
           this.notificationService.success(':: Submitted successfully');
-          this.loadformats();
+          this.loadformats(this.trashstatus);
         },
         err => {
           console.log(err.error.message);
@@ -90,7 +97,7 @@ export class RcFormatListComponent implements OnInit {
       res => {
         const resault = res as { message: string };
         this.notificationService.success(resault.message);
-        this.loadformats();
+        this.loadformats(this.trashstatus);
       },
       err => {
         console.log(err.error.message);
@@ -110,21 +117,11 @@ export class RcFormatListComponent implements OnInit {
       res => {
         const resault = res as { message: string };
         this.notificationService.success(resault.message);
-        this.loadformats();
+        this.loadformats(this.trashstatus);
       },
       err => {
         console.log(err.error.message);
       });
   }
 
-  // deleteRow(id) {
-  //   this.RcFormatService.delete('rc_format', id).subscribe(
-  //     res => {
-  //       this.notificationService.success(':: Deleted successfully');
-  //       this.loadformats();
-  //     },
-  //     err => {
-  //       console.log(err.error.message);
-  //     });
-  // }
 }

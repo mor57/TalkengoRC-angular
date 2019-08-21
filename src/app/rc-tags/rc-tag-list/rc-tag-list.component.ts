@@ -20,16 +20,23 @@ export class RcTagListComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
+  trashstatus = 0;
 
   ngOnInit() {
-    this.loadtags();
+    this.loadtags(this.trashstatus);
   }
 
-  loadtags() {
+  loadtags(tstatus: any) {
+    if (tstatus === -1) {
+      this.trashstatus = 1;
+    } else {
+      this.trashstatus = 0;
+    }
     this.RcTagService.getData('rc_tag').subscribe(
       list => {
-        const orginals = list as [rc_tag];
+        let orginals = list as rc_tag[];
         orginals.sort((a, b) => a.priority < b.priority ? -1 : 1);
+        orginals = orginals.filter(res => res.trashstatus === this.trashstatus || res.trashstatus === undefined);
         this.listData = new MatTableDataSource(orginals as rc_tag[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -72,7 +79,7 @@ export class RcTagListComponent implements OnInit {
           this.RcTagService.form.reset();
           this.RcTagService.initializeFormGroup();
           this.notificationService.success(':: Submitted successfully');
-          this.loadtags();
+          this.loadtags(this.trashstatus);
         },
         err => {
           console.log(err.error.message);
@@ -89,7 +96,7 @@ export class RcTagListComponent implements OnInit {
       res => {
         const resault = res as { message: string };
         this.notificationService.success(resault.message);
-        this.loadtags();
+        this.loadtags(this.trashstatus);
       },
       err => {
         console.log(err.error.message);
@@ -109,7 +116,7 @@ export class RcTagListComponent implements OnInit {
       res => {
         const resault = res as { message: string };
         this.notificationService.success(resault.message);
-        this.loadtags();
+        this.loadtags(this.trashstatus);
       },
       err => {
         console.log(err.error.message);

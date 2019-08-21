@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,7 @@ export class UserService {
 
   noAuthHeader = { headers: new HttpHeaders({ NoAuth: 'True' }) };
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, public translate: TranslateService) { }
 
   // HttpMethods
 
@@ -70,6 +72,35 @@ export class UserService {
     localStorage.setItem('token', token);
   }
 
+  getLang() {
+    return localStorage.getItem('lang');
+  }
+
+  setLang(token: string) {
+    localStorage.setItem('lang', token);
+  }
+
+  isResourceIdVisited(resourceId: string) {
+    let VisitedResources = JSON.parse(this.getVisitedResources());
+    let result = [];
+    if (VisitedResources !== null) {
+      result = VisitedResources.filter(rid => rid === resourceId);
+    } else {
+      VisitedResources = [];
+    }
+    if (result.length === 0) {
+      VisitedResources.push(resourceId);
+      localStorage.setItem('VisitedResources', JSON.stringify(VisitedResources));
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  getVisitedResources() {
+    return localStorage.getItem('VisitedResources');
+  }
+
   deleteToken() {
     localStorage.removeItem('token');
     localStorage.removeItem('userinfo');
@@ -112,4 +143,7 @@ export class UserService {
     this.router.navigate(['/login']);
   }
 
+  translateKey(key: any) {
+    return this.translate.get(key);
+  }
 }

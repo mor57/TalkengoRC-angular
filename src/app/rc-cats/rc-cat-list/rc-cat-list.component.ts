@@ -20,16 +20,23 @@ export class RcCatListComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
+  trashstatus: any = 0;
 
   ngOnInit() {
-    this.loadcats();
+    this.loadcats(this.trashstatus);
   }
 
-  loadcats() {
+  loadcats(tstatus: any) {
+    if (tstatus === -1) {
+      this.trashstatus = 1;
+    } else {
+      this.trashstatus = 0;
+    }
     this.RcCatService.getData('rc_cat').subscribe(
       list => {
-        const orginals = list as [rc_cat];
+        let orginals = list as rc_cat[];
         orginals.sort((a, b) => a.priority < b.priority ? -1 : 1);
+        orginals = orginals.filter(res => res.trashstatus === this.trashstatus || res.trashstatus === undefined);
         this.listData = new MatTableDataSource(orginals as rc_cat[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -73,7 +80,7 @@ export class RcCatListComponent implements OnInit {
           this.RcCatService.form.reset();
           this.RcCatService.initializeFormGroup();
           this.notificationService.success(':: Submitted successfully');
-          this.loadcats();
+          this.loadcats(this.trashstatus);
         },
         err => {
           console.log(err.error.message);
@@ -81,7 +88,6 @@ export class RcCatListComponent implements OnInit {
       );
     });
   }
-
 
   undodelete(el) {
     const body = el;
@@ -91,7 +97,7 @@ export class RcCatListComponent implements OnInit {
       res => {
         const resault = res as { message: string };
         this.notificationService.success(resault.message);
-        this.loadcats();
+        this.loadcats(this.trashstatus);
       },
       err => {
         console.log(err.error.message);
@@ -111,7 +117,7 @@ export class RcCatListComponent implements OnInit {
       res => {
         const resault = res as { message: string };
         this.notificationService.success(resault.message);
-        this.loadcats();
+        this.loadcats(this.trashstatus);
       },
       err => {
         console.log(err.error.message);

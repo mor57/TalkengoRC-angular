@@ -1,19 +1,19 @@
 <div style="text-align:center">
-  <h1>TalkEngO Resource Center Management System</h1>
+  <h1>{{ 'Dashboard.DashboardTitle' | translate }}</h1>
   <p>
-    This is a platform for manage Resource Center modules.
-    <br> Click on modules to get Started!!!
+    {{ 'Dashboard.Descrioption' | translate }}
   </p>
 </div>
 <div class="blocks" style="text-align:center">
-  <h3>Language learner resource center</h3>
-  <input type="button" (click)="DashboardLL()" value="Resource center for LL" />
+  <!-- <h3>Language learner resource center</h3> -->
+  <input type="button" (click)="DashboardLL()" value="{{ 'Profile.Login as role LL' | translate }}" />
 </div>
 <div class="blocks" style="text-align:center">
-  <h3>Sample session (topics for "general" group): special resource</h3>
-  <input type="button" (click)="Dashboardllsessionspecial()" value="Special resources" />
+  <h3>{{ 'Dashboard.Sample session (related special resource) for topic:' | translate }} hw1 name, hometown and weather
+  </h3>
+  <input type="button" (click)="Dashboardllsessionspecial()" value="{{ 'Dashboard.Special' | translate }}" />
 </div>
 <div class="blocks" style="text-align:center">
-  <h3>Sample session (topics for "general" group): homework</h3>
-  <input type="button" (click)="Dashboardllsessionhomework()" value="Homework" />
+  <h3>{{ 'Dashboard.Sample session (homework resource) for topic:' | translate }} hw1 name, hometown and weather</h3>
+  <input type="button" (click)="Dashboardllsessionhomework()" value="{{ 'Dashboard.Homework' | translate }}" />
 </div>

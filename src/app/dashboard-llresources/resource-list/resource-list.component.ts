@@ -13,6 +13,7 @@ import { rc_tag } from '../../shared/rc-tag.module';
 import { RcFormatService } from '../../shared/rc-format.service';
 import { rc_format } from '../../shared/rc-format.module';
 import { ResourceContentModalComponent } from '../resource-content-modal/resource-content-modal.component';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-resource-list',
@@ -34,22 +35,28 @@ export class ResourceListComponent implements OnInit {
   orginalcats: any[];
   orginalformats: rc_format[];
   orginalresources: any[];
-  formatall: rc_format = { formattitle: 'All Format', role: 'LL', _id: '0', priority: 1, type: '' };
-  formatcurrent: rc_format = { formattitle: '', role: 'LL', _id: '0', priority: 1, type: '' };
-  tagcurrent: rc_tag = { tagtitle: 'All Tag', role: 'LL', _id: '', priority: 1, type: '' };
-  catcurrent: rc_cat = { cattitle: 'All Cat', role: 'LL', _id: '', priority: 1, type: '', color: '' };
+  formatall: rc_format = { formattitle: 'All Format', role: 'LL', _id: '0', priority: 1, type: '', trashstatus: 0 };
+  formatcurrent: rc_format = { formattitle: '', role: 'LL', _id: '0', priority: 1, type: '', trashstatus: 0 };
+  tagcurrent: rc_tag = { tagtitle: 'All Tag', role: 'LL', _id: '', priority: 1, type: '', trashstatus: 0 };
+  catcurrent: rc_cat = { cattitle: 'All Cat', role: 'LL', _id: '', priority: 1, type: '', color: '', trashstatus: 0 };
   resources: any[];
   orginallevels: any;
   orginaltopics: { name: string; topics: { _id: string; name: string; groupname: string; checked: boolean; }[]; }[];
-  show: boolean = false;
+  show = false;
+  All = 'All';
+  TopicTitle: string;
   // tslint:disable-next-line: no-shadowed-variable
   // tslint:disable-next-line: max-line-length
-  constructor(private RcResourceService: RcResourceService, private RcFormatService: RcFormatService, private DashboardService: DashboardService, private RcTagService: RcTagService, private RcCatService: RcCatService, public dialog: MatDialog, private notificationService: NotificationService, private router: Router, private route: ActivatedRoute
-  ) { }
+  constructor(private RcResourceService: RcResourceService, private RcFormatService: RcFormatService, private DashboardService: DashboardService, private RcTagService: RcTagService, private RcCatService: RcCatService, public dialog: MatDialog, private notificationService: NotificationService, private router: Router, private route: ActivatedRoute, public userService: UserService
+  ) {
+    this.userService.translateKey('RC.All').subscribe(res => {
+      this.All = res;
+    });
+  }
   listData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['typestr', 'resourcetitle', 'access'];
+  displayedColumns: string[] = ['typestr', 'resourcetitle', 'subject', 'access'];
   @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  // @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
   apiBaseUrl: string = environment.apiBaseUrl;
   // tagcurrent: rc_tag;
@@ -68,7 +75,10 @@ export class ResourceListComponent implements OnInit {
     if (this.topicid !== '0') {
       this.BindTopic();
     } else {
-      this.ResourceTitle = 'Resources';
+      // this.ResourceTitle = 'Resources';
+      // this.userService.translateKey('RC.Resources').subscribe(res => {
+      //   this.ResourceTitle = res;
+      // });
     }
     this.position = this.route.snapshot.params.position;
     this.getFormat();
@@ -82,7 +92,7 @@ export class ResourceListComponent implements OnInit {
     this.DashboardService.orginaltopics.forEach(grouptopic => {
       topics = grouptopic.topics.filter((topic) => topic._id === this.topicid);
       if (topics.length > 0) {
-        this.ResourceTitle = 'Resources for topic: ' + topics[0].name;
+        this.TopicTitle = topics[0].name;
         return;
       }
     });
@@ -249,7 +259,7 @@ export class ResourceListComponent implements OnInit {
         });
         this.listData = new MatTableDataSource(this.resources as rc_resource[]);
         this.listData.sort = this.sort;
-        this.listData.paginator = this.paginator;
+        // this.listData.paginator = this.paginator;
         this.listData.filterPredicate = (data, filter) => {
           return this.displayedColumns.some(ele => {
             return ele !== 'actions' && data[ele].toString().toLowerCase().indexOf(filter) !== -1;
@@ -322,6 +332,7 @@ export class ResourceListComponent implements OnInit {
 
   openDialog(el): void {
     if (el !== null) {
+      if (el.trashstatus === undefined) { el.trashstatus = 0; }
       this.RcResourceService.form.setValue(
         {
           $key: null,

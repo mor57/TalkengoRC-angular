@@ -20,8 +20,8 @@ export class DashboardLLCatsComponent implements OnInit {
   formatid: string;
   orginaltags: any[];
   orginalformats: any[];
-  formatcurrent: rc_format = { formattitle: '', role: 'LL', _id: '', priority: 1, type: '' };
-  tagcurrent: rc_tag = { tagtitle: '', role: 'LL', _id: '', priority: 1, type: '' };
+  formatcurrent: rc_format = { formattitle: '', role: 'LL', _id: '', priority: 1, type: '', trashstatus: 0 };
+  tagcurrent: rc_tag = { tagtitle: '', role: 'LL', _id: '', priority: 1, type: '', trashstatus: 0 };
   // tslint:disable-next-line: no-shadowed-variable
   // tslint:disable-next-line: max-line-length
   constructor(private RcFormatService: RcFormatService, private DashboardService: DashboardService, private RcTagService: RcTagService, private RcCatService: RcCatService, private router: Router, private route: ActivatedRoute

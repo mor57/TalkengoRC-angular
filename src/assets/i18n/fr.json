@@ -1,0 +1,51 @@
+{
+	"App": {
+		"Choose your category": "Choisissez votre catégorie",
+		"Choose your format": "Choisissez votre format",
+		"Choose your tag": "Choisissez votre tag",
+		"Dashboard": "Tableau de bord",
+		"LogOut": "Connectez - Out",
+		"Login": "S'identifier",
+		"Profile": "Profil",
+		"TalkEngO Resource Center": "Centre de ressources TalkEngO"
+	},
+	"Dashboard": {
+		"DashboardTitle": "Système de gestion du centre de ressources TalkEngO",
+		"Descrioption": "Ceci est une plate-forme pour gérer les modules du centre de ressources. Cliquez sur les modules pour commencer !!!",
+		"Homework": "Devoirs",
+		"Sample session (homework resource) for topic:": "Exemple de session (ressource de travail) pour le sujet:",
+		"Sample session (related special resource) for topic:": "Exemple de session (ressource spéciale associée) pour le sujet:",
+		"Special": "Spécial"
+	},
+	"Profile": {
+		"Conversation Partner": "Partenaire de conversation",
+		"Email": "Email",
+		"Enter atleast 3 characters": "Entrez au moins 3 caractères.",
+		"First Name": "Prénom",
+		"Invalid email address": "Adresse e-mail invalide.",
+		"Language Learner": "Apprenant d'une langue",
+		"Last Name": "Nom de famille",
+		"Login as role LL": "Tableau de bord pour le rôle LL",
+		"Minimum 3 characters": "3 caractères minimum.",
+		"Password": "Mot de passe",
+		"Role": "Rôle",
+		"Saved successfully": "Enregistré avec succès",
+		"Sign In": "se connecter",
+		"Sign Up": "S'inscrire",
+		"This field is required": "Ce champ est requis.",
+		"User Profile": "Profil de l'utilisateur"
+	},
+	"RC": {
+		"Access": "Accès",
+		"Category": "CATÉGORIE",
+		"Click to select tag and category": "Cliquez pour sélectionner l'étiquette et la catégorie",
+		"Level": "Niveau",
+		"Resource Title": "Ressources",
+		"Resources": "Ressources",
+		"Search": "Chercher",
+		"Subject": "Assujettir",
+		"Tag": "Étiquette",
+		"for format": "pour le format",
+		"for topic": "pour le sujet"
+	}
+}

@@ -26,16 +26,23 @@ export class RcResourceListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
   apiBaseUrl: string = environment.apiBaseUrl;
+  trashstatus: any = 0;
 
   ngOnInit() {
-    this.loadresources();
+    this.loadresources(this.trashstatus);
   }
 
-  loadresources() {
+  loadresources(tstatus: any) {
+    if (tstatus === -1) {
+      this.trashstatus = 1;
+    } else {
+      this.trashstatus = 0;
+    }
     this.RcResourceService.getData('rc_resource').subscribe(
       list => {
-        const orginals = list as [rc_resource];
+        let orginals = list as rc_resource[];
         orginals.sort((a, b) => a.priority < b.priority ? -1 : 1);
+        orginals = orginals.filter(res => res.trashstatus === this.trashstatus);
         this.listData = new MatTableDataSource(orginals as rc_resource[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -99,10 +106,10 @@ export class RcResourceListComponent implements OnInit {
           if (body.resourcefile !== null) {
             body.id = res._id;
             this.RcResourceService.uploadFile(body).subscribe(resUpload => {
-              this.loadresources();
+              this.loadresources(this.trashstatus);
             });
           } else {
-            this.loadresources();
+            this.loadresources(this.trashstatus);
           }
         },
         err => {
@@ -152,7 +159,7 @@ export class RcResourceListComponent implements OnInit {
           this.RcResourceService.form.reset();
           this.RcResourceService.initializeFormGroup();
           this.notificationService.success(':: Submitted successfully');
-          this.loadresources();
+          this.loadresources(this.trashstatus);
         },
         err => {
           console.log(err.error.message);
@@ -169,7 +176,7 @@ export class RcResourceListComponent implements OnInit {
       res => {
         const resault = res as { message: string };
         this.notificationService.success(resault.message);
-        this.loadresources();
+        this.loadresources(this.trashstatus);
       },
       err => {
         console.log(err.error.message);
@@ -189,7 +196,7 @@ export class RcResourceListComponent implements OnInit {
       res => {
         const resault = res as { message: string };
         this.notificationService.success(resault.message);
-        this.loadresources();
+        this.loadresources(this.trashstatus);
       },
       err => {
         console.log(err.error.message);

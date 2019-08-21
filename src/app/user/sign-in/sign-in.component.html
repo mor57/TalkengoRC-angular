@@ -2,17 +2,19 @@
   <img src="assets/img/single_user.png" id="icon" alt="User Icon" />
 </div>
 <form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
-  <input type="text" name="email" #email="ngModel" [(ngModel)]="model.email" placeholder="Email" [pattern]="emailRegex"
-    required [ngClass]="{ 'invalid-textbox': signInForm.submitted && !email.valid }" />
+  <input type="text" name="email" #email="ngModel" [(ngModel)]="model.email"
+    placeholder="{{ 'Profile.Email' | translate }}" [pattern]="emailRegex" required
+    [ngClass]="{ 'invalid-textbox': signInForm.submitted && !email.valid }" />
   <div *ngIf="signInForm.submitted && email.errors?.pattern">
-    <label class="validation-message">Invalid email address.</label>
+    <label class="validation-message">{{ 'Profile.Invalid email address' | translate }}</label>
   </div>
-  <input type="password" name="password" #password="ngModel" [(ngModel)]="model.password" placeholder="Password"
-    required minlength="3" [ngClass]="{ 'invalid-textbox': signInForm.submitted && !password.valid }" />
+  <input type="password" name="password" #password="ngModel" [(ngModel)]="model.password"
+    placeholder="{{ 'Profile.Password' | translate }}" required minlength="3"
+    [ngClass]="{ 'invalid-textbox': signInForm.submitted && !password.valid }" />
   <div *ngIf="signInForm.submitted && password.errors?.minlength">
-    <label class="validation-message">Minimum 3 characters.</label>
+    <label class="validation-message">{{ 'Profile.Minimum 3 characters' | translate }}</label>
   </div>
-  <input type="submit" value="Sign In" />
+  <input type="submit" value="{{ 'Profile.Sign In' | translate }}" />
 </form>
 <!-- Error message -->
 <div class="alert" *ngIf="serverErrorMessages">
