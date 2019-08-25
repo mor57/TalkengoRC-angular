@@ -1,14 +1,11 @@
 # TalkengoRC-angular
 
-<<<<<<< HEAD
 ## Resource center angular admin panel for native English speakers and learning English easily and naturally.
 
 > Angular, Material, tinymce, jwt(Json web token)-bearer-tokens, restapi backend.
-=======
 ## Resource center angular admin panel for native English speakers and learning English easily and naturally. 
 
 > Angular, Material, tinymce, jwt(Json web token)-bearer-tokens, restapi backend. 
->>>>>>> e3bcac6b1a9583415cafed969676b963024c5553
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
