@@ -44,6 +44,7 @@ import { BarRatingModule } from 'ngx-bar-rating';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -77,6 +78,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     DashboardLLResourcesComponent,
     ResourceListComponent,
     ResourceContentModalComponent,
+    DashboardHomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,192 @@
+.landingcontainer {
+    /* padding: 100px; */
+}
+
+.FreeCatCenterTitle {
+    font-size: 1.8rem;
+    padding: 20px 100px;
+    width: 100%;
+}
+
+.divvideo {
+    float: right;
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+}
+
+.divregister {
+    padding: 20px;
+    float: left;
+    width: 50%;
+}
+
+
+/* .divregister a {
+    background-color: purple;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.divregister a:hover {
+    background-color: rgb(211, 40, 211);
+    color: whitesmoke;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+} */
+
+.divtop {
+    height: 250px;
+}
+
+.mat-raised-button {
+    width: 100%;
+    padding: 20px;
+    margin: 20px;
+    color: #fff;
+    background-image: linear-gradient(to right, #1c6ab5, #05b4f3);
+}
+
+.landingbox {
+    width: 25% !important;
+    display: inline-block;
+    margin-left: 50px;
+}
+
+
+/* 
+.btn {
+    align-items: center;
+    color: #fff;
+    background-image: linear-gradient(to right, #1c6ab5, #05b4f3);
+}
+
+.md-btn.md-lg {
+    min-height: 54px;
+    height: 54px;
+    border-radius: 2px;
+    font-size: 18px;
+    padding: 0 40px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+a.md-btn.md-lg {
+    display: inline-flex;
+} */
+
+.mat-raised-button:hover {
+    background-image: linear-gradient(to right, #c8252c, #e93b43);
+}
+
+.landingbox button {
+    font-size: 18px;
+}
+
+.pattern-image-holder {
+    background-image: url(/assets/img/talkengo-logo-pattern.png);
+    background-repeat: no-repeat;
+}
+
+.ind-learner-holder .ind-learner-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+    width: 50%;
+}
+
+.ind-learner-holder {
+    position: relative;
+    padding: 50px;
+    background-image: url(/assets/img/backintro.jpg);
+    background-size: cover;
+}
+
+.ind-learner-holder .ind-learner-image .play-button {
+    position: absolute;
+    text-align: center;
+    top: calc(50% - 33px);
+    left: calc(50% - 33px);
+    cursor: pointer;
+    width: 66px;
+    height: 66px;
+    background-image: url(/assets/img/playintro.png);
+}
+
+a.md-btn.bordered-btn {
+    background-color: transparent;
+    /* background-color: #1c6ab5; */
+    color: #fff;
+    border-color: #fff;
+}
+
+.ind-learner-btn-holder {
+    width: 50%;
+}
+
+a.md-btn.bordered-btn:hover {
+    background-color: #fff;
+    color: #1c6ab5;
+}
+
+.ind-learner-holder .ind-learner-image {
+    position: absolute;
+    top: -20px;
+    right: 50px;
+    height: calc(100% + 60px);
+}
+
+.videotag {
+    width: inherit;
+    margin-top: 50px;
+    height: 250px;
+}
+
+@media screen and (max-width: 1333px) {
+    mat-toolbar {
+        white-space: pre-line;
+        font-weight: 600;
+    }
+    .divvideo {
+        width: 100%;
+        height: 200px;
+    }
+    .divtop {
+        height: 200px;
+    }
+    .divregister {
+        width: 100%;
+    }
+    .FreeCatCenterTitle {
+        font-size: 1rem;
+        padding: 20px;
+        padding-bottom: 20px;
+    }
+    .ind-learner-title {
+        font-size: 14px !important;
+        width: 100% !important;
+    }
+    .ind-learner-holder .ind-learner-image {
+        position: unset;
+        top: unset;
+        right: unset;
+        width: 100%;
+    }
+    .videotag {
+        width: inherit;
+        margin-top: 20px;
+        height: unset;
+    }
+    .landingbox {
+        width: 100% !important;
+        margin-left: unset;
+        padding: 5px;
+        margin: 5px;
+    }
+    .landingbox button {
+        width: 80%;
+        font-size: 30px;
+        padding: 15px;
+        margin: 5px;
+    }
+}

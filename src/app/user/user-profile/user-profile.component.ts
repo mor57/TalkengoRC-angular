@@ -29,15 +29,19 @@ export class UserProfileComponent implements OnInit {
 
   loginAsRoleLL(role: any) {
     this.userService.setRole(role);
-    this.router.navigate(['/dashboard-LLtags']);
+    if (role === 'admin') {
+      this.router.navigate(['/userprofile']);
+    } else {
+      this.router.navigate(['/dashboard-LLtags']);
+    }
   }
 
-  changeLang(lang: string) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    this.translate.setDefaultLang(lang);
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    this.translate.use(lang);
-    this.userService.setLang(lang);
-  }
+  // changeLang(lang: string) {
+  //   // this language will be used as a fallback when a translation isn't found in the current language
+  //   this.translate.setDefaultLang(lang);
+  //   // the lang to use, if the lang isn't available, it will use the current loader to get them
+  //   this.translate.use(lang);
+  //   this.userService.setLang(lang);
+  // }
 
 }

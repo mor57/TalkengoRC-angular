@@ -20,6 +20,7 @@ import { DashboardLLFormatsComponent } from './dashboard-llformats/dashboard-llf
 import { DashboardLLCatsComponent } from './dashboard-llcats/dashboard-llcats.component';
 import { DashboardLLResourcesComponent } from './dashboard-llresources/dashboard-llresources.component';
 import { ResourceContentModalComponent } from './dashboard-llresources/resource-content-modal/resource-content-modal.component';
+import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 
 export const appRoutes: Routes = [
   {
@@ -68,8 +69,7 @@ export const appRoutes: Routes = [
   , { path: 'dashboard-LLformats/:tagid', component: DashboardLLFormatsComponent, canActivate: [AuthGuard] }
   , { path: 'dashboard-LLcats/:tagid/:formatid', component: DashboardLLCatsComponent, canActivate: [AuthGuard] }
   // tslint:disable-next-line: max-line-length
-  , { path: 'dashboard-llresources/:tagid/:formatid/:catid/:topicid/:position', component: DashboardLLResourcesComponent, canActivate: [AuthGuard] }
-  // , { path: 'dashboard-llsession-special', component: DashboardLLSessionSpecialComponent, canActivate: [AuthGuard] }
-  // , { path: 'dashboard-llsession-homework', component: DashboardLLSessionHomeworkComponent, canActivate: [AuthGuard] }
+  , { path: 'dashboard-llresources/:tagid/:formatid/:catid/:topicid/:position', component: DashboardLLResourcesComponent }
   , { path: 'resource-content-modal', component: ResourceContentModalComponent, canActivate: [AuthGuard] }
+  , { path: 'dashboard-home', component: DashboardHomeComponent }
 ];

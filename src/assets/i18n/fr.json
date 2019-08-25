@@ -2,20 +2,27 @@
 	"App": {
 		"Choose your category": "Choisissez votre catégorie",
 		"Choose your format": "Choisissez votre format",
-		"Choose your tag": "Choisissez votre tag",
-		"Dashboard": "Tableau de bord",
+		"Choose your service group": "Choisissez votre groupe de service",
+		"Dashboard": "Centre de ressources",
+		"DashboardVitrin": "Vitrin",
 		"LogOut": "Connectez - Out",
 		"Login": "S'identifier",
 		"Profile": "Profil",
-		"TalkEngO Resource Center": "Centre de ressources TalkEngO"
+		"Resource Center": "Centre de ressources",
+		"Session Resources": "Ressources de session",
+		"TalkEngO Resource Center": "Resource Center Control Panel"
 	},
 	"Dashboard": {
-		"DashboardTitle": "Système de gestion du centre de ressources TalkEngO",
+		"DashboardTitle": "Centre de ressources TalkEngO: ressources de session",
 		"Descrioption": "Ceci est une plate-forme pour gérer les modules du centre de ressources. Cliquez sur les modules pour commencer !!!",
+		"FreeCatCenterRegisterBtn": "Cliquez ici pour un test gratuit",
+		"FreeCatCenterRegisterForFree": "Inscrivez-vous GRATUITEMENT à TalkEngO!\nVous pouvez connaître votre niveau en prenant gratuitement un test de diagnostic",
+		"FreeCatCenterTitle": "Ici, vous pouvez goûter certaines des ressources que nous avons pour les apprenants à TalkEngO.\n Pour un accès complet, inscrivez-vous maintenant en tant qu'apprenant anglais",
+		"FreeCatCenterToolbar": "CENTRE DE RESSOURCES - Échantillons gratuits pour les visiteurs (Vitrine des ressources)",
 		"Homework": "Devoirs",
 		"Sample session (homework resource) for topic:": "Exemple de session (ressource de travail) pour le sujet:",
-		"Sample session (related special resource) for topic:": "Exemple de session (ressource spéciale associée) pour le sujet:",
-		"Special": "Spécial"
+		"Sample session (related special resource) for topic:": "Ressources liées au sujet:",
+		"Special": "Ressources associées"
 	},
 	"Profile": {
 		"Conversation Partner": "Partenaire de conversation",
@@ -33,19 +40,25 @@
 		"Sign In": "se connecter",
 		"Sign Up": "S'inscrire",
 		"This field is required": "Ce champ est requis.",
-		"User Profile": "Profil de l'utilisateur"
+		"User Profile": "Profil de l'utilisateur",
+		"admin": "Administrateur"
 	},
 	"RC": {
 		"Access": "Accès",
 		"Category": "CATÉGORIE",
-		"Click to select tag and category": "Cliquez pour sélectionner l'étiquette et la catégorie",
+		"Click to select service group and category": "Cliquez pour sélectionner le groupe de services et la catégorie",
 		"Level": "Niveau",
+		"Openlink": "Ouvrir le lien dans une fenêtre séparée",
+		"Rate of this resource": "Taux de cette ressource",
 		"Resource Title": "Ressources",
 		"Resources": "Ressources",
 		"Search": "Chercher",
 		"Subject": "Assujettir",
-		"Tag": "Étiquette",
+		"Your browser does not support the resource": "Votre navigateur ne supporte pas la ressource.",
 		"for format": "pour le format",
-		"for topic": "pour le sujet"
+		"for topic": "pour le sujet",
+		"give your rate": "donne ton taux",
+		"ratings": "Évaluations",
+		"service group": "Groupe de service"
 	}
 }

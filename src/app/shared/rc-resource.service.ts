@@ -68,7 +68,11 @@ export class RcResourceService {
   }
 
   public getData = (route: string) => {
-    return this.http.get(this.createCompleteRoute(route, environment.apiBaseUrl));
+    if (this.userService.isLoggedIn()) {
+      return this.http.get(this.createCompleteRoute(route, environment.apiBaseUrl));
+    } else {
+      return this.http.get(this.createCompleteRoute(route + '/free', environment.apiBaseUrl));
+    }
   }
 
   public create = (route: string, body) => {

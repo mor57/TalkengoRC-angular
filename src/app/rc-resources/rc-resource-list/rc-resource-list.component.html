@@ -1,91 +1,94 @@
 <div class="search-div">
-  <!-- <button mat-raised-button>
+    <!-- <button mat-raised-button>
       <mat-icon>add</mat-icon><a [routerLink]="['/rc-resource']" mat-button color="primary">Create resource</a>
     </button> -->
-  <div class="blocks">
-    <button button="submit" mat-raised-button color="primary" (click)="openDialog(null,null)" matTooltip="Add Resource">
-      <mat-icon>add</mat-icon> Add Resource
-    </button>
-    <div class="pull-right">
-      <button mat-icon-button (click)="loadresources(trashstatus-1)">
-        <mat-icon color="warn" matTooltip="recycle bin" *ngIf="trashstatus===0">delete_outline</mat-icon>
-        <mat-icon color="primary" matTooltip="active resource" *ngIf="trashstatus===1">undo</mat-icon>
-      </button>
+    <div class="blocks">
+        <button button="submit" mat-raised-button color="primary" (click)="openDialog(null,null)" matTooltip="Add Resource">
+            <mat-icon>add</mat-icon> Add Resource
+        </button>
+        <div class="pull-right">
+            <button mat-icon-button (click)="loadresources(trashstatus-1)">
+                <mat-icon color="warn" matTooltip="recycle bin" *ngIf="trashstatus===0">delete_outline</mat-icon>
+                <mat-icon color="primary" matTooltip="active resource" *ngIf="trashstatus===1">undo</mat-icon>
+            </button>
+        </div>
     </div>
-  </div>
-  <mat-form-field class="search-form-field" floatLabel="never">
-    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
-    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
+    <mat-form-field class="search-form-field" floatLabel="never">
+        <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
 </div>
 <div class="mat-elevation-z8">
-  <mat-table [dataSource]="listData" matSort>
-    <ng-container matColumnDef="resourcetitle">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Resource Title</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.resourcetitle}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="visitors.length">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Visitors</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.visitors.length}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="usagecount">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Usage</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.usagecount}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="rate_sum">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Rate starts(of 5)</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{getRate(element)}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="type">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.type}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="typestr">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>ResourceFile</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <a href="{{ apiBaseUrl + '/' + element.typestr }}" *ngIf="isDowloadable(element)" target="_blank">Download</a>
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="priority">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.priority}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="role">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.role}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="access">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Access</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.access}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <button mat-icon-button color={{AssignTopicColor(element.access)}} (click)="openDialogTopics(element)"
-          *ngIf="element.access!=='In resource center'">
-          <mat-icon matTooltip="Assign Topics">group_work</mat-icon>
-        </button>
-        <button mat-icon-button (click)="openDialog(element,'clone')">
-          <mat-icon matTooltip="Clone">file_copy</mat-icon>
-        </button>
-        <button mat-icon-button (click)="openDialog(element,'edit')">
-          <mat-icon matTooltip="Edit">launch</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="deleteRow(element)">
-          <mat-icon matTooltip="Send to trash" *ngIf="element.trashstatus===0 || element.trashstatus===undefined">
-            delete_outline</mat-icon>
-          <mat-icon matTooltip="Delete for ever" *ngIf="element.trashstatus===1">delete_forever
-          </mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="Redo delete" *ngIf="element.trashstatus===1" (click)="undodelete(element)">
-          <mat-icon>undo</mat-icon>
-        </button>
-      </mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+    <mat-table [dataSource]="listData" matSort>
+        <ng-container matColumnDef="resourcetitle">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Resource Title</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.resourcetitle}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="visitors.length">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Unique user</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.visitors.length}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="usagecount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Usage</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.usagecount}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="rate_sum">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Rate starts(of 5)</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{getRate(element)}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.type}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="typestr">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>ResourceFile</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <a href="{{ apiBaseUrl + '/' + element.typestr }}" *ngIf="isDowloadable(element)" target="_blank">Download</a>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="priority">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.priority}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="role">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.role}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="access">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Access</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.access}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-icon-button color={{AssignTopicColor(element.access)}} (click)="openDialogTopics(element)" *ngIf="element.access!=='In resource center'">
+                    <mat-icon matTooltip="Assign Topics">group_work</mat-icon>
+                </button>
+                <button mat-icon-button *ngIf="element.access==='In resource center'">
+                    <mat-icon matTooltip=""></mat-icon>
+                </button>
+                <button mat-icon-button (click)="openDialog(element,'clone')">
+                    <mat-icon matTooltip="Clone">file_copy</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openDialog(element,'edit')">
+                    <mat-icon matTooltip="Edit">edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteRow(element)">
+                    <mat-icon matTooltip="Send to trash"
+                        *ngIf="element.trashstatus===0 || element.trashstatus===undefined">
+                        delete_outline</mat-icon>
+                    <mat-icon matTooltip="Delete for ever" *ngIf="element.trashstatus===1">delete_forever
+                    </mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Redo delete" *ngIf="element.trashstatus===1" (click)="undodelete(element)">
+                    <mat-icon>undo</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>

@@ -2,20 +2,27 @@
 	"App": {
 		"Choose your category": "Choose your category",
 		"Choose your format": "Choose your format",
-		"Choose your tag": "Choose your tag",
-		"Dashboard": "Dashboard",
+		"Choose your service group": "Choose your service group",
+		"Dashboard": "Resource Center",
+		"DashboardVitrin": "Vitrin",
 		"LogOut": "LogOut",
 		"Login": "Login",
 		"Profile": "Profile",
-		"TalkEngO Resource Center": "TalkEngO Resource Center"
+		"Resource Center": "Resource Center",
+		"Session Resources": "Session Resources",
+		"TalkEngO Resource Center": "Resource Center Control Panel"
 	},
 	"Dashboard": {
-		"DashboardTitle": "TalkEngO Resource Center Management System",
+		"DashboardTitle": "TalkEngO Resource Center: Session Resources",
 		"Descrioption": "This is a platform for manage Resource Center modules. Click on modules to get Started!!!",
+		"FreeCatCenterRegisterBtn": "Click here for FREE TEST",
+		"FreeCatCenterRegisterForFree": "Register with TalkEngO for FREE!\nYou can find out your level by taking free Diagnostic Test",
+		"FreeCatCenterTitle": "Here you can sample some of the resources we have for learners at TalkEngO. \n For full access, register now as an English Learner",
+		"FreeCatCenterToolbar": "RESOURCE CENTRE - Free Samples for Visitors (Vitrine of resources)",
 		"Homework": "Homework",
 		"Sample session (homework resource) for topic:": "Sample session (homework resource) for topic:",
-		"Sample session (related special resource) for topic:": "Sample session (related special resource) for topic:",
-		"Special": "Special"
+		"Sample session (related special resource) for topic:": "Resources related to topic:",
+		"Special": "Related Resources"
 	},
 	"Profile": {
 		"Conversation Partner": "Conversation Partner",
@@ -33,19 +40,25 @@
 		"Sign In": "Sign In",
 		"Sign Up": "Sign Up",
 		"This field is required": "This field is required.",
-		"User Profile": "User Profile"
+		"User Profile": "User Profile",
+		"admin": "Administrator"
 	},
 	"RC": {
 		"Access": "Access",
 		"Category": "Category",
-		"Click to select tag and category": "Click to select tag and category",
+		"Click to select service group and category": "Click to select service group and category",
 		"Level": "Level",
+		"Openlink": "Open link in separate window",
+		"Rate of this resource": "Rate of this resource",
 		"Resource Title": "Resources",
 		"Resources": "Resources",
 		"Search": "Search",
 		"Subject": "Subject",
-		"Tag": "Tag",
+		"Your browser does not support the resource": "Your browser does not support the resource.",
 		"for format": "for format",
-		"for topic": "for topic"
+		"for topic": "for topic",
+		"give your rate": "Give your rate",
+		"ratings": "ratings",
+		"service group": "Service Group"
 	}
 }

@@ -1,14 +1,39 @@
-<div style="text-align:center">
-  <h1>{{ 'Dashboard.DashboardTitle' | translate }}</h1>
-  <p>
-    {{ 'Dashboard.Descrioption' | translate }}
-  </p>
-</div>
-<div class="blocks" style="text-align:center">
-  <!-- <h3>Language learner resource center</h3> -->
-  <input type="button" (click)="DashboardLL()" value="{{ 'Profile.Login as role LL' | translate }}" />
-</div>
-<div class="blocks" style="text-align:center">
+<div class="container">
+    <mat-toolbar>
+        <span class="fill-remaining-space"></span>
+        <span>
+            <h1>{{ 'Dashboard.DashboardTitle' | translate }}</h1>
+                </span>
+        <span class="fill-remaining-space"></span>
+    </mat-toolbar>
+    <div class="mat-elevation-z8" style="text-align: -webkit-center;padding: 20px;">
+        <div style="text-align:center" *ngIf="userService.getRole()==='admin'">
+            <p>
+                {{ 'Dashboard.Descrioption' | translate }}
+            </p>
+        </div>
+        <div class="blocks" style="text-align:center">
+            <!-- <input type="button" (click)="DashboardLL()" value="{{ 'Profile.Login as role LL' | translate }}" /> -->
+            {{ 'RC.for topic' | translate }}:
+            <mat-form-field class='filterbox' style="width: 270px;">
+                <mat-select [value]="selectedtopicvalue" (selectionChange)="onChangeTopic($event)">
+                    <mat-option value="5d07c651ea4b70130fb1666b">hw1 name, hometown and weather</mat-option>
+                    <mat-option value="5d07c698aa54c4131d5b0662">hw2 - family & age</mat-option>
+                    <mat-option value="5d07c494ea4b70130fb165ed">sociology</mat-option>
+                    <mat-option value="5d07c477aa54c4131d5b05d8">social work degree</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="blocks" style="text-align:center">
+            <h3>{{ 'Dashboard.Sample session (related special resource) for topic:' | translate }} {{selectedtopic}}
+            </h3>
+            <input type="button" (click)="Dashboardllsessionspecial()" value="{{ 'Dashboard.Special' | translate }}" />
+        </div>
+        <div class="blocks" style="text-align:center">
+            <h3>{{ 'Dashboard.Sample session (homework resource) for topic:' | translate }} {{selectedtopic}}</h3>
+            <input type="button" (click)="Dashboardllsessionhomework()" value="{{ 'Dashboard.Homework' | translate }}" />
+        </div>
+        <!-- <div class="blocks" style="text-align:center">
   <h3>{{ 'Dashboard.Sample session (related special resource) for topic:' | translate }} hw1 name, hometown and weather
   </h3>
   <input type="button" (click)="Dashboardllsessionspecial()" value="{{ 'Dashboard.Special' | translate }}" />
@@ -16,4 +41,6 @@
 <div class="blocks" style="text-align:center">
   <h3>{{ 'Dashboard.Sample session (homework resource) for topic:' | translate }} hw1 name, hometown and weather</h3>
   <input type="button" (click)="Dashboardllsessionhomework()" value="{{ 'Dashboard.Homework' | translate }}" />
+</div> -->
+    </div>
 </div>

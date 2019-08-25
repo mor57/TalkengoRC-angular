@@ -1,24 +1,29 @@
-<bar-rating [rate]="rate" (rateChange)="updateRate($event)"></bar-rating>
+<span>{{ 'RC.Rate of this resource' | translate }}</span>
+<span>
+  <bar-rating [rate]="rate" [readOnly]="true"></bar-rating> 
+  ({{RcResourceService.form.value.raters.length}} {{ 'RC.ratings' | translate }})
+</span>
+<span style="display: block;width: 100%;padding-bottom: 20px;">
+  {{ 'RC.give your rate' | translate }}:
+  <bar-rating (rateChange)="updateRate($event)"></bar-rating>
+</span>
+<span style="display: block;width: 100%;padding: 10px;" *ngIf="RcResourceService.form.value.type==='link'">
+  <a href="{{RcResourceService.form.value.typestr}}" target="_blank">{{ 'RC.Openlink' | translate }}</a>
+</span>
 <div style="text-align: center;" oncontextmenu="return false;">
-  <embed (contextmenu)="onRightClick()" [src]="resourcefile" type="application/pdf" width="100%" height="600px"
-    *ngIf="RcResourceService.form.value.type==='pdf'" />
-  <audio (contextmenu)="onRightClick()" width="200px" height="200px" controls
-    *ngIf="RcResourceService.form.value.type==='sound'" controlsList="nodownload">
+    <embed (contextmenu)="onRightClick()" [src]="resourcefile" type="application/pdf" width="100%" height="600px" *ngIf="RcResourceService.form.value.type==='pdf'" />
+    <audio (contextmenu)="onRightClick()" width="200px" height="200px" controls *ngIf="RcResourceService.form.value.type==='sound'" controlsList="nodownload">
     <source [src]="resourcefile" type="audio/mpeg">
     <source [src]="resourcefile" type="audio/ogg">
-    Your browser does not support the audio tag.
+    {{ 'RC.Your browser does not support the resource' | translate }}
   </audio>
-  <video (contextmenu)="onRightClick()" width="100%" height="600px" controls
-    *ngIf="RcResourceService.form.value.type==='video'" controlsList="nodownload">
+    <video (contextmenu)="onRightClick()" width="100%" height="600px" controls *ngIf="RcResourceService.form.value.type==='video'" controlsList="nodownload">
     <source [src]="resourcefile" type="video/mp4">
     <source [src]="resourcefile" type="video/ogg">
-    Your browser does not support the video tag.
+    {{ 'RC.Your browser does not support the resource' | translate }}
   </video>
-  <iframe (contextmenu)="onRightClick()" class="e2e-iframe-trusted-src" width="100%" [src]="resourcefile"
-    *ngIf="RcResourceService.form.value.type==='link'"></iframe>
-  <iframe (contextmenu)="onRightClick()" class="e2e-iframe-trusted-src" width="100%" [src]="resourcefile"
-    *ngIf="RcResourceService.form.value.type==='image'"></iframe>
+    <iframe (contextmenu)="onRightClick()" class="e2e-iframe-trusted-src" width="100%" [src]="resourcefile" *ngIf="RcResourceService.form.value.type==='link'"></iframe>
+    <iframe (contextmenu)="onRightClick()" class="e2e-iframe-trusted-src" width="100%" [src]="resourcefile" *ngIf="RcResourceService.form.value.type==='image'"></iframe>
 </div>
-<div (contextmenu)="onRightClick()" [innerHTML]="RcResourceService.form.value.typestr"
-  *ngIf="RcResourceService.form.value.type==='html'"></div>
+<div (contextmenu)="onRightClick()" [innerHTML]="RcResourceService.form.value.typestr" *ngIf="RcResourceService.form.value.type==='html'"></div>
 <button mat-raised-button flex="50" (click)="onCancel()" color="warn">Dismiss</button>

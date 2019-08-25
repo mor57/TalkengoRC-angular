@@ -1,160 +1,152 @@
 <mat-toolbar class="fixtoolbar">
-  <a (click)="GotBackToTags()">{{ 'App.Dashboard' | translate }} </a> <span class="padding-left-10"> > </span>
-  <a (click)="GotBackToFormats()"> <span class="padding-left-10">{{tagcurrent.tagtitle}}</span></a> <span
-    class="padding-left-10"> > </span>
-  <a (click)="GotBackToCats()"> <span class="padding-left-10">{{formatcurrent.formattitle}}
+    <a routerLink="/dashboard-home" *ngIf="!userService.isLoggedIn()">{{ 'App.DashboardVitrin' | translate }} </a>
+    <a (click)="GotBackToTags()" *ngIf="userService.isLoggedIn()">{{ 'App.Dashboard' | translate }} </a> <span class="padding-left-10"> > </span>
+    <a (click)="GotBackToFormats()"> <span class="padding-left-10">{{tagcurrent.tagtitle}}</span></a> <span class="padding-left-10"> > </span>
+    <a (click)="GotBackToCats()"> <span class="padding-left-10">{{formatcurrent.formattitle}}
     </span></a> <span class="padding-left-10"> > </span>
-  <span class="padding-left-10">{{catcurrent.cattitle}}</span> <span class="padding-left-10"></span>
-  <span class="fill-remaining-space"></span>
-  <span class='filterbox' style="padding-right: 10px;">{{ 'RC.Level' | translate }}: </span>
-  <mat-form-field class='filterbox'>
-    <mat-select [(value)]="this.levelname" (selectionChange)="onChangeLevel($event)">
-      <mat-option *ngFor="let level of orginallevels; let i = index" [value]="level.name">
-        {{level.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+    <span class="padding-left-10">{{catcurrent.cattitle}}</span> <span class="padding-left-10"></span>
+    <span class="fill-remaining-space"></span>
+    <span class='filterbox' style="padding-right: 10px;">{{ 'RC.Level' | translate }}: </span>
+    <mat-form-field class='filterbox'>
+        <mat-select [(value)]="this.levelname" (selectionChange)="onChangeLevel($event)">
+            <mat-option *ngFor="let level of orginallevels; let i = index" [value]="level.name">
+                {{level.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
 </mat-toolbar>
-<div class="landingcontainer" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px"
-  fxLayoutGap.xs="0">
-  <div class="resourcebox" fxFlex="60%">
-    <span class="resource-main-title">
+<div class="landingcontainer" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+    <div class="resourcebox" fxFlex="60%">
+        <span class="resource-main-title">
       {{ 'RC.Resource Title' | translate }}
       <span *ngIf="this.topicid !== '0'">{{ 'RC.for topic' | translate }}: {{TopicTitle}}</span>
-      <a class="filterboxmobile" (click)="drawer.toggle()">
-        <mat-icon>filter_list</mat-icon>
-      </a></span>
-    <mat-drawer-container class="filter-container" autosize hasBackdrop="false">
-      <mat-drawer #drawer class="filter-sidenav" mode="over">
-        <div class="blocks" style="text-align:center">
-          <span style="padding-right: 10px;">{{ 'RC.Level' | translate }}: </span>
-          <mat-form-field>
-            <mat-select [(value)]="this.levelname" (selectionChange)="onChangeLevel($event)">
-              <mat-option *ngFor="let level of orginallevels; let i = index" [value]="level.name">
-                {{level.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <h3>{{ 'RC.Click to select tag and category' | translate }}
-        </h3>
-        {{ 'RC.for format' | translate }}
-        <mat-form-field>
-          <mat-select [(value)]="this.formatid" (selectionChange)="onChangeformat($event)">
-            <mat-option *ngFor="let format of orginalformats; let i = index" [value]="format._id">
-              {{format.formattitle}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="blocks" style="text-align:center">
-          <div class="container">
-            <div style="text-align:center">
-              <h5>{{ 'RC.Tag' | translate }}</h5>
-              <div *ngFor="let tag of orginaltags; let i = index" style="text-align: center;padding-bottom: 20px;">
-                <a style="width: 180px;" mat-raised-button [color]="IsSelected(tag._id===tagid)"
-                  (click)="GotToResourceTag(tag)">{{tag.tagtitle}}</a>
-              </div>
-            </div>
-            <div style="text-align:center">
-              <h5>{{ 'RC.Category' | translate }}</h5>
-              <div *ngFor="let cat of orginalcats; let i = index" style="text-align: center;padding-bottom: 20px;">
-                <a style="width: 180px;" mat-raised-button [color]="IsSelected(cat._id===catid)"
-                  (click)="GotToResourceCat(cat)">{{cat.cattitle}}</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </mat-drawer>
-      <div class="filter-sidenav-content" style="padding-top: unset !important;">
-        <div style="width: 100%;">
-          <div class="search-div">
-            <mat-form-field class="search-form-field" style="width: 100%" floatLabel="never">
-              <input matInput [(ngModel)]="searchKey" placeholder="{{ 'RC.Search' | translate }}" autocomplete="off"
-                (keyup)="applyFilter()">
-              <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey"
-                (click)="onSearchClear()">
+        <a class="filterboxmobile" (click)="drawer.toggle()">
+            <mat-icon>filter_list</mat-icon>
+        </a>
+        </span>
+        <mat-drawer-container class="filter-container" autosize hasBackdrop="false">
+            <mat-drawer #drawer class="filter-sidenav" mode="over">
+                <div class="blocks" style="text-align:center">
+                    <span style="padding-right: 10px;">{{ 'RC.Level' | translate }}: </span>
+                    <mat-form-field>
+                        <mat-select [(value)]="this.levelname" (selectionChange)="onChangeLevel($event)">
+                            <mat-option *ngFor="let level of orginallevels; let i = index" [value]="level.name">
+                                {{level.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <h3>{{ 'RC.Click to select tag and category' | translate }}
+                </h3>
+                {{ 'RC.for format' | translate }}
+                <mat-form-field>
+                    <mat-select [(value)]="this.formatid" (selectionChange)="onChangeformat($event)">
+                        <mat-option *ngFor="let format of orginalformats; let i = index" [value]="format._id">
+                            {{format.formattitle}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="blocks" style="text-align:center">
+                    <div class="container">
+                        <div style="text-align:center">
+                            <h5>{{ 'RC.Tag' | translate }}</h5>
+                            <div *ngFor="let tag of orginaltags; let i = index" style="text-align: center;padding-bottom: 20px;">
+                                <a style="width: 180px;" mat-raised-button [color]="IsSelected(tag._id===tagid)" (click)="GotToResourceTag(tag)">{{tag.tagtitle}}</a>
+                            </div>
+                        </div>
+                        <div style="text-align:center">
+                            <h5>{{ 'RC.Category' | translate }}</h5>
+                            <div *ngFor="let cat of orginalcats; let i = index" style="text-align: center;padding-bottom: 20px;">
+                                <a style="width: 180px;" mat-raised-button [color]="IsSelected(cat._id===catid)" (click)="GotToResourceCat(cat)">{{cat.cattitle}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-drawer>
+            <div class="filter-sidenav-content" style="padding-top: unset !important;">
+                <div style="width: 100%;">
+                    <div class="search-div">
+                        <mat-form-field class="search-form-field" style="width: 100%" floatLabel="never">
+                            <input matInput [(ngModel)]="searchKey" placeholder="{{ 'RC.Search' | translate }}" autocomplete="off" (keyup)="applyFilter()">
+                            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
                 <mat-icon>close</mat-icon>
               </button>
-            </mat-form-field>
-          </div>
-          <div class="mat-elevation-z8" style="width: 100%;">
-            <mat-table [dataSource]="listData" matSort style="height: 380px;">
-              <ng-container matColumnDef="typestr">
-                <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                  <button mat-icon-button (click)="openDialog(element)">
+                        </mat-form-field>
+                    </div>
+                    <div class="mat-elevation-z8" style="width: 100%;">
+                        <mat-table [dataSource]="listData" matSort style="height: 380px;">
+                            <ng-container matColumnDef="typestr">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <button mat-icon-button (click)="openDialog(element)">
                     <mat-icon class="icon" (mouseover)="show=true" (mouseout)="show=false">
                       {{getIconType(element.type)}}</mat-icon>
                   </button>
-                </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="resourcetitle">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RC.Resource Title' | translate }}
-                </mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.resourcetitle}}</mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="subject">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RC.Subject' | translate }}</mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                  {{element.subject}}<br />
-                  {{element.description}}
-                </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="access">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RC.Access' | translate }}</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.access}}</mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                </mat-cell>
-              </ng-container>
-              <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-            </mat-table>
-            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator> -->
-          </div>
-        </div>
-      </div>
-    </mat-drawer-container>
-  </div>
-  <div class="filterbox" fxFlex="40%" fxFlexOrder="2">
-    <div style="padding: 20px;width: 100%;">
-      <div class="mat-elevation-z8" style="width: 100%;">
-        <div class="blocks" style="text-align:center;padding: 10px">
-          <span class="fill-remaining-space"></span>
-          <h3>{{ 'RC.Click to select tag and category' | translate }}
-          </h3>
-          {{ 'RC.for format' | translate }}
-          <mat-form-field>
-            <mat-select [(value)]="this.formatid" (selectionChange)="onChangeformat($event)">
-              <mat-option *ngFor="let format of orginalformats; let i = index" [value]="format._id">
-                {{format.formattitle}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <span class="fill-remaining-space"></span>
-        </div>
-        <div class="blocks" style="text-align:center">
-          <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px"
-            fxLayoutGap.xs="0">
-            <div class="" fxFlex="50%">
-              <div style="text-align:center">
-                <h5>{{ 'RC.Tag' | translate }}</h5>
-                <div *ngFor="let tag of orginaltags; let i = index" style="text-align: center;padding-bottom: 20px;">
-                  <a style="width: 180px;" mat-raised-button [color]="IsSelected(tag._id===tagid)"
-                    (click)="GotToResourceTag(tag)">{{tag.tagtitle}}</a>
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="resourcetitle">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RC.Resource Title' | translate }}
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let element">{{element.resourcetitle}}</mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="subject">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RC.Subject' | translate }}</mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    {{element.subject}}<br /> {{element.description}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="access">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RC.Access' | translate }}</mat-header-cell>
+                                <mat-cell *matCellDef="let element">{{element.access}}</mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="actions">
+                                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator> -->
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="" fxFlex="50%" fxFlexOrder="2">
-              <div style="text-align:center">
-                <h5>{{ 'RC.Category' | translate }}</h5>
-                <div *ngFor="let cat of orginalcats; let i = index" style="text-align: center;padding-bottom: 20px;">
-                  <a style="width: 180px;" mat-raised-button [color]="IsSelected(cat._id===catid)"
-                    (click)="GotToResourceCat(cat)">{{cat.cattitle}}</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </mat-drawer-container>
     </div>
-  </div>
+    <div class="filterbox" fxFlex="40%" fxFlexOrder="2">
+        <div style="padding: 20px;width: 100%;">
+            <div class="mat-elevation-z8" style="width: 100%;">
+                <div class="blocks" style="text-align:center;padding: 10px">
+                    <span class="fill-remaining-space"></span>
+                    <h3>{{ 'RC.Click to select service group and category' | translate }}
+                    </h3>
+                    {{ 'RC.for format' | translate }}
+                    <mat-form-field>
+                        <mat-select [(value)]="this.formatid" (selectionChange)="onChangeformat($event)">
+                            <mat-option *ngFor="let format of orginalformats; let i = index" [value]="format._id">
+                                {{format.formattitle}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <span class="fill-remaining-space"></span>
+                </div>
+                <div class="blocks" style="text-align:center">
+                    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                        <div class="" fxFlex="50%">
+                            <div style="text-align:center">
+                                <h5>{{ 'RC.service group' | translate }}</h5>
+                                <div *ngFor="let tag of orginaltags; let i = index" style="text-align: center;padding-bottom: 20px;">
+                                    <a style="width: 180px;" mat-raised-button [color]="IsSelected(tag._id===tagid)" (click)="GotToResourceTag(tag)">{{tag.tagtitle}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="" fxFlex="50%" fxFlexOrder="2">
+                            <div style="text-align:center">
+                                <h5>{{ 'RC.Category' | translate }}</h5>
+                                <div *ngFor="let cat of orginalcats; let i = index" style="text-align: center;padding-bottom: 20px;">
+                                    <a style="width: 180px;" mat-raised-button [color]="IsSelected(cat._id===catid)" (click)="GotToResourceCat(cat)">{{cat.cattitle}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

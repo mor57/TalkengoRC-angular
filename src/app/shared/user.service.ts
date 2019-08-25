@@ -53,7 +53,7 @@ export class UserService {
 
   setUserinfo(userinfo: any) {
     localStorage.setItem('userinfo', JSON.stringify(userinfo));
-    this.setRole('admin');
+    this.setRole(userinfo.role);
   }
 
   setRole(role: any) {

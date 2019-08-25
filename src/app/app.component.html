@@ -1,171 +1,191 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav role="navigation" class="navigation">
-    <mat-nav-list *ngIf="user.getRole()==='admin'">
-      <a mat-list-item routerLink="/" *ngIf="!user.isLoggedIn()" (click)="sidenav.close()">
-        <mat-icon class="icon">input</mat-icon>
-        <span class="label">Login</span>
-      </a>
-      <a mat-list-item routerLink="/rc-resources" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
-        <mat-icon class="icon">music_video</mat-icon>
-        <span class="label">Resources</span>
-      </a>
-      <a mat-list-item routerLink="/rc-cats" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
-        <mat-icon class="icon">category</mat-icon>
-        <span class="label">Categories</span>
-      </a>
-      <a mat-list-item routerLink="/rc-formats" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
-        <mat-icon class="icon">picture_as_pdf</mat-icon>
-        <span class="label">Formats</span>
-      </a>
-      <a mat-list-item routerLink="/rc-tags" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
-        <mat-icon class="icon">tags</mat-icon>
-        <span class="label">Tags</span>
-      </a>
-      <a mat-list-item routerLink="/dashboard" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
-        <mat-icon class="icon">dashboard</mat-icon>
-        <span class="label">Dashboard</span>
-      </a>
-      <a mat-list-item routerLink="/userprofile" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
-        <mat-icon class="icon">face</mat-icon>
-        <span class="label">UserProfile</span>
-      </a>
-      <a mat-list-item type="button" *ngIf="user.isLoggedIn()" (click)="user.logout()" (click)="sidenav.close()">
-        <mat-icon class="icon">input</mat-icon>
-        <span class="label">LogOut</span>
-      </a>
-    </mat-nav-list>
-    <mat-nav-list *ngIf="user.getRole()==='LL'">
-      <a mat-list-item routerLink="/" *ngIf="!user.isLoggedIn()" (click)="sidenav.close()">
-        <mat-icon class="icon">input</mat-icon>
-        <span class="label">{{ 'App.Login' | translate }}</span>
-      </a>
-      <a mat-list-item routerLink="/dashboard" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
-        <mat-icon class="icon">dashboard</mat-icon>
-        <span class="label">{{ 'App.Dashboard' | translate }}</span>
-      </a>
-      <a mat-list-item routerLink="/userprofile" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
-        <mat-icon class="icon">face</mat-icon>
-        <span class="label">{{ 'App.Profile' | translate }}</span>
-      </a>
-      <a mat-list-item type="button" *ngIf="user.isLoggedIn()" (click)="user.logout()">
-        <mat-icon class="icon">input</mat-icon>
-        <span class="label">{{ 'App.LogOut' | translate }}</span>
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary" *ngIf="user.getRole()==='admin'">
-      <div fxHide.gt-xs>
-        <button mat-icon-button (click)="sidenav.toggle()">
-          <mat-icon>menu</mat-icon>
-        </button>
-      </div>
-      <div class="logoadmin">
-        <a routerLink="/">
-          {{ 'App.TalkEngO Resource Center' | translate }}
-        </a>
-        <a (click)="changeLang('en')" style="padding-left: 5px;">
-          <img src="../assets/img/gb-eng.svg" style="width: 20px;" title="France" />
-        </a>
-        <a (click)="changeLang('fr')" style="padding-left: 5px;">
-          <img src="../assets/img/fr.svg" style="width: 20px;" title="France" />
-        </a>
-      </div>
-      <div class="menuFull" fxFlex fxLayout fxLayoutAlign="flex-end">
-        <ul fxLayout fxLayoutGap="5px" class="navigation-items">
-          <li>
-            <a routerLink="/login" *ngIf="!user.isLoggedIn()">
-              <mat-icon class="icon">input</mat-icon>
-              <span class="label">Login</span>
+    <mat-sidenav #sidenav role="navigation" class="navigation">
+        <mat-nav-list *ngIf="user.getRole()==='admin'">
+            <a mat-list-item routerLink="/" *ngIf="!user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">input</mat-icon>
+                <span class="label">Login</span>
             </a>
-          </li>
-          <li>
-            <a routerLink="/rc-resources" *ngIf="user.isLoggedIn()">
-              <mat-icon class="icon">music_video</mat-icon>
-              <span class="label">Resources</span>
+            <a mat-list-item routerLink="/rc-resources" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">music_video</mat-icon>
+                <span class="label">Resources</span>
             </a>
-          </li>
-          <li>
-            <a routerLink="/rc-cats" *ngIf="user.isLoggedIn()">
-              <mat-icon class="icon">category</mat-icon>
-              <span class="label">Categories</span>
+            <a mat-list-item routerLink="/rc-cats" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">category</mat-icon>
+                <span class="label">Categories</span>
             </a>
-          </li>
-          <li>
-            <a routerLink="/rc-formats" *ngIf="user.isLoggedIn()">
-              <mat-icon class="icon">picture_as_pdf</mat-icon>
-              <span class="label">Formats</span>
+            <a mat-list-item routerLink="/rc-formats" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">picture_as_pdf</mat-icon>
+                <span class="label">Formats</span>
             </a>
-          </li>
-          <li>
-            <a routerLink="/rc-tags" *ngIf="user.isLoggedIn()">
-              <mat-icon class="icon">tags</mat-icon>
-              <span class="label">Tags</span>
+            <a mat-list-item routerLink="/rc-tags" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">tags</mat-icon>
+                <span class="label">Service groups</span>
             </a>
-          </li>
-          <li>
-            <a routerLink="/userprofile" *ngIf="user.isLoggedIn()">
-              <mat-icon class="icon">face</mat-icon>
-              <span class="label">Profile</span>
+            <a mat-list-item routerLink="/dashboard" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">dashboard</mat-icon>
+                <span class="label">Dashboard</span>
             </a>
-          </li>
-          <li>
-            <a (click)="user.logout()" *ngIf="user.isLoggedIn()">
-              <mat-icon class="icon">input</mat-icon>
-              <span class="label">LogOut</span>
+            <a mat-list-item routerLink="/userprofile" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">face</mat-icon>
+                <span class="label">UserProfile</span>
             </a>
-          </li>
-        </ul>
-      </div>
-    </mat-toolbar>
-    <mat-toolbar class="navigation" *ngIf="user.getRole()==='LL' || !user.isLoggedIn()">
-      <div fxHide.gt-xs>
-        <button mat-icon-button (click)="sidenav.toggle()">
-          <mat-icon>menu</mat-icon>
-        </button>
-      </div>
-      <div class="logo">
-        <a (click)="changeLang('en')" class="lang">
-          <img src="../assets/img/gb-eng.svg" title="France" />
-        </a>
-        <a (click)="changeLang('fr')" class="lang">
-          <img src="../assets/img/fr.svg" title="France" />
-        </a>
-        <a routerLink="/dashboard">
-          <img src="../assets/img/talkengo.png" />
-        </a>
-      </div>
-      <div class="menuFull" fxFlex fxLayout fxLayoutAlign="flex-end">
-        <ul fxLayout fxLayoutGap="5px" class="navigation-items menuFull_user">
-          <li>
-            <a routerLink="/login" *ngIf="!user.isLoggedIn()">
-              <mat-icon class="icon">input</mat-icon>
-              <span class="label">Login</span>
+            <a mat-list-item type="button" *ngIf="user.isLoggedIn()" (click)="user.logout()" (click)="sidenav.close()">
+                <mat-icon class="icon">input</mat-icon>
+                <span class="label">LogOut</span>
             </a>
-          </li>
-          <li>
-            <a routerLink="/dashboard" *ngIf="user.isLoggedIn()">
-              <mat-icon class="icon">dashboard</mat-icon>
-              <span class="label">{{ 'App.Dashboard' | translate }}</span>
+        </mat-nav-list>
+        <mat-nav-list *ngIf="user.getRole()==='LL' || user.getRole()==='CP' || !user.isLoggedIn()">
+            <a mat-list-item routerLink="/" *ngIf="!user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">input</mat-icon>
+                <span class="label">{{ 'App.Login' | translate }}</span>
             </a>
-          </li>
-          <li>
-            <a routerLink="/userprofile" *ngIf="user.isLoggedIn()">
-              <mat-icon class="icon">face</mat-icon>
-              <span class="label">{{ 'App.Profile' | translate }}</span>
+            <a mat-list-item routerLink="/dashboard-home" *ngIf="!user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">dashboard</mat-icon>
+                <span class="label">{{ 'App.DashboardVitrin' | translate }}</span>
             </a>
-          </li>
-          <li>
-            <a (click)="user.logout()" *ngIf="user.isLoggedIn()">
-              <mat-icon class="icon">input</mat-icon>
-              <span class="label">{{ 'App.LogOut' | translate }}</span>
+            <a mat-list-item routerLink="/dashboard-LLtags" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">dashboard</mat-icon>
+                <span class="label">{{ 'App.Dashboard' | translate }}</span>
             </a>
-          </li>
-        </ul>
-      </div>
-    </mat-toolbar>
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-  </mat-sidenav-content>
+            <a mat-list-item routerLink="/dashboard" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">music_video</mat-icon>
+                <span class="label">{{ 'App.Session Resources' | translate }}</span>
+            </a>
+            <a mat-list-item routerLink="/userprofile" *ngIf="user.isLoggedIn()" (click)="sidenav.close()">
+                <mat-icon class="icon">face</mat-icon>
+                <span class="label">{{ 'App.Profile' | translate }}</span>
+            </a>
+            <a mat-list-item type="button" *ngIf="user.isLoggedIn()" (click)="user.logout()">
+                <mat-icon class="icon">input</mat-icon>
+                <span class="label">{{ 'App.LogOut' | translate }}</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary" *ngIf="user.getRole()==='admin'">
+            <div fxHide.gt-xs>
+                <button mat-icon-button (click)="sidenav.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </div>
+            <div class="logoadmin">
+                <a routerLink="/">
+                    {{ 'App.TalkEngO Resource Center' | translate }}
+                </a>
+                <!-- <a (click)="changeLang('en')" style="padding-left: 5px;">
+                    <img src="../assets/img/gb-eng.svg" style="width: 20px;" title="English" />
+                </a>
+                <a (click)="changeLang('fr')" style="padding-left: 5px;">
+                    <img src="../assets/img/fr.svg" style="width: 20px;" title="France" />
+                </a> -->
+            </div>
+            <div class="menuFull" fxFlex fxLayout fxLayoutAlign="flex-end">
+                <ul fxLayout fxLayoutGap="5px" class="navigation-items">
+                    <li>
+                        <a routerLink="/login" *ngIf="!user.isLoggedIn()">
+                            <mat-icon class="icon">input</mat-icon>
+                            <span class="label">Login</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/rc-resources" *ngIf="user.isLoggedIn()">
+                            <mat-icon class="icon">music_video</mat-icon>
+                            <span class="label">Resources</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/rc-cats" *ngIf="user.isLoggedIn()">
+                            <mat-icon class="icon">category</mat-icon>
+                            <span class="label">Categories</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/rc-formats" *ngIf="user.isLoggedIn()">
+                            <mat-icon class="icon">picture_as_pdf</mat-icon>
+                            <span class="label">Formats</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/rc-tags" *ngIf="user.isLoggedIn()">
+                            <mat-icon class="icon">tags</mat-icon>
+                            <span class="label">Service groups</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/userprofile" *ngIf="user.isLoggedIn()">
+                            <mat-icon class="icon">face</mat-icon>
+                            <span class="label">Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="user.logout()" *ngIf="user.isLoggedIn()">
+                            <mat-icon class="icon">input</mat-icon>
+                            <span class="label">LogOut</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </mat-toolbar>
+        <mat-toolbar class="navigation" *ngIf="user.getRole()==='LL' || user.getRole()==='CP' || !user.isLoggedIn()">
+            <div fxHide.gt-xs>
+                <button mat-icon-button (click)="sidenav.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </div>
+            <div class="logo">
+                <!-- <a (click)="changeLang('en')" class="lang">
+                    <img src="../assets/img/gb-eng.svg" title="English" />
+                </a>
+                <a (click)="changeLang('fr')" class="lang">
+                    <img src="../assets/img/fr.svg" title="France" />
+                </a> -->
+                <a routerLink="/dashboard">
+                    <img src="../assets/img/talkengo.png" />
+                </a>
+            </div>
+            <div class="menuFull" fxFlex fxLayout fxLayoutAlign="flex-end">
+                <ul fxLayout fxLayoutGap="5px" class="navigation-items menuFull_user">
+                    <li>
+                        <a routerLink="/dashboard-home" *ngIf="!user.isLoggedIn()">
+                            <mat-icon class="icon">input</mat-icon>
+                            <span class="label">{{ 'App.DashboardVitrin' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/login" *ngIf="!user.isLoggedIn()">
+                            <mat-icon class="icon">input</mat-icon>
+                            <span class="label">{{ 'App.Login' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/dashboard-LLtags" *ngIf="user.isLoggedIn()">
+                            <mat-icon class="icon">dashboard</mat-icon>
+                            <span class="label">{{ 'App.Dashboard' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/dashboard" *ngIf="user.isLoggedIn()">
+                            <mat-icon class="icon">music_video</mat-icon>
+                            <span class="label">{{ 'App.Session Resources' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/userprofile" *ngIf="user.isLoggedIn()">
+                            <mat-icon class="icon">face</mat-icon>
+                            <span class="label">{{ 'App.Profile' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="user.logout()" *ngIf="user.isLoggedIn()">
+                            <mat-icon class="icon">input</mat-icon>
+                            <span class="label">{{ 'App.LogOut' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </mat-toolbar>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
 </mat-sidenav-container>

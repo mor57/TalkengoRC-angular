@@ -1,0 +1,47 @@
+<div class="container">
+    <mat-toolbar>
+        {{ 'Dashboard.FreeCatCenterToolbar' | translate }}
+        <!-- <a (click)="GotBackToFormats()"> <span class="padding-left-10">{{tagcurrent.tagtitle}}</span></a>   -->
+        <span class="fill-remaining-space"></span>
+    </mat-toolbar>
+    <div class="landingcontainer blocks pattern-image-holder">
+        <div class="ind-learner-holder">
+            <p class="ind-learner-title ng-binding">
+                {{ 'Dashboard.FreeCatCenterRegisterForFree' | translate }}
+            </p>
+            <p class="ind-learner-btn-holder">
+                <a routerLink="/login" mat-stroked-button class="md-btn bordered-btn md-button md-ink-ripple md-lg" ng-click="goToResourcesPage()">
+                    {{ 'Dashboard.FreeCatCenterRegisterBtn' | translate }}
+                </a>
+            </p>
+            <div class="ind-learner-image">
+                <video (contextmenu)="onRightClick()" poster="/assets/img/intro.png" class="videotag" controls="false">
+                    <source [src]="resourcefile" type="video/mp4">
+                    <source [src]="resourcefile" type="video/ogg">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+        <!-- <div class="divtop">
+            <div class="divregister">
+                <h3 style="color: brown;">{{ 'Dashboard.FreeCatCenterRegisterForFree' | translate }}</h3>
+                <a routerLink="/login">{{ 'Dashboard.FreeCatCenterRegisterBtn' | translate }}</a>
+            </div>
+            <div class="divvideo">
+                <video (contextmenu)="onRightClick()" poster="../../assets/img/talkengo.png" style="width: inherit;" height="200px" controls controlsList="nodownload">
+                    <source [src]="resourcefile" type="video/mp4">
+                    <source [src]="resourcefile" type="video/ogg">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div> -->
+        <div layout="row" layout-wrap flex>
+            <div class="FreeCatCenterTitle">{{ 'Dashboard.FreeCatCenterTitle' | translate }}</div>
+            <span class="landingbox" *ngFor="let cat of orginalcats; let i = index">
+                <!-- <a (click)="GotToCats(cat)" class="btn md-btn md-lg">{{cat.cattitle}}</a> -->
+                <button mat-raised-button (click)="GotToCats(cat)">{{cat.cattitle}}</button>
+                <!-- <input type="button" (click)="GotToCats(cat)" [value]="cat.cattitle" /> -->
+            </span>
+        </div>
+    </div>
+</div>

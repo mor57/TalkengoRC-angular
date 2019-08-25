@@ -20,11 +20,12 @@ export class AppComponent {
   constructor(public user: UserService, private router: Router, public translate: TranslateService) {
     const browserLang = translate.getBrowserLang();
     let lang = browserLang.match(/en|fr/) ? browserLang : 'en';
-    const lslang = user.getLang();
-    if (lslang !== undefined) {
-      lang = lslang;
+    let lslang = user.getLang();
+    if (lslang === undefined || lslang === null) {
+      lslang = lang;
     }
-    translate.use(lang);
+    user.setLang(lslang);
+    translate.use(lslang);
 
     this.router.events
       .filter(e => e instanceof RoutesRecognized)

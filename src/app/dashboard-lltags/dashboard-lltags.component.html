@@ -1,15 +1,15 @@
 <div class="container">
-  <mat-toolbar>
-    <a (click)="GotBackToTags()">{{ 'App.Dashboard' | translate }}</a>
-    <span class="padding-left-10"></span>
-    <span class="fill-remaining-space"></span>
-  </mat-toolbar>
-  <div class="landingcontainer">
-    <div>
-      <span class="profile-main-title">{{ 'App.Choose your tag' | translate }}</span>
-      <span class="landingbox" *ngFor="let tag of orginaltags; let i = index">
+    <mat-toolbar>
+        <a (click)="GotBackToTags()">{{ 'App.Dashboard' | translate }}</a>
+        <span class="padding-left-10"></span>
+        <span class="fill-remaining-space"></span>
+    </mat-toolbar>
+    <div class="landingcontainer">
+        <div>
+            <span class="profile-main-title">{{ 'App.Choose your service group' | translate }}</span>
+            <span class="landingbox" *ngFor="let tag of orginaltags; let i = index">
         <input type="button" (click)="GotToFormat(tag)" [value]="tag.tagtitle" />
       </span>
+        </div>
     </div>
-  </div>
 </div>

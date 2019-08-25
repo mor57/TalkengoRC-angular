@@ -42,7 +42,7 @@ export class RcResourceListComponent implements OnInit {
       list => {
         let orginals = list as rc_resource[];
         orginals.sort((a, b) => a.priority < b.priority ? -1 : 1);
-        orginals = orginals.filter(res => res.trashstatus === this.trashstatus);
+        orginals = orginals.filter(res => res.trashstatus === this.trashstatus || res.trashstatus === undefined);
         this.listData = new MatTableDataSource(orginals as rc_resource[]);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -85,10 +85,10 @@ export class RcResourceListComponent implements OnInit {
           priority: el.priority,
           role: el.role,
           trashstatus: el.trashstatus,
-          visitors: (el.visitors === null) ? [] : el.visitors,
-          usagecount: (el.usagecount === undefined) ? 0 : el.usagecount,
-          raters: (el.raters === null) ? [] : el.raters,
-          rate_sum: (el.rate_sum === undefined) ? 0 : el.rate_sum,
+          visitors: (el.visitors === null || status === 'clone') ? [] : el.visitors,
+          usagecount: (el.usagecount === undefined || status === 'clone') ? 0 : el.usagecount,
+          raters: (el.raters === null || status === 'clone') ? [] : el.raters,
+          rate_sum: (el.rate_sum === undefined || status === 'clone') ? 0 : el.rate_sum,
         });
     }
     const dialogRef = this.dialog.open(RcResourceComponent, {
@@ -224,9 +224,9 @@ export class RcResourceListComponent implements OnInit {
 
   getRate(res) {
     if (res.raters !== undefined && res.rate_sum !== undefined) {
-      return Math.ceil(res.rate_sum / res.raters.length);
+      return Math.ceil(res.rate_sum / res.raters.length) + ' (' + res.raters.length + ' ratings)';
     } else {
-      return '';
+      return '_ (0 ratings)';
     }
   }
 }

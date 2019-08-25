@@ -3,6 +3,7 @@ import { RcTagService } from '../shared/rc-tag.service';
 import { rc_tag } from '../shared/rc-tag.module';
 import { Router } from '@angular/router';
 import { DashboardService } from '../shared/dashboard.service';
+import { UserService } from '../shared/user.service';
 
 @Component({
   selector: 'app-dashboard-lltags',
@@ -13,7 +14,8 @@ export class DashboardLLTagsComponent implements OnInit {
   orginaltags: any[];
 
   // tslint:disable-next-line: no-shadowed-variable
-  constructor(public RcTagService: RcTagService, public DashboardService: DashboardService, private router: Router) { }
+  // tslint:disable-next-line: max-line-length
+  constructor(public RcTagService: RcTagService, public DashboardService: DashboardService, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
     this.BindTags();
@@ -28,6 +30,8 @@ export class DashboardLLTagsComponent implements OnInit {
     this.RcTagService.getData('rc_tag').subscribe(
       list => {
         this.orginaltags = list as [rc_tag];
+        this.orginaltags = this.orginaltags
+          .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.role === this.userService.getRole());
         this.orginaltags.sort((a, b) => a.priority < b.priority ? -1 : 1);
         // console.log(this.orginaltags);
       });

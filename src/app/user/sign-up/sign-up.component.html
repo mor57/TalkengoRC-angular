@@ -1,56 +1,46 @@
 <div>
-  <img src="/assets/img/users.png" id="icon" alt="User Icon" />
+    <img src="/assets/img/users.png" id="icon" alt="User Icon" />
 </div>
 <form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
-  <mat-form-field>
-    <!-- <mat-label>Favorite food</mat-label> -->
-    <mat-select #role="ngModel" [(ngModel)]="userService.selectedUser.role" name="role" required>
-      <mat-option value="CP">{{ 'Profile.Conversation Partner' | translate }}</mat-option>
-      <mat-option value="LL">{{ 'Profile.Language Learner' | translate }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div *ngIf="signUpForm.submitted && !role.valid">
-    <label class="validation-message">{{ 'Profile.This field is required' | translate }}</label>
-  </div>
-  <input type="text" #firstname="ngModel" [(ngModel)]="userService.selectedUser.firstname" name="firstname"
-    placeholder="{{ 'Profile.First Name' | translate }}" required
-    [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !firstname.valid }" />
-  <div *ngIf="signUpForm.submitted && !firstname.valid">
-    <label class="validation-message">{{ 'Profile.This field is required' | translate }}</label>
-  </div>
-  <input type="text" #lastname="ngModel" [(ngModel)]="userService.selectedUser.lastname" name="lastname"
-    placeholder="{{ 'Profile.Last Name' | translate }}" required
-    [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !lastname.valid }" />
-  <div *ngIf="signUpForm.submitted && !lastname.valid">
-    <label class="validation-message">{{ 'Profile.This field is required' | translate }}</label>
-  </div>
-  <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email"
-    placeholder="{{ 'Profile.Email' | translate }}" required [pattern]="emailRegex"
-    [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !email.valid }" />
-  <div *ngIf="signUpForm.submitted && email.errors">
-    <label *ngIf="email.errors.required"
-      class="validation-message">{{ 'Profile.This field is required' | translate }}</label>
-    <label *ngIf="email.errors.pattern"
-      class="validation-message">{{ 'Profile.Invalid email address' | translate }}</label>
-  </div>
-  <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password"
-    placeholder="{{ 'Profile.Password' | translate }}" minlength="3" required
-    [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !password.valid }" />
-  <div *ngIf="signUpForm.submitted && password.errors">
-    <label *ngIf="password.errors.required"
-      class="validation-message">{{ 'Profile.This field is required' | translate }}</label>
-    <label *ngIf="password.errors.minlength"
-      class="validation-message">{{ 'Profile.Enter atleast 3 characters' | translate }}</label>
-  </div>
-  <input type="submit" value="{{ 'Profile.Sign Up' | translate }}" />
+    <mat-form-field>
+        <!-- <mat-label>Favorite food</mat-label> -->
+        <mat-select #role="ngModel" [(ngModel)]="userService.selectedUser.role" name="role" required>
+            <mat-option value="admin">{{ 'Profile.admin' | translate }}</mat-option>
+            <mat-option value="CP">{{ 'Profile.Conversation Partner' | translate }}</mat-option>
+            <mat-option value="LL">{{ 'Profile.Language Learner' | translate }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div *ngIf="signUpForm.submitted && !role.valid">
+        <label class="validation-message">{{ 'Profile.This field is required' | translate }}</label>
+    </div>
+    <input type="text" #firstname="ngModel" [(ngModel)]="userService.selectedUser.firstname" name="firstname" placeholder="{{ 'Profile.First Name' | translate }}" required [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !firstname.valid }" />
+    <div *ngIf="signUpForm.submitted && !firstname.valid">
+        <label class="validation-message">{{ 'Profile.This field is required' | translate }}</label>
+    </div>
+    <input type="text" #lastname="ngModel" [(ngModel)]="userService.selectedUser.lastname" name="lastname" placeholder="{{ 'Profile.Last Name' | translate }}" required [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !lastname.valid }" />
+    <div *ngIf="signUpForm.submitted && !lastname.valid">
+        <label class="validation-message">{{ 'Profile.This field is required' | translate }}</label>
+    </div>
+    <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="{{ 'Profile.Email' | translate }}" required [pattern]="emailRegex" [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !email.valid }" />
+    <div *ngIf="signUpForm.submitted && email.errors">
+        <label *ngIf="email.errors.required" class="validation-message">{{ 'Profile.This field is required' | translate }}</label>
+        <label *ngIf="email.errors.pattern" class="validation-message">{{ 'Profile.Invalid email address' | translate }}</label>
+    </div>
+    <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="{{ 'Profile.Password' | translate }}" minlength="3" required [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !password.valid }"
+    />
+    <div *ngIf="signUpForm.submitted && password.errors">
+        <label *ngIf="password.errors.required" class="validation-message">{{ 'Profile.This field is required' | translate }}</label>
+        <label *ngIf="password.errors.minlength" class="validation-message">{{ 'Profile.Enter atleast 3 characters' | translate }}</label>
+    </div>
+    <input type="submit" value="{{ 'Profile.Sign Up' | translate }}" />
 </form>
 
 <!-- Success message -->
 <div class="success" *ngIf="showSucessMessage">
-  {{ 'Profile.Saved successfully' | translate }}
+    {{ 'Profile.Saved successfully' | translate }}
 </div>
 
 <!-- Error message -->
 <div class="alert" *ngIf="serverErrorMessages">
-  {{ serverErrorMessages }}
+    {{ serverErrorMessages }}
 </div>

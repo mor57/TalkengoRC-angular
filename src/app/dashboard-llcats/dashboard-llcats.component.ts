@@ -7,6 +7,7 @@ import { rc_format } from '../shared/rc-format.module';
 import { rc_tag } from '../shared/rc-tag.module';
 import { RcFormatService } from '../shared/rc-format.service';
 import { RcTagService } from '../shared/rc-tag.service';
+import { UserService } from '../shared/user.service';
 
 @Component({
   selector: 'app-dashboard-llcats',
@@ -24,8 +25,7 @@ export class DashboardLLCatsComponent implements OnInit {
   tagcurrent: rc_tag = { tagtitle: '', role: 'LL', _id: '', priority: 1, type: '', trashstatus: 0 };
   // tslint:disable-next-line: no-shadowed-variable
   // tslint:disable-next-line: max-line-length
-  constructor(private RcFormatService: RcFormatService, private DashboardService: DashboardService, private RcTagService: RcTagService, private RcCatService: RcCatService, private router: Router, private route: ActivatedRoute
-  ) { }
+  constructor(private RcFormatService: RcFormatService, private DashboardService: DashboardService, private RcTagService: RcTagService, private RcCatService: RcCatService, private router: Router, private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
     this.tagid = this.route.snapshot.params.tagid;
@@ -76,7 +76,9 @@ export class DashboardLLCatsComponent implements OnInit {
     this.RcCatService.getData('rc_cat').subscribe(
       list => {
         this.orginalcats = list as [rc_cat];
-        // console.log(this.orginalcats);
+        this.orginalcats = this.orginalcats
+        .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.role === this.userService.getRole());
+    // console.log(this.orginalcats);
       });
   }
 

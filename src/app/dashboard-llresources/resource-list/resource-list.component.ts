@@ -114,6 +114,8 @@ export class ResourceListComponent implements OnInit {
     this.RcFormatService.getData('rc_format').subscribe(
       list => {
         this.orginalformats = list as [rc_format];
+        this.orginalformats = this.orginalformats
+          .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.role === this.userService.getRole());
         this.orginalformats.unshift(this.formatall);
         this.orginalformats.forEach(format => {
           if (format._id === this.formatid) {
@@ -128,6 +130,8 @@ export class ResourceListComponent implements OnInit {
     this.RcCatService.getData('rc_cat').subscribe(
       list => {
         this.orginalcats = list as [rc_cat];
+        this.orginalcats = this.orginalcats
+          .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.role === this.userService.getRole());
         this.orginalcats.forEach(cat => {
           if (cat._id === this.catid) {
             this.catcurrent = cat;
@@ -162,6 +166,8 @@ export class ResourceListComponent implements OnInit {
     this.RcTagService.getData('rc_tag').subscribe(
       list => {
         this.orginaltags = list as [rc_tag];
+        this.orginaltags = this.orginaltags
+          .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.role === this.userService.getRole());
         this.orginaltags.forEach(tag => {
           if (tag._id === this.tagid) {
             this.tagcurrent = tag;
@@ -209,6 +215,8 @@ export class ResourceListComponent implements OnInit {
       list => {
         this.orginalresources = list as [rc_resource];
         this.orginalresources.sort((a, b) => a.priority < b.priority ? -1 : 1);
+        this.orginalresources = this.orginalresources
+          .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.role === this.userService.getRole());
         this.resources = [];
         this.orginalresources.forEach(res => {
           let passfilter = true;
