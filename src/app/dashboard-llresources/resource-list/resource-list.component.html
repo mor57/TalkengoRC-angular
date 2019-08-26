@@ -3,7 +3,7 @@
     <a (click)="GotBackToTags()" *ngIf="userService.isLoggedIn()">{{ 'App.Dashboard' | translate }} </a> <span class="padding-left-10"> > </span>
     <a (click)="GotBackToFormats()"> <span class="padding-left-10">{{tagcurrent.tagtitle}}</span></a> <span class="padding-left-10"> > </span>
     <a (click)="GotBackToCats()"> <span class="padding-left-10">{{formatcurrent.formattitle}}
-    </span></a> <span class="padding-left-10"> > </span>
+        </span></a> <span class="padding-left-10"> > </span>
     <span class="padding-left-10">{{catcurrent.cattitle}}</span> <span class="padding-left-10"></span>
     <span class="fill-remaining-space"></span>
     <span class='filterbox' style="padding-right: 10px;">{{ 'RC.Level' | translate }}: </span>
@@ -17,8 +17,8 @@
 <div class="landingcontainer" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
     <div class="resourcebox" fxFlex="60%">
         <span class="resource-main-title">
-      {{ 'RC.Resource Title' | translate }}
-      <span *ngIf="this.topicid !== '0'">{{ 'RC.for topic' | translate }}: {{TopicTitle}}</span>
+            {{ 'RC.Resource Title' | translate }}
+            <span *ngIf="this.topicid !== '0'">{{ 'RC.for topic' | translate }}: {{TopicTitle}}</span>
         <a class="filterboxmobile" (click)="drawer.toggle()">
             <mat-icon>filter_list</mat-icon>
         </a>
@@ -66,8 +66,8 @@
                         <mat-form-field class="search-form-field" style="width: 100%" floatLabel="never">
                             <input matInput [(ngModel)]="searchKey" placeholder="{{ 'RC.Search' | translate }}" autocomplete="off" (keyup)="applyFilter()">
                             <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
-                <mat-icon>close</mat-icon>
-              </button>
+                                <mat-icon>close</mat-icon>
+                            </button>
                         </mat-form-field>
                     </div>
                     <div class="mat-elevation-z8" style="width: 100%;">
@@ -76,9 +76,9 @@
                                 <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
                                 <mat-cell *matCellDef="let element">
                                     <button mat-icon-button (click)="openDialog(element)">
-                    <mat-icon class="icon" (mouseover)="show=true" (mouseout)="show=false">
-                      {{getIconType(element.type)}}</mat-icon>
-                  </button>
+                                        <mat-icon class="icon" (mouseover)="show=true" (mouseout)="show=false">
+                                            {{getIconType(element.type)}}</mat-icon>
+                                    </button>
                                 </mat-cell>
                             </ng-container>
                             <ng-container matColumnDef="resourcetitle">
@@ -87,13 +87,15 @@
                                 <mat-cell *matCellDef="let element">{{element.resourcetitle}}</mat-cell>
                             </ng-container>
                             <ng-container matColumnDef="subject">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RC.Subject' | translate }}</mat-header-cell>
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RC.Subject' | translate }}
+                                </mat-header-cell>
                                 <mat-cell *matCellDef="let element">
                                     {{element.subject}}<br /> {{element.description}}
                                 </mat-cell>
                             </ng-container>
                             <ng-container matColumnDef="access">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RC.Access' | translate }}</mat-header-cell>
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RC.Access' | translate }}
+                                </mat-header-cell>
                                 <mat-cell *matCellDef="let element">{{element.access}}</mat-cell>
                             </ng-container>
                             <ng-container matColumnDef="actions">

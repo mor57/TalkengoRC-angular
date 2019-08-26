@@ -23,6 +23,8 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
     if (this.userService.isLoggedIn()) {
       this.router.navigateByUrl('/userprofile');
+    } else {
+      this.userService.deleteToken();
     }
   }
 

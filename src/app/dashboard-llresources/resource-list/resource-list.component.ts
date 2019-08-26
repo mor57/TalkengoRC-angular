@@ -371,6 +371,9 @@ export class ResourceListComponent implements OnInit {
       data: 'Resource Content',
       // disableClose: true
     });
+    dialogRef.componentInstance.event.subscribe((result) => {
+      this.loadresources();
+    });
   }
 
 }

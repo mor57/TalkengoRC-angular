@@ -26,7 +26,7 @@
                         <td class="tdtitle">{{ 'Profile.Email' | translate }} : </td>
                         <td>{{ userDetails.email }}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="userDetails.role==='admin'">
                         <td>
                             <input type="button" (click)="loginAsRoleLL('LL')" value="{{ 'Profile.Login as role LL' | translate }}" />
                         </td>
