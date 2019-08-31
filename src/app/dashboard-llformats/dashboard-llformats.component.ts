@@ -17,7 +17,7 @@ export class DashboardLLFormatsComponent implements OnInit {
   orginalformats: any[];
   tagid: any;
   orginaltags: any[];
-  tagcurrent: rc_tag = { tagtitle: '', role: 'LL', _id: '', priority: 1, type: '', trashstatus: 0 };
+  tagcurrent: rc_tag = { tagtitle: '', role: 'learner', _id: '', priority: 1, type: '', trashstatus: 0, resourceCount: 0 };
 
   // tslint:disable-next-line: no-shadowed-variable
   // tslint:disable-next-line: max-line-length
@@ -35,7 +35,7 @@ export class DashboardLLFormatsComponent implements OnInit {
 
   BindTags() {
     this.orginaltags = [];
-    this.RcTagService.getData('rc_tag').subscribe(
+    this.RcTagService.getDatahasresource('rc_tag').subscribe(
       list => {
         this.orginaltags = list as [rc_tag];
         this.orginaltags.forEach(tag => {
@@ -48,19 +48,22 @@ export class DashboardLLFormatsComponent implements OnInit {
 
   BindFormats() {
     this.orginalformats = [];
-    this.RcFormatService.getData('rc_format').subscribe(
+    this.RcFormatService.getDatahasresource('rc_format').subscribe(
       list => {
         this.orginalformats = list as [rc_format];
         this.orginalformats.sort((a, b) => a.priority < b.priority ? -1 : 1);
         this.orginalformats = this.orginalformats
-          .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.role === this.userService.getRole());
-       // console.log(this.orginalformats);
+          .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.resourceCount > 0);
+        if (this.orginalformats.length === 0) {
+          this.GotToCats({ _id: 0 });
+        }
+        // console.log(this.orginalformats);
       });
   }
 
   GotToCats(el) {
     // console.log(el);
-    this.DashboardService.FormatShare = el;
+    // this.DashboardService.FormatShare = el;
     this.router.navigate(['/dashboard-LLcats/' + this.tagid + '/' + el._id]);
   }
 }

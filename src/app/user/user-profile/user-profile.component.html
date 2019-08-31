@@ -28,10 +28,10 @@
                     </tr>
                     <tr *ngIf="userDetails.role==='admin'">
                         <td>
-                            <input type="button" (click)="loginAsRoleLL('LL')" value="{{ 'Profile.Login as role LL' | translate }}" />
+                            <input type="button" (click)="loginAsRoleLL('learner')" value="{{ 'Profile.Login as role LL' | translate }}" />
                         </td>
                         <td>
-                            <input type="button" (click)="loginAsRoleLL('CP')" value="{{ 'Profile.Login as role CP' | translate }}" />
+                            <input type="button" (click)="loginAsRoleLL('cp')" value="{{ 'Profile.Login as role CP' | translate }}" />
                         </td>
                     </tr>
                     <tr *ngIf="userDetails.role==='admin'">

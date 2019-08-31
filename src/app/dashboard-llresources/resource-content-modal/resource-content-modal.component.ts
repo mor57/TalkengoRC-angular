@@ -16,7 +16,9 @@ export class ResourceContentModalComponent implements OnInit {
   public event: EventEmitter<any> = new EventEmitter();
   resourcefile: any;
   rate: any;
+  user: any;
   ratercount: any = 0;
+  allowrate = false;
 
   // tslint:disable-next-line: no-shadowed-variable
   // tslint:disable-next-line: max-line-length
@@ -24,6 +26,9 @@ export class ResourceContentModalComponent implements OnInit {
   apiBaseUrl: string = environment.apiBaseUrl;
 
   ngOnInit() {
+    this.user = this.userService.getUserinfo();
+    const myrate = this.RcResourceService.form.value.raters.filter(rateer => rateer === this.user.id);
+    if (myrate.length === 0) { this.allowrate = true; }
     if (this.RcResourceService.form.value.type === 'link') {
       this.resourcefile = this.sanitizer.bypassSecurityTrustResourceUrl(this.RcResourceService.form.value.typestr);
     } else if (this.RcResourceService.form.value.type === 'html') {

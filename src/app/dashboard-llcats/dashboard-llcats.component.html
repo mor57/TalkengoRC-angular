@@ -1,18 +1,18 @@
 <div class="container">
-  <mat-toolbar>
-    <a (click)="GotBackToTags()">{{ 'App.Dashboard' | translate }} </a> <span class="padding-left-10"> > </span>
-    <a (click)="GotBackToFormats()"> <span class="padding-left-10">{{tagcurrent.tagtitle}}</span></a> <span
-      class="padding-left-10"> > </span>
-    <span class="padding-left-10">{{formatcurrent.formattitle}}
-    </span> <span class="padding-left-10"></span>
-    <span class="fill-remaining-space"></span>
-  </mat-toolbar>
-  <div class="landingcontainer">
-    <div layout="row" layout-wrap flex>
-      <span class="profile-main-title">{{ 'App.Choose your category' | translate }}</span>
-      <span class="landingbox" *ngFor="let cat of orginalcats; let i = index">
-        <input type="button" (click)="GotToCats(cat)" [value]="cat.cattitle" />
-      </span>
+    <mat-toolbar>
+        <a (click)="GotBackToTags()">{{ 'App.Dashboard' | translate }} </a> <span class="padding-left-10"> > </span>
+        <a (click)="GotBackToFormats()"> <span class="padding-left-10">{{tagcurrent.tagtitle}}</span></a> <span class="padding-left-10"> > </span>
+        <span class="padding-left-10">{{formatcurrent.formattitle}}
+        </span> <span class="padding-left-10"></span>
+        <span class="fill-remaining-space"></span>
+    </mat-toolbar>
+    <div class="landingcontainer">
+        <div layout="row" layout-wrap flex>
+            <span class="profile-main-title">{{ 'App.Choose your category' | translate }}</span>
+            <span class="landingbox" *ngFor="let cat of orginalcats; let i = index">
+                <input type="button" (click)="GotToResources(cat)" value="{{cat.cattitle}}" />
+                <!-- <input type="button" (click)="GotToResources(cat)" value="{{cat.cattitle}} ({{cat.resourceCount}})" /> -->
+            </span>
+        </div>
     </div>
-  </div>
 </div>

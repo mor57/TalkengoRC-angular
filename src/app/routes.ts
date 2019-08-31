@@ -62,7 +62,7 @@ export const appRoutes: Routes = [
     path: 'rc-resource-topics', component: RcResourceTopicsComponent, canActivate: [AuthGuard]
   },
   {
-    path: '', redirectTo: '/login', pathMatch: 'full'
+    path: '', redirectTo: '/dashboard-home', pathMatch: 'full'
   }
   , { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
   , { path: 'dashboard-LLtags', component: DashboardLLTagsComponent, canActivate: [AuthGuard] }

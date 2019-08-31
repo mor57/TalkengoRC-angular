@@ -7,4 +7,5 @@ export class rc_tag {
   priority: number;
   role: string;
   trashstatus: number;
+  resourceCount: number;
 }

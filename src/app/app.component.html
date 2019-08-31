@@ -34,7 +34,7 @@
                 <span class="label">LogOut</span>
             </a>
         </mat-nav-list>
-        <mat-nav-list *ngIf="user.getRole()==='LL' || user.getRole()==='CP' || !user.isLoggedIn()">
+        <mat-nav-list *ngIf="user.getRole()==='learner' || user.getRole()==='cp'">
             <a mat-list-item routerLink="/" *ngIf="!user.isLoggedIn()" (click)="sidenav.close()">
                 <mat-icon class="icon">input</mat-icon>
                 <span class="label">{{ 'App.Login' | translate }}</span>
@@ -62,7 +62,7 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar color="primary" *ngIf="user.getRole()==='admin'">
+        <!-- <mat-toolbar color="primary" *ngIf="user.getRole()==='admin'">
             <div fxHide.gt-xs>
                 <button mat-icon-button (click)="sidenav.toggle()">
                     <mat-icon>menu</mat-icon>
@@ -72,12 +72,6 @@
                 <a routerLink="/">
                     {{ 'App.TalkEngO Resource Center' | translate }}
                 </a>
-                <!-- <a (click)="changeLang('en')" style="padding-left: 5px;">
-                    <img src="../assets/img/gb-eng.svg" style="width: 20px;" title="English" />
-                </a>
-                <a (click)="changeLang('fr')" style="padding-left: 5px;">
-                    <img src="../assets/img/fr.svg" style="width: 20px;" title="France" />
-                </a> -->
             </div>
             <div class="menuFull" fxFlex fxLayout fxLayoutAlign="flex-end">
                 <ul fxLayout fxLayoutGap="5px" class="navigation-items">
@@ -126,19 +120,13 @@
                 </ul>
             </div>
         </mat-toolbar>
-        <mat-toolbar class="navigation" *ngIf="user.getRole()==='LL' || user.getRole()==='CP' || !user.isLoggedIn()">
+        <mat-toolbar class="navigation" *ngIf="user.getRole()==='learner' || user.getRole()==='cp'">
             <div fxHide.gt-xs>
                 <button mat-icon-button (click)="sidenav.toggle()">
                     <mat-icon>menu</mat-icon>
                 </button>
             </div>
             <div class="logo">
-                <!-- <a (click)="changeLang('en')" class="lang">
-                    <img src="../assets/img/gb-eng.svg" title="English" />
-                </a>
-                <a (click)="changeLang('fr')" class="lang">
-                    <img src="../assets/img/fr.svg" title="France" />
-                </a> -->
                 <a routerLink="/dashboard">
                     <img src="../assets/img/talkengo.png" />
                 </a>
@@ -183,9 +171,140 @@
                     </li>
                 </ul>
             </div>
-        </mat-toolbar>
+        </mat-toolbar> -->
+        <!-- <a (click)="changeLang('en')" style="padding-left: 5px;">
+                    <img src="../assets/img/gb-eng.svg" style="width: 20px;" title="English" />
+                </a>
+                <a (click)="changeLang('fr')" style="padding-left: 5px;">
+                    <img src="../assets/img/fr.svg" style="width: 20px;" title="France" />
+                </a> -->
+        <div id="navigation" class="navigation" aria-hidden="false" style="position: fixed;" *ngIf="!user.isLoggedIn()">
+            <div class="header-left">
+                <a class="menu-logo" ng-class="logoClass(logoCenter, logoHideInMobile)" tabindex="-1" ng-click="pathname === 'session' &amp;&amp; askForHref()" ng-href="https://talkengo.com" href="https://talkengo.com">
+                    <img id="talkengo_logo" src="../assets/img/talkengo.png">
+                </a>
+                <i class="fa fa-bars fa-2x menu-bar ng-hide" ng-show="showMenuBar" ng-click="showMenuBar()" role="button" tabindex="0" aria-hidden="true"></i>
+            </div>
+            <div tabindex="-1" class="menu-search ng-scope" ng-if="!pathname || !currentUser">
+                <span class="nav-menu-button" ng-hide="hideFind" aria-hidden="false">
+                    <span class="link-inherit" tabindex="-1" md-href="https://talkengo.com/search#/cp" style="position: relative;">
+                        <span class="lg-view ng-binding">Find Native English Speakers</span>
+                <a style="position: absolute; width: 100%;height: 100%; z-index: 1; top: 0; left: 0" href="https://talkengo.com/search#/cp" target="_self"></a>
+                </span>
+                </span>
+                <span class="nav-menu-button" ng-hide="hideFind" aria-hidden="false">
+                    <span class="link-inherit" tabindex="-1" md-href="https://talkengo.com/search#/topic" style="position: relative;">
+                        <span class="lg-view ng-binding">Find Topics</span>
+                <a style="position: absolute; width: 100%;height: 100%; z-index: 1; top: 0; left: 0" href="/search#/topic" target="_self"></a>
+                </span>
+                </span>
+                <span class="nav-menu-button ng-scope" ng-if="!currentUser">
+                    <span class="link-inherit" tabindex="-1" md-href="https://talkengo.com/#/offer" style="position: relative;">
+                        <span class="lg-view ng-binding">Special Offers</span>
+                <a style="position: absolute; width: 100%;height: 100%; z-index: 1; top: 0; left: 0" href="/#/offer" target="_self"></a>
+                </span>
+                </span>
+                <span class="nav-menu-button ng-scope" ng-if="!currentUser">
+                    <span class="link-inherit" tabindex="-1" md-href="https://talkengo.com/help" style="position: relative;">
+                        <span class="lg-view ng-binding">Support Services</span>
+                <a style="position: absolute; width: 100%;height: 100%; z-index: 1; top: 0; left: 0" href="/help" target="_self"></a>
+                </span>
+                </span>
+            </div>
+            <div tabindex="-1" class="menu-account" ng-hide="hideLogins || currentUser" aria-hidden="false">
+                <a tabindex="-1" href="https://talkengo.com/login" class="login-button" role="button">
+                    <span class="ng-binding">Log in</span>
+                </a>
+                <a tabindex="-1" href="https://talkengo.com/register" class="signup-button" role="button">
+                    <span class="ng-binding">Register</span>
+                </a>
+            </div>
+            <div ng-if="!currentUser" class="menu-icon xs-view ng-scope" ng-click="toggleSideNav()" role="button" tabindex="0">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
         <main>
             <router-outlet></router-outlet>
         </main>
+        <footer *ngIf="!user.isLoggedIn()">
+            <div id="footer_id" ng-hide="hideFooter" hide-footer="options.hideFooter" class="ng-isolate-scope" aria-hidden="false">
+                <div class="footer-main-box">
+                    <div layout="row" layout-wrap="" class="footer-top-body layout-wrap layout-row">
+                        <div class="footer-logo-social-holder flex-xs-100 flex-xl-25 flex-sm-100 flex-md-25 flex-lg-25" flex-xl="25" flex-lg="25" flex-md="25" flex-sm="100" flex-xs="100">
+                            <div class="footer-logo-holder">
+                                <img src="https://talkengo.com//resources/defaults/home/talkengo-footer.png">
+                            </div>
+                            <p class="footer-social-icon-holder">
+                                <img src="https://talkengo.com//resources/defaults/home/facebook.png" ng-click="socialRedirection('facebook')" role="button" tabindex="0">
+                                <img src="https://talkengo.com//resources/defaults/home/twitter.png" ng-click="socialRedirection('twitter')" role="button" tabindex="0">
+                                <img src="https://talkengo.com//resources/defaults/home/instagram.png" ng-click="socialRedirection('instagram')" role="button" tabindex="0">
+                                <img src="https://talkengo.com//resources/defaults/home/linkedin.png" ng-click="socialRedirection('linkedin')" role="button" tabindex="0">
+                            </p>
+                            <p class="footer-social-text-1">TalkEngO Ltd</p>
+                            <p class="footer-social-text-2">Corporation Number 10684553-UK</p>
+                        </div>
+                        <div flex-xl="15" flex-lg="15" flex-md="15" flex-sm="100" flex-xs="100" class="footer-quick-links-holder flex-xs-100 flex-xl-15 flex-sm-100 flex-md-15 flex-lg-15">
+                            <p class="footer-section-title ng-binding">
+                                QUICK LINKS
+                            </p>
+                            <div class="footer-links-holder">
+                                <!-- ngRepeat: link in links -->
+                                <p ng-repeat="link in links" class="cursor-pointer ng-binding ng-scope" md-href="/help#/test/device" style="position: relative;">Test your device
+                                    <a style="position: absolute; width: 100%;height: 100%; z-index: 1; top: 0; left: 0" href="/help#/test/device" target="_self"></a>
+                                </p>
+                                <!-- end ngRepeat: link in links -->
+                                <p ng-repeat="link in links" class="cursor-pointer ng-binding ng-scope" md-href="/help#/aboutus" style="position: relative;">Talkengo team
+                                    <a style="position: absolute; width: 100%;height: 100%; z-index: 1; top: 0; left: 0" href="/help#/aboutus" target="_self"></a>
+                                </p>
+                                <!-- end ngRepeat: link in links -->
+                                <p ng-repeat="link in links" class="cursor-pointer ng-binding ng-scope" md-href="/forum" style="position: relative;">Forum
+                                    <a style="position: absolute; width: 100%;height: 100%; z-index: 1; top: 0; left: 0" href="/forum" target="_self"></a>
+                                </p>
+                                <!-- end ngRepeat: link in links -->
+                                <p ng-repeat="link in links" class="cursor-pointer ng-binding ng-scope" md-href="/blog" style="position: relative;">Blog
+                                    <a style="position: absolute; width: 100%;height: 100%; z-index: 1; top: 0; left: 0" href="/blog" target="_self"></a>
+                                </p>
+                                <!-- end ngRepeat: link in links -->
+                                <p ng-repeat="link in links" class="cursor-pointer ng-binding ng-scope" md-href="/help" style="position: relative;">Support
+                                    <a style="position: absolute; width: 100%;height: 100%; z-index: 1; top: 0; left: 0" href="/help" target="_self"></a>
+                                </p>
+                                <!-- end ngRepeat: link in links -->
+                                <p ng-repeat="link in links" class="cursor-pointer ng-binding ng-scope" md-href="/help#/faq" style="position: relative;">Policies
+                                    <a style="position: absolute; width: 100%;height: 100%; z-index: 1; top: 0; left: 0" href="/help#/faq" target="_self"></a>
+                                </p>
+                            </div>
+                        </div>
+                        <div flex-xl="25" flex-lg="25" flex-md="25" flex-sm="100" flex-xs="100" class="flex-xs-100 flex-xl-25 flex-sm-100 flex-md-25 flex-lg-25">
+                            <p class="footer-section-title ng-binding">
+                                CONTACT INFORMATION
+                            </p>
+                            <div class="footer-contact-info-holder">
+                                <p><i class="fa fa-envelope-o"></i> info@talkengo.com</p>
+                                <p><i class="fa fa-phone"></i> +44 356253625</p>
+                                <p class="subscribe-title ng-binding">
+                                    Subscribe for the latest TalkEngO news
+                                </p>
+                                <div class="email-md-input">
+                                    <input type="text" ng-model="visitorInfo.email" placeholder="E-mail" class="ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false"><button class="md-button md-ink-ripple" type="button" ng-transclude="" ng-click="submitNewsletterSubscription(visitorInfo)"><i
+                                        class="fa fa-angle-right ng-scope"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div flex-xl="35" flex-lg="35" flex-md="35" flex-sm="100" flex-xs="100" class="flex-xs-100 flex-xl-35 flex-sm-100 flex-md-35 flex-lg-35">
+                            <div class="footer-image-holder">
+                                <img src="https://talkengo.com//resources/defaults/home/footer-image.png">
+                            </div>
+                        </div>
+                    </div>
+                    <div layout="row" layout-wrap="" class="footer-bottom-body layout-wrap layout-row">
+                        <div flex-xl="100" flex-lg="100" flex-md="100" flex-sm="100" flex-xs="100" class="flex-xs-100 flex-xl-100 flex-sm-100 flex-md-100 flex-lg-100">
+                            <p class="footer-rights ng-binding">
+                                Copyright <i class="fa fa-copyright"></i> TalkEngO. All rights reserved 2019
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </mat-sidenav-content>
 </mat-sidenav-container>

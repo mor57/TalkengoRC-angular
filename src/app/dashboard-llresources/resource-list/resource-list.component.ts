@@ -35,10 +35,10 @@ export class ResourceListComponent implements OnInit {
   orginalcats: any[];
   orginalformats: rc_format[];
   orginalresources: any[];
-  formatall: rc_format = { formattitle: 'All Format', role: 'LL', _id: '0', priority: 1, type: '', trashstatus: 0 };
-  formatcurrent: rc_format = { formattitle: '', role: 'LL', _id: '0', priority: 1, type: '', trashstatus: 0 };
-  tagcurrent: rc_tag = { tagtitle: 'All Tag', role: 'LL', _id: '', priority: 1, type: '', trashstatus: 0 };
-  catcurrent: rc_cat = { cattitle: 'All Cat', role: 'LL', _id: '', priority: 1, type: '', color: '', trashstatus: 0 };
+  formatall: rc_format = { formattitle: 'All Format', role: 'learner', _id: '0', priority: 1, type: '', trashstatus: 0 };
+  formatcurrent: rc_format = { formattitle: 'All Format', role: 'learner', _id: '0', priority: 1, type: '', trashstatus: 0 };
+  tagcurrent: rc_tag = { tagtitle: 'All Service group', role: 'learner', _id: '', priority: 1, type: '', trashstatus: 0, resourceCount: 0 };
+  catcurrent: rc_cat = { cattitle: 'All Cat', role: 'learner', _id: '', priority: 1, type: '', color: '', trashstatus: 0 };
   resources: any[];
   orginallevels: any;
   orginaltopics: { name: string; topics: { _id: string; name: string; groupname: string; checked: boolean; }[]; }[];
@@ -142,6 +142,9 @@ export class ResourceListComponent implements OnInit {
 
   onChangeformat(el) {
     // console.log(el);
+    if (el.value === '0') {
+      this.formatcurrent = this.formatall;
+    }
     this.formatid = el.value;
     this.loadresources();
     // tslint:disable-next-line: max-line-length
@@ -150,9 +153,12 @@ export class ResourceListComponent implements OnInit {
 
   GotToResourceCat(el) {
     // console.log(el);
-    this.DashboardService.CatShare = el;
+    // this.DashboardService.CatShare = el;
     if (this.catid === el._id) {
       this.catid = '0';
+      this.catcurrent = { cattitle: 'All Cat', role: 'learner', _id: '', priority: 1, type: '', color: '', trashstatus: 0 };
+      // this.catcurrent._id = '0';
+      // this.catcurrent.cattitle = 'All Category';
     } else {
       this.catid = el._id;
     }
@@ -178,9 +184,11 @@ export class ResourceListComponent implements OnInit {
 
   GotToResourceTag(el) {
     // console.log(el);
-    this.DashboardService.TagShare = el;
+    // this.DashboardService.TagShare = el;
     if (this.tagid === el._id) {
       this.tagid = '0';
+      // tslint:disable-next-line: max-line-length
+      this.tagcurrent = { tagtitle: 'All Service group', role: 'learner', _id: '', priority: 1, type: '', trashstatus: 0, resourceCount: 0 };
     } else {
       this.tagid = el._id;
     }

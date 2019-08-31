@@ -27,19 +27,22 @@ export class DashboardLLTagsComponent implements OnInit {
 
   BindTags() {
     this.orginaltags = [];
-    this.RcTagService.getData('rc_tag').subscribe(
+    this.RcTagService.getDatahasresource('rc_tag').subscribe(
       list => {
         this.orginaltags = list as [rc_tag];
         this.orginaltags = this.orginaltags
-          .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.role === this.userService.getRole());
+          .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.resourceCount > 0);
         this.orginaltags.sort((a, b) => a.priority < b.priority ? -1 : 1);
+        if (this.orginaltags.length === 0) {
+          this.GotToFormat({ _id: 0 });
+        }
         // console.log(this.orginaltags);
       });
   }
 
   GotToFormat(el) {
     // console.log(el);
-    this.DashboardService.TagShare = el;
+    // this.DashboardService.TagShare = el;
     this.router.navigate(['/dashboard-LLformats/' + el._id]);
   }
 }

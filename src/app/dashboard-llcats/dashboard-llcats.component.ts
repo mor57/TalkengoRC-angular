@@ -21,8 +21,8 @@ export class DashboardLLCatsComponent implements OnInit {
   formatid: string;
   orginaltags: any[];
   orginalformats: any[];
-  formatcurrent: rc_format = { formattitle: '', role: 'LL', _id: '', priority: 1, type: '', trashstatus: 0 };
-  tagcurrent: rc_tag = { tagtitle: '', role: 'LL', _id: '', priority: 1, type: '', trashstatus: 0 };
+  formatcurrent: rc_format = { formattitle: '', role: 'learner', _id: '', priority: 1, type: '', trashstatus: 0 };
+  tagcurrent: rc_tag = { tagtitle: '', role: 'learner', _id: '', priority: 1, type: '', trashstatus: 0, resourceCount: 0 };
   // tslint:disable-next-line: no-shadowed-variable
   // tslint:disable-next-line: max-line-length
   constructor(private RcFormatService: RcFormatService, private DashboardService: DashboardService, private RcTagService: RcTagService, private RcCatService: RcCatService, private router: Router, private route: ActivatedRoute, private userService: UserService) { }
@@ -73,18 +73,21 @@ export class DashboardLLCatsComponent implements OnInit {
 
   BindCats() {
     this.orginalcats = [];
-    this.RcCatService.getData('rc_cat').subscribe(
+    this.RcCatService.getDatahasresource('rc_cat').subscribe(
       list => {
         this.orginalcats = list as [rc_cat];
         this.orginalcats = this.orginalcats
-        .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.role === this.userService.getRole());
-    // console.log(this.orginalcats);
+          .filter(res => (res.trashstatus === 0 || res.trashstatus === undefined) && res.resourceCount > 0);
+        if (this.orginalcats.length === 0) {
+          this.GotToResources({ _id: 0 });
+        }
+        // console.log(this.orginalcats);
       });
   }
 
-  GotToCats(el) {
+  GotToResources(el) {
     // console.log(el);
-    this.DashboardService.CatShare = el;
+    // this.DashboardService.CatShare = el;
     this.router.navigate(['/dashboard-llresources/' + this.tagid + '/' + this.formatid + '/' + el._id + '/0/rc']);
   }
 }

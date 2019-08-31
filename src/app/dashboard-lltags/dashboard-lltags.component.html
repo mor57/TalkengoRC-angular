@@ -8,8 +8,9 @@
         <div>
             <span class="profile-main-title">{{ 'App.Choose your service group' | translate }}</span>
             <span class="landingbox" *ngFor="let tag of orginaltags; let i = index">
-        <input type="button" (click)="GotToFormat(tag)" [value]="tag.tagtitle" />
-      </span>
+                <input type="button" (click)="GotToFormat(tag)" value='{{tag.tagtitle}}' />
+                <!-- <input type="button" (click)="GotToFormat(tag)" value='{{tag.tagtitle}} ({{tag.resourceCount}})' /> -->
+            </span>
         </div>
     </div>
 </div>

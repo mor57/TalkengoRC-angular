@@ -22,7 +22,7 @@ export class RcTagService {
     id: new FormControl(''),
     tagtitle: new FormControl('', [Validators.required, Validators.minLength(3)]),
     priority: new FormControl(1, Validators.required),
-    role: new FormControl('LL', [Validators.required, Validators.minLength(2)])
+    role: new FormControl('learner', [Validators.required, Validators.minLength(2)])
   });
 
   initializeFormGroup() {
@@ -31,12 +31,16 @@ export class RcTagService {
       id: '',
       tagtitle: '',
       priority: 1,
-      role: 'LL',
+      role: 'learner',
     });
   }
 
   public getData = (route: string) => {
     return this.http.get(this.createCompleteRoute(route, environment.apiBaseUrl));
+  }
+
+  public getDatahasresource = (route: string) => {
+    return this.http.get(this.createCompleteRoute(route + '/hasresource/' + this.userService.getRole(), environment.apiBaseUrl));
   }
 
   public create = (route: string, body) => {

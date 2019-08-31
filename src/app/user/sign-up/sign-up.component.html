@@ -6,8 +6,8 @@
         <!-- <mat-label>Favorite food</mat-label> -->
         <mat-select #role="ngModel" [(ngModel)]="userService.selectedUser.role" name="role" required>
             <mat-option value="admin">{{ 'Profile.admin' | translate }}</mat-option>
-            <mat-option value="CP">{{ 'Profile.Conversation Partner' | translate }}</mat-option>
-            <mat-option value="LL">{{ 'Profile.Language Learner' | translate }}</mat-option>
+            <mat-option value="cp">{{ 'Profile.Conversation Partner' | translate }}</mat-option>
+            <mat-option value="learner">{{ 'Profile.Language Learner' | translate }}</mat-option>
         </mat-select>
     </mat-form-field>
     <div *ngIf="signUpForm.submitted && !role.valid">

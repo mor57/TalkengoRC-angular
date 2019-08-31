@@ -23,7 +23,7 @@ export class DashboardHomeComponent implements OnInit {
     this.resourcefile = this.sanitizer.bypassSecurityTrustResourceUrl(this.apiBaseUrl + '/rc_uploads/learner-tutorial.mp4#toolbar=0');
     this.BindCats();
     if (this.userService.getRole() === null) {
-      this.userService.setRole('LL');
+      this.userService.setRole('learner');
     }
   }
 
